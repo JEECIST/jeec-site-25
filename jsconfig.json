@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "server": {
+    "watch": {
+      "usePolling": true
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}
