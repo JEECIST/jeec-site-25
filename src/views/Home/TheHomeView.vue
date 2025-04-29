@@ -28,26 +28,26 @@ const sections = [
   {
     component: eSection,
   },
-  {
-    component: gSection,
-    color: router.getRoutes().find(route => route.name === 'prizes').meta.accColor,
-  },
-  {
-    component: hSection,
-    color: router.getRoutes().find(route => route.name === 'partners').meta.accColor,
-  },
-  {
-    component: iSection,
-    color: router.getRoutes().find(route => route.name === 'sponsors').meta.accColor,
-  },
-  {
-    component: jSection,
-    color: router.getRoutes().find(route => route.name === 'speakers').meta.accColor,
-  },
-  {
-    component: kSection,
-    color: router.getRoutes().find(route => route.name === 'team').meta.accColor,
-  },
+  // {
+  //   component: gSection,
+  //   color: router.getRoutes().find(route => route.name === 'prizes').meta.accColor,
+  // },
+  // {
+  //   component: hSection,
+  //   color: router.getRoutes().find(route => route.name === 'partners').meta.accColor,
+  // },
+  // {
+  //   component: iSection,
+  //   color: router.getRoutes().find(route => route.name === 'sponsors').meta.accColor,
+  // },
+  // {
+  //   component: jSection,
+  //   color: router.getRoutes().find(route => route.name === 'speakers').meta.accColor,
+  // },
+  // {
+  //   component: kSection,
+  //   color: router.getRoutes().find(route => route.name === 'team').meta.accColor,
+  // },
 ];
 
 console.log(sections);
