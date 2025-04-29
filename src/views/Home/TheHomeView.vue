@@ -6,11 +6,11 @@ import cSection from './cHomeWhereSection.vue';
 import dSection from './dHomeOfferSection.vue'
 import eSection from './eHomeWhySection.vue'
 // import fSection from './fHomeScheduleSection.vue';
-import gSection from './gHomePrizesSection.vue';
-import hSection from './hHomePartnersSection.vue';
-import iSection from './iHomeSponsorsSection.vue';
-import jSection from './jHomeSpeakersSection.vue';
-import kSection from './kHomeTeamSection.vue';
+// import gSection from './gHomePrizesSection.vue';
+// import hSection from './hHomePartnersSection.vue';
+// import iSection from './iHomeSponsorsSection.vue';
+// import jSection from './jHomeSpeakersSection.vue';
+// import kSection from './kHomeTeamSection.vue';
 
 import { useRouter } from 'vue-router';
 const router = useRouter();
