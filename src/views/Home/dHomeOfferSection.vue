@@ -41,6 +41,10 @@ const offers = [
     name: "Keynote Speakers",
     description: "Get inspired by our keynote speakers - industry leaders and innovators ready to share their stories, insights, and advice to help you kickstart your journey."
   },
+  {
+    name: "Alumni Talks",
+    description: "Chat with graduates about their career journeys, insights, and tips - discover pathways in engineering and tech straight from those who've been there."
+  }
 ]
 
 const selected = ref(0);

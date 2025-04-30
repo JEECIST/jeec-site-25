@@ -44,10 +44,9 @@ const props = defineProps({
       <h2>Our partners</h2>
       <div class="highlight"></div>
       <p>
-        The JEEC (Electrical and Computer Engineering Week) is an event organized by students, for students, from
-        various courses at Instituto Superior Técnico, with a primary focus on Electrical and Computer Engineering. Our
-        main objective is to fill the gap between the academic and business worlds, offering a range of activities to
-        the entire community free of charge.
+        Our partners are industry leaders in tech and engineering, fueling JEEC with expertise and opportunity. They
+        engage directly with students, showcase breakthrough projects, and open doors to internships and careers-driving
+        innovation and shaping tomorrow, today.
       </p>
       <router-link class="page-link" to="partners">Learn more</router-link>
     </div>

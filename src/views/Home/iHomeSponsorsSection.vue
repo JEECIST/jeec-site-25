@@ -46,10 +46,9 @@ console.log(props.accColor)
       <h2>Our Sponsors</h2>
       <div class="highlight"></div>
       <p>
-        The JEEC (Electrical and Computer Engineering Week) is an event organized by students, for students, from
-        various courses at Instituto Superior Técnico, with a primary focus on Electrical and Computer Engineering. Our
-        main objective is to fill the gap between the academic and business worlds, offering a range of activities to
-        the entire community free of charge.
+        We couldn't do JEEC alone! Our valuable sponsors help us power the event — making it possible to host inspiring
+        talks, hands-on activities, and real opportunities for students to connect with the future of industry and
+        technology.
       </p>
       <router-link class="page-link" to="sponsors">Learn more</router-link>
     </div>
