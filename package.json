@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "axios": "^1.8.4",
-    "countdown": "^2.6.0",
     "ionicons": "^7.4.0",
     "pinia": "^3.0.1",
     "vue": "^3.5.13",

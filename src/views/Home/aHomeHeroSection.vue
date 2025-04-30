@@ -1,6 +1,6 @@
 <script setup>
 import bgImage from '@/assets/home/hero_section_temp.png'
-import countdown from 'countdown'
+import countdown from '@/lib/countdown.esm.js/countdown.js'
 
 const now = new Date();
 const jeec_start = new Date("May 5, 2025 9:30:00");
