@@ -15,7 +15,7 @@ const props = defineProps({
   <div class="content" :class="{ even: props.isEven }" :style="`--acc-color: var(${props.accColor});`">
     <div class="positioner">
       <div class="image highlight-border">
-        <img src="@/assets/team/teamgroupimage.png" alt="">
+        <img src="@/assets/team/teamgroupimage.jpg" alt="">
       </div>
     </div>
     <div class="description">
