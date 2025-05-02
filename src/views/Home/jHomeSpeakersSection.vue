@@ -1,5 +1,7 @@
 <script setup>
+import { onMounted, ref } from 'vue';
 import CompanyCarousel from './TheHomeCarousel.vue';
+import { useSpeakersStore } from '@/stores/speakers';
 
 const speakers = [
   {
@@ -20,6 +22,10 @@ const speakers = [
   },
 ];
 
+const speakersStore = useSpeakersStore()
+
+const data = ref([])
+
 const props = defineProps({
   isEven: {
     type: Boolean,
@@ -30,13 +36,35 @@ const props = defineProps({
     default: '--c-acc-blue'
   }
 });
+
+async function fetchData(){
+  await speakersStore.fetchData()
+
+  const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+
+  days.forEach(day => {
+    const daySpeakers = speakersStore[day] || [];
+    daySpeakers
+      .filter(speaker => speaker.speaker_type === 'Keynote Speakers')
+      .forEach(speaker => {
+        data.value.push({
+          name: speaker.name,
+          image: speaker.image
+        });
+      });
+  });
+
+
+}
+
+onMounted(fetchData)
 </script>
 
 <template>
   <div class="content" :class="{ even: props.isEven }" :style="`--acc-color: var(${props.accColor});`">
     <div class="carousel-container">
       <div class="carousel-fade fade-left"></div>
-      <CompanyCarousel :isEven="props.isEven" :items="speakers" :speakerCarousel="true"
+      <CompanyCarousel :isEven="props.isEven" :items="data" :speakerCarousel="true"
         :observerId="`speakers-carousel-${props.isEven ? 'even' : 'odd'}`"></CompanyCarousel>
       <div class="carousel-fade fade-right"></div>
     </div>

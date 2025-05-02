@@ -1,5 +1,10 @@
 <script setup>
 import CompanyCarousel from './TheHomeCarousel.vue';
+import { usePrizesStore } from "../../stores/prizes";
+import { onMounted, ref } from 'vue';
+
+const prizesStore = usePrizesStore()
+const data = ref([])
 
 const prizes = [
   {
@@ -30,13 +35,33 @@ const props = defineProps({
     default: '--c-acc-blue'
   }
 });
+
+async function fetchData() {
+  await prizesStore.fetchData()
+
+  // Combine all prize types (excluding Shop)
+  const allPrizes = [
+    ...(prizesStore.CV || []),
+    ...(prizesStore.Daily || []),
+    ...(prizesStore.Individual || []),
+    ...(prizesStore.Squad || [])
+  ]
+
+  data.value = allPrizes.map(prize => ({
+    name: prize.name,
+    image: `data:image/*;base64,${prize.image_url}`
+  }))
+}
+
+onMounted(fetchData)
+
 </script>
 
 <template>
   <div class="content" :class="{ even: props.isEven }" :style="`--acc-color: var(${props.accColor});`">
     <div class="carousel-container">
       <div class="carousel-fade fade-left"></div>
-      <CompanyCarousel :isEven="props.isEven" :items="prizes" :prizeCarousel="true"
+      <CompanyCarousel :isEven="props.isEven" :items="data" :prizeCarousel="true"
         :observerId="`prizes-carousel-${props.isEven ? 'even' : 'odd'}`"></CompanyCarousel>
       <div class="carousel-fade fade-right"></div>
     </div>

@@ -1,5 +1,10 @@
 <script setup>
 import CompanyCarousel from './TheHomeCarousel.vue';
+import axios from 'axios';
+import { ref, onMounted } from 'vue';
+import { usePartnersStore } from "../../stores/partners";
+
+const partnersStore = usePartnersStore()
 
 const partners = [
   {
@@ -20,6 +25,8 @@ const partners = [
   },
 ];
 
+const data = ref([])
+
 const props = defineProps({
   isEven: {
     type: Boolean,
@@ -30,13 +37,26 @@ const props = defineProps({
     default: '--c-acc-blue'
   }
 });
+
+async function fetchData() {
+  await partnersStore.fetchData() // Wait for the API call to complete
+  if (partnersStore.gold) {
+    data.value = partnersStore.gold.map(company => ({
+      name: company.name,
+      image: company.image_base64
+    }))
+  }
+
+}
+
+onMounted(fetchData)
 </script>
 
 <template>
   <div class="content" :class="{ even: props.isEven }" :style="`--acc-color: var(${props.accColor});`">
     <div class="carousel-container">
       <div class="carousel-fade fade-left"></div>
-      <CompanyCarousel :isEven="props.isEven" :items="partners"
+      <CompanyCarousel :isEven="props.isEven" :items="data"
         :observerId="`partners-carousel-${props.isEven ? 'even' : 'odd'}`"></CompanyCarousel>
       <div class="carousel-fade fade-right"></div>
     </div>
@@ -44,10 +64,9 @@ const props = defineProps({
       <h2>Our partners</h2>
       <div class="highlight"></div>
       <p>
-        The JEEC (Electrical and Computer Engineering Week) is an event organized by students, for students, from
-        various courses at Instituto Superior Técnico, with a primary focus on Electrical and Computer Engineering. Our
-        main objective is to fill the gap between the academic and business worlds, offering a range of activities to
-        the entire community free of charge.
+        Our partners are industry leaders in tech and engineering, fueling JEEC with expertise and opportunity. They
+        engage directly with students, showcase breakthrough projects, and open doors to internships and careers-driving
+        innovation and shaping tomorrow, today.
       </p>
       <router-link class="page-link" to="partners">Learn more</router-link>
     </div>
