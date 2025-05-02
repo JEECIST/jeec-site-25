@@ -18,13 +18,13 @@ const router = createRouter({
     {
       path: '/partners',
       name: 'partners',
-      meta: { title: 'Partners - JEEC', accColor: '--c-acc-orange', deactivated: false },
+      meta: { title: 'Partners - JEEC', accColor: '--c-acc-orange', deactivated: true },
       component: async () => await import('@/views/PartnersView.vue'),
     },
     {
       path: '/prizes',
       name: 'prizes',
-      meta: { title: 'Prizes - JEEC', accColor: '--c-acc-lilac', deactivated: false },
+      meta: { title: 'Prizes - JEEC', accColor: '--c-acc-lilac', deactivated: true },
       component: async () => await import('@/views/PrizesView.vue'),
     },
     {
@@ -36,19 +36,19 @@ const router = createRouter({
     {
       path: '/speakers',
       name: 'speakers',
-      meta: { title: 'Speakers - JEEC', accColor: '--c-acc-yellow', deactivated: false },
+      meta: { title: 'Speakers - JEEC', accColor: '--c-acc-yellow', deactivated: true },
       component: async () => await import('@/views/SpeakersView.vue'),
     },
     {
       path: '/sponsors',
       name: 'sponsors',
-      meta: { title: 'Sponsors - JEEC', accColor: '--c-acc-lighter-dark-blue', deactivated: false },
+      meta: { title: 'Sponsors - JEEC', accColor: '--c-acc-lighter-dark-blue', deactivated: true },
       component: async () => await import('@/views/SponsorsView.vue'),
     },
     {
       path: '/team',
       name: 'team',
-      meta: { title: 'Team - JEEC', accColor: '--c-acc-blue', deactivated: false },
+      meta: { title: 'Team - JEEC', accColor: '--c-acc-blue', deactivated: true },
       component: async () => await import('@/views/TeamView.vue'),
     },
     {
