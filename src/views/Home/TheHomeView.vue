@@ -31,7 +31,8 @@ const sections = [
   {
     component: fSection,
     color: router.getRoutes().find(route => route.name === 'schedule').meta.accColor,
-    deactivated: router.getRoutes().find(route => route.name === 'schedule').meta.deactivated,
+    // deactivated: router.getRoutes().find(route => route.name === 'schedule').meta.deactivated,
+    deactivated: true,
   },
   {
     component: gSection,
@@ -63,8 +64,6 @@ const sections = [
 ];
 
 const activeSections = sections.filter(section => !section.deactivated);
-
-console.log(sections);
 </script>
 
 <template>

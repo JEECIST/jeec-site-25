@@ -18,8 +18,6 @@ const fetchTeamImg = async () => {
       },
     })
 
-    console.log(response.data);
-
     teamImg.value = response.data.team_images.reduce((acc, obj) => {
       const [key, value] = Object.entries(obj)[0]
       const relativePath = value.replace(/^.*\/static/, 'static') // Remove parte
@@ -41,8 +39,6 @@ const fetchMembersImage = async () => {
       },
     })
 
-    console.log(response.data);
-
     membersImg.value = response.data.member_images.reduce((acc, obj) => {
       const [key, value] = Object.entries(obj)[0]
       const relativePath = value.replace(/^.*\/static/, 'static')
@@ -63,8 +59,6 @@ const fetchTeams = async () => {
         password: import.meta.env.VITE_APP_JEEC_WEBSITE_KEY,
       },
     })
-
-    console.log(response.data);
 
     teams.value = response.data.data.map((team) => ({
       name: team.name,
@@ -89,7 +83,6 @@ const allowedTeams = ['COORDINATION', 'SPEAKERS', 'LOGISTICS', 'WEBDEV', 'BUSINE
 
 const filteredTeams = computed(() =>
   teams.value.filter((team) => allowedTeams.includes(team.name?.trim().toUpperCase())),
-  console.log(teams.value),
 )
 
 onMounted(async () => {

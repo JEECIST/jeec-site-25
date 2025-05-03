@@ -20,7 +20,7 @@
               <transition name="eletrolink-toggle">
                 <div v-if="!showEletrolinkInfo" class="row">
                   <div v-for="(eletrocomp, index) in filteredEletrocomps" :key="index" class="eletrocomp">
-                    <img :src="eletrocomp.logo" alt="Eletrocomp Logo" />
+                    <img :src="eletrocomp.logos_companies" alt="Eletrocomp Logo" />
                   </div>
                 </div>
               </transition>
@@ -39,7 +39,7 @@
                 <div v-if="showEletrolinkInfo" class="eletrolink-content-grid">
                   <div v-for="(eletrocomp, index) in filteredEletrocomps" :key="index" class="eletrolink-grid-row">
                     <div class="eletrocomp">
-                      <img :src="eletrocomp.logo" alt="Eletrocomp Logo" />
+                      <img :src="eletrocomp.logos_companies" alt="Eletrocomp Logo" />
                     </div>
                     <div>
                       <div class="eletrocomp-title">
@@ -105,8 +105,36 @@
                     isExpanded(index) ? '−info' : '+info' }}</button>
                 </div>
                 <div class="logos">
-                  <img v-for="(logo, i) in activity.logos" :key="i" :src="logo"
-                    :class="['logo', className(activity.type, '-logo')]" />
+                  <!-- Container fixo para o company logo -->
+                  <div v-if="activity?.speakers?.length > 0" class="logo-container company-logo-container"
+                    :class="className(activity.type, '-logo')">
+                    <transition name="logo-fade" mode="out-in">
+                      <img v-if="activity?.speakers?.[currentLogoIndex?.[activity.id] ?? 0]?.logo_company"
+                        :key="'company-' + (currentLogoIndex?.[activity.id] ?? 0)"
+                        :src="base_path + activity.speakers[currentLogoIndex[activity.id] ?? 0].logo_company"
+                        class="logo-image" />
+                    </transition>
+                  </div>
+
+                  <div class="logo-container speaker-logo-container" :class="className(activity.type, '-logo')">
+                    <transition name="logo-fade" mode="out-in">
+                      <template v-if="activity?.speakers?.length > 0">
+                        <img v-if="activity.speakers[currentLogoIndex?.[activity.id] ?? 0]?.logo_speaker"
+                          :key="'speaker-' + (currentLogoIndex?.[activity.id] ?? 0)"
+                          :src="base_path + activity.speakers[currentLogoIndex[activity.id] ?? 0].logo_speaker"
+                          class="logo-image" />
+                      </template>
+                      <template v-else-if="activity?.logo_companies?.length > 0">
+                        <img v-if="activity.logo_companies[currentLogoIndex?.[activity.id] ?? 0]"
+                          :key="'company-' + (currentLogoIndex?.[activity.id] ?? 0)"
+                          :src="base_path + activity.logo_companies[currentLogoIndex[activity.id] ?? 0]"
+                          class="logo-image" />
+                      </template>
+                      <template v-else>
+                        <div class="logo-default"></div>
+                      </template>
+                    </transition>
+                  </div>
                 </div>
               </div>
             </div>
@@ -149,7 +177,7 @@
               <transition name="eletrolink-toggle">
                 <div v-if="!showEletrolinkInfo" class="row">
                   <div v-for="(eletrocomp, index) in filteredEletrocomps" :key="index" class="eletrocomp">
-                    <img :src="eletrocomp.logo" alt="Eletrocomp Logo" />
+                    <img :src="eletrocomp.logos_companies" alt="Eletrocomp Logo" />
                   </div>
                 </div>
               </transition>
@@ -168,7 +196,7 @@
                 <div v-if="showEletrolinkInfo" class="eletrolink-content-grid">
                   <div v-for="(eletrocomp, index) in filteredEletrocomps" :key="index" class="eletrolink-grid-row">
                     <div class="eletrocomp">
-                      <img :src="eletrocomp.logo" alt="Eletrocomp Logo" />
+                      <img :src="eletrocomp.logos_companies" alt="Eletrocomp Logo" />
                     </div>
                     <div>
                       <div class="eletrocomp-title">
@@ -230,8 +258,37 @@
                       isExpanded(index) ? '−info' : '+info' }}</button>
                 </div>
                 <div class="logos-mobile">
-                  <img v-for="(logo, i) in activity.logos" :key="i" :src="logo"
-                    :class="['logo', className(activity.type, '-logo')]" />
+                  <!-- Container para company logo (só aparece se existir speaker) -->
+                  <div v-if="activity?.speakers.length > 0" class="logo-container company-logo-container"
+                    :class="className(activity.type, '-logo')">
+                    <transition name="logo-fade" mode="out-in">
+                      <img v-if="activity?.speakers?.[currentLogoIndex?.[activity.id] ?? 0]?.logo_company"
+                        :key="'company-' + (currentLogoIndex?.[activity.id] ?? 0)"
+                        :src="base_path + activity.speakers[currentLogoIndex[activity.id] ?? 0].logo_company"
+                        class="logo-image" />
+                    </transition>
+                  </div>
+                  <!-- Container principal para speaker logo ou fallbacks -->
+                  <div class="logo-container speaker-logo-container" :class="className(activity.type, '-logo')">
+                    <transition name="logo-fade" mode="out-in">
+                      <!-- 1. Prioridade: logos_speakers -->
+                      <template v-if="activity?.speakers?.length > 0">
+                        <img v-if="activity.speakers[currentLogoIndex?.[activity.id] ?? 0]?.logo_speaker"
+                          :key="'speaker-' + (currentLogoIndex?.[activity.id] ?? 0)"
+                          :src="base_path + activity.speakers[currentLogoIndex[activity.id] ?? 0].logo_speaker"
+                          class="logo-image" />
+                      </template>
+                      <template v-else-if="activity?.logo_companies?.length > 0">
+                        <img v-if="activity.logo_companies[currentLogoIndex?.[activity.id] ?? 0]"
+                          :key="'company-' + (currentLogoIndex?.[activity.id] ?? 0)"
+                          :src="base_path + activity.logo_companies[currentLogoIndex[activity.id] ?? 0]"
+                          class="logo-image" />
+                      </template>
+                      <template v-else>
+                        <div class="logo-default"></div>
+                      </template>
+                    </transition>
+                  </div>
                 </div>
               </div>
             </div>
@@ -250,36 +307,41 @@ import axios from 'axios';
 const isMobile = ref(false);
 const tabWidth = ref(250);
 const tabsStyle = ref({ transform: 'translateX(0)' });
+const base_path = ref(null);
 
 const activeDay = ref(0);
 const expandedEvent = ref(null);
 const showEletrolinkInfo = ref(false);
-const loading = ref(true);
+const loading = ref(false);
+const currentLogoIndex = ref({});
+let globalInterval = null;
 
-const db_activities = ref([{
-  id: null,
-  external_id: null,
-  title: null,
-  description: null,
-  day: null,
-  dayOfWeek: null,
-  date: null,
-  time: null,
-  end_time: null,
-  type: null,
-  location: null,
-  logos: null,
-}]);
+const db_activities = ref([
+  {
+    id: null,
+    title: null,
+    description: null,
+    dayOfWeek: null,
+    date: null,
+    time: null,
+    end_time: null,
+    type: null,
+    location: null,
+    logo_companies: null,
+    speakers: null,
+  }
+]);
 
 const days = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"];
 const event_days = ["2025-05-05", "2025-05-06", "2025-05-07", "2025-05-08", "2025-05-09"];
-const eletrolink_description = "Eletrolink Description, up to coordination :) Eletrolink Description, up to coordination :) Eletrolink Description, up to coordination :) Eletrolink Description, up to coordination :)";
+const eletrolink_description = "A new, exciting booth where students can engage in 1-on-1 conversations with companies and potentially find their next job or internship.";
 
 const filteredActivities = computed(() => {
   const selectedDay = days[activeDay.value];
-  return db_activities.value.filter(activity => 
-    activity.dayOfWeek === selectedDay && 
-    activity.type.toLowerCase() !== "eletrolink"
+  return db_activities.value.filter(activity =>
+    activity.dayOfWeek === selectedDay &&
+    activity.type.toLowerCase() !== "eletrolink" &&
+    activity.type.toLowerCase() !== "job fair"
   );
 });
 
@@ -327,7 +389,7 @@ function setActiveDay(index) {
   activeDay.value = index;
   expandedEvent.value = null;
   showEletrolinkInfo.value = false;
-  db_activities.value = []; // Limpa atividades
+
   scrollToTab(index);
 }
 
@@ -356,9 +418,9 @@ function toggleEletrolinkInfo() {
 
 function cleanTitle(title) {
   return title.replace(/\s+/g, '-')
-              .replace(/\//g, '-')
-              .replace(/[^a-zA-Z0-9-]/g, '')
-              .toLowerCase();
+    .replace(/\//g, '-')
+    .replace(/[^a-zA-Z0-9-]/g, '')
+    .toLowerCase();
 }
 
 function className(title, suffix = '') {
@@ -416,8 +478,8 @@ async function fetchData() {
       }),
       new Promise(resolve => setTimeout(resolve, 200))
     ]);
-
     const data = response.data;
+    base_path.value = import.meta.env.VITE_APP_JEEC_WEBSITE_API_URL.replace('/website', '');
     db_activities.value = data.other_activities.map(activity => ({
       id: activity.id,
       external_id: activity.external_id,
@@ -430,7 +492,12 @@ async function fetchData() {
       end_time: activity.end_time.slice(-12, -7).replace(':', 'h'),
       type: activity.activity_type.name,
       location: activity.activity_type.location,
-      logos: ["src/images.png"],
+      speakers: activity.speakers?.map(speaker => ({
+        ...speaker,
+        logo_speaker: speaker.logo_speaker || null,
+        logo_company: speaker.logo_company || null
+      })) || [],
+      logo_companies: activity.companies || []
     }));
 
   } catch (error) {
@@ -440,9 +507,47 @@ async function fetchData() {
   }
 }
 
-watch(activeDay, () => {
-  fetchData();
-});
+function rotateAllLogos() {
+  const activities = filteredActivities.value;
+  activities.forEach(activity => {
+    if (activity.logo_companies && activity.logo_companies.length > 1) {
+      if (currentLogoIndex.value[activity.id] === undefined) {
+        currentLogoIndex.value[activity.id] = 0;
+      } else {
+        currentLogoIndex.value[activity.id] =
+          (currentLogoIndex.value[activity.id] + 1) % activity.logo_companies.length;
+      }
+    }
+  });
+}
+
+watch(filteredActivities, (newActivities) => {
+  // Limpar intervalo existente
+  if (globalInterval) {
+    clearInterval(globalInterval);
+    globalInterval = null;
+  }
+
+  // Resetar índices
+  currentLogoIndex.value = {};
+
+  // Verificar se há atividades com múltiplos logos
+  const hasMultipleLogos = newActivities.some(
+    activity => activity.logo_companies && activity.logo_companies.length > 1
+  );
+
+  // Iniciar intervalo global se necessário
+  if (hasMultipleLogos) {
+    globalInterval = setInterval(rotateAllLogos, 3000);
+
+    // Inicializar todos os índices
+    newActivities.forEach(activity => {
+      if (activity.logo_companies && activity.logo_companies.length > 1) {
+        currentLogoIndex.value[activity.id] = 0;
+      }
+    });
+  }
+}, { deep: true });
 
 onMounted(() => {
   updateIsMobile();
@@ -452,12 +557,19 @@ onMounted(() => {
     scrollToTab(activeDay.value);
   }, 100);
 
+  globalInterval = setInterval(rotateAllLogos, 3000);
+
   setDefaultDay();
   fetchData();
+
 });
 
 onUnmounted(() => {
   window.removeEventListener('resize', updateIsMobile);
+
+  if (globalInterval) {
+    clearInterval(globalInterval);
+  }
 });
 </script>
 
@@ -724,7 +836,7 @@ h1 {
   border: 2px solid var(--c-acc-blue);
 }
 
-.activity-main-speaker {
+.activity-keynote-speaker {
   /*yellow*/
   background: rgba(255, 190, 11, 0.1);
   border: 2px solid var(--c-acc-yellow);
@@ -810,7 +922,7 @@ h1 {
   color: var(--c-acc-blue);
 }
 
-.activity-main-speaker-type {
+.activity-keynote-speaker-type {
   /*yellow*/
   color: var(--c-acc-yellow);
 }
@@ -885,7 +997,7 @@ h1 {
   color: var(--c-acc-blue);
 }
 
-.activity-main-speaker-info {
+.activity-keynote-speaker-info {
   color: var(--c-acc-yellow);
 }
 
@@ -929,16 +1041,65 @@ h1 {
   display: flex;
   flex-shrink: 0;
   justify-content: flex-start;
+  position: relative;
+}
+
+/* Container fixo para os logos */
+.logo-container {
   width: 130px;
   height: 130px;
   border-radius: 50%;
+  border: 2px solid var(--c-acc-blue);
+  position: relative;
+  overflow: hidden;
+  background-color: white;
+  display: flex;
+  /* Adicionado */
+  align-items: center;
+  /* Centraliza verticalmente */
+  justify-content: center;
+  /* Centraliza horizontalmente */
+  /* Fundo branco para PNGs transparentes */
 }
 
-.logo {
+/* Ajuste para o company logo */
+.company-logo-container {
+  width: 65px;
+  height: 65px;
+  position: relative;
+  left: 35px;
+  bottom: -70px;
+  z-index: 1;
+  object-fit: contain;
+}
+
+.company-logo-container img {
+  object-fit: contain;
+}
+
+/* Imagem dentro do container */
+.logo-image {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
-  border: 2px solid var(--c-acc-blue);
+  background-color: whitesmoke;
+  object-fit: contain;
+  display: block;
+}
+
+.logo-default {
+  width: 100%;
+  height: 100%;
+  background-color: var(--c-acc-blue);
+}
+
+.logo-fade-enter-active,
+.logo-fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.logo-fade-enter-from,
+.logo-fade-leave-to {
+  opacity: 0;
 }
 
 .activity-inside-talks-logo {
@@ -953,7 +1114,7 @@ h1 {
   border: 2px solid var(--c-acc-blue);
 }
 
-.activity-main-speaker-logo {
+.activity-keynote-speaker-logo {
   border: 2px solid var(--c-acc-yellow);
 }
 
@@ -1122,7 +1283,6 @@ h1 {
 }
 
 .eletrocomp img {
-  width: 80%;
   height: auto;
   object-fit: contain;
 }
@@ -1390,7 +1550,7 @@ h1 {
   border: 2px solid var(--c-acc-blue);
 }
 
-.mobile .activity-main-speaker {
+.mobile .activity-keynote-speaker {
   /*yellow*/
   background: rgba(255, 190, 11, 0.1);
   border: 2px solid var(--c-acc-yellow);
@@ -1447,10 +1607,18 @@ h1 {
 .mobile .logos-mobile {
   display: flex;
   flex-shrink: 0;
-  justify-content: flex-start;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
+}
+
+.mobile .speaker-logo-container {
+  width: 100px;
+  height: 100px;
+}
+
+.mobile .company-logo-container {
+  width: 50px;
+  height: 50px;
+  left: 25px;
+  bottom: -55px;
 }
 
 .mobile .column-mobile {
@@ -1462,7 +1630,6 @@ h1 {
   align-items: flex-start;
   padding: 5px 5px 5px 10px;
   width: calc(100% - 70px);
-  /* Ajuste para o logo */
 }
 
 .mobile .type {
@@ -1497,7 +1664,7 @@ h1 {
   color: var(--c-acc-blue);
 }
 
-.mobile .activity-main-speaker-info {
+.mobile .activity-keynote-speaker-info {
   color: var(--c-acc-yellow);
 }
 
@@ -1554,7 +1721,7 @@ h1 {
   height: 50px;
 }
 
-.teste{
+.teste {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

@@ -30,7 +30,7 @@ const router = createRouter({
     {
       path: '/schedule',
       name: 'schedule',
-      meta: { title: 'Schedule - JEEC', accColor: '--c-acc-strong-pink', deactivated: true },
+      meta: { title: 'Schedule - JEEC', accColor: '--c-acc-strong-pink', deactivated: false },
       component: async () => await import('@/views/ScheduleView.vue'),
     },
     {
