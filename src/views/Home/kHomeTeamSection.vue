@@ -27,7 +27,7 @@ const props = defineProps({
         work tirelessly to create an event that sparks inspiration, drives careers forward, and shapes the future of
         industry and technology.
       </p>
-      <router-link class="page-link" to="team">Learn more</router-link>
+      <!-- <router-link class="page-link" to="team">Learn more</router-link> -->
     </div>
   </div>
 </template>

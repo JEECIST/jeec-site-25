@@ -1,72 +1,18 @@
 <script setup>
-import { ref } from 'vue';
-import { onMounted } from 'vue';
-import axios from 'axios';
-
+import { computed, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import { storeToRefs } from 'pinia';
+import { usePartnersStore } from '@/stores/partners';
 import '../assets/Partners&Sponsors.css';
 
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
 const route = useRoute();
 const accColor = computed(() => route.meta.accColor);
 
-const partners = ref([
-  {
-    tier: 'gold',
-    title: {
-      highlight: 'Gold',
-      normal: 'Partners'
-    },
-    companies: [],
-  },
-  {
-    tier: 'silver',
-    title: {
-      highlight: 'Silver',
-      normal: 'Partners'
-    },
-    companies: [],
-  },
-  {
-    tier: 'bronze',
-    title: {
-      highlight: 'Bronze',
-      normal: 'Partners'
-    },
-    companies: [],
-  },
-  {
-    tier: 'nucleo',
-    title: {
-      highlight: '',
-      normal: 'Núcleos e Centros de Investigação'
-    },
-    companies: [],
-  }
-]);
-
-const fetchPartners = async () => {
-  axios
-    .get(import.meta.env.VITE_APP_JEEC_WEBSITE_API_URL + '/companies', {
-      auth: {
-        username: import.meta.env.VITE_APP_JEEC_WEBSITE_USERNAME,
-        password: import.meta.env.VITE_APP_JEEC_WEBSITE_KEY
-      }
-    })
-    .then((response) => {
-      partners.value[0].companies = response.data.gold;
-      partners.value[1].companies = response.data.silver;
-      partners.value[2].companies = response.data.bronze;
-      partners.value[3].companies = response.data.nucleo;
-
-      console.log("partnersTiers:", partners.value[1].companies.find);
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-};
-
-onMounted(fetchPartners)
+const partnersStore = usePartnersStore();
+const { partners } = storeToRefs(partnersStore);
+onMounted(async () => {
+  await partnersStore.fetchData();
+});
 </script>
 
 <template>
@@ -86,7 +32,8 @@ onMounted(fetchPartners)
           <h2><span class="highlight-title">{{ tier.title.highlight }}</span>{{ " " + tier.title.normal }}</h2>
           <div class="container">
             <div v-for="(company, index) in tier.companies" :key="index" class="item">
-              <img :src="company.image_base64" :alt="company.name" />
+              <img v-if="company.image_base64 != null" :src="company.image_base64" :alt="company.name" />
+              <p v-else>{{ company.name }}</p>
             </div>
           </div>
         </section>

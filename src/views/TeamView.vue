@@ -88,7 +88,8 @@ const fetchTeams = async () => {
 const allowedTeams = ['COORDINATION', 'SPEAKERS', 'LOGISTICS', 'WEBDEV', 'BUSINESS', 'MARKETING']
 
 const filteredTeams = computed(() =>
-  teams.value.filter((team) => allowedTeams.includes(team.name?.trim().toUpperCase()))
+  teams.value.filter((team) => allowedTeams.includes(team.name?.trim().toUpperCase())),
+  console.log(teams.value),
 )
 
 onMounted(async () => {

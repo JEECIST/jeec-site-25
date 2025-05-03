@@ -1,6 +1,6 @@
 <script setup>
 import { Carousel, Slide, Navigation } from 'vue3-carousel';
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref, nextTick, watch } from 'vue';
 
 const props = defineProps({
   isEven: {
@@ -26,7 +26,6 @@ const props = defineProps({
     default: false
   },
 });
-
 
 const companyBreakpoints = {
   0: {
@@ -115,11 +114,19 @@ onMounted(() => {
 onUnmounted(() => {
   observer.disconnect();
 });
+
+const render = ref(true);
+watch(() => props.items, async () => {
+  await nextTick();
+  render.value = false;
+  await nextTick();
+  render.value = true;
+}, { deep: true });
 </script>
 
 <template>
   <div class="container" :id="props.observerId">
-    <Carousel v-bind="config" :enabled="enabled_"
+    <Carousel v-if="render" v-bind="config" :enabled="enabled_"
       :class="{ speaker: props.speakerCarousel, prize: props.prizeCarousel }">
       <Slide v-for="(item, index) in props.items" :key="'item-' + index">
         <template v-if="item.image && item.image != ''">

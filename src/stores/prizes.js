@@ -3,54 +3,85 @@ import axios from 'axios'
 
 export const usePrizesStore = defineStore('prizes', {
   state: () => ({
-    Daily: null,
-    Squad: null,
-    Individual: null,
-    CV: null,
-    Shop: null,
+    weekdays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    hasError: false,
+    errorMessage: '',
+    isLoading: true,
+    prizes: {
+      daily: [],
+      squad: [],
+      individual: [],
+      cv: [],
+      shop: [],
+    },
+    homeData: [],
     isLoaded: false,
   }),
 
   actions: {
     async fetchData() {
-    if (this.isLoaded) 
-        return
+      if (this.isLoaded) return
 
-    try {
+      try {
+        this.isLoaded = true
         const response = await axios.get(
-            import.meta.env.VITE_APP_JEEC_WEBSITE_API_URL + '/site-get-prizes',
-            {
-                auth: {
-                    username: import.meta.env.VITE_APP_JEEC_WEBSITE_USERNAME,
-                    password: import.meta.env.VITE_APP_JEEC_WEBSITE_KEY
-                }
-            }
-        );
-        console.log(response.data)
+          import.meta.env.VITE_APP_JEEC_WEBSITE_API_URL + '/site-get-prizes',
+          {
+            auth: {
+              username: import.meta.env.VITE_APP_JEEC_WEBSITE_USERNAME,
+              password: import.meta.env.VITE_APP_JEEC_WEBSITE_KEY,
+            },
+          },
+        )
 
-        this.CV = response.data.CV || [],
-        this.Daily = response.data.Daily || [],
-        this.Individual = response.data.Individual || [],
-        this.Shop = response.data.Shop || [],
-        this.Squad = response.data.Squad || []
+        this.prizes.daily = this.weekdays.map((day, index) => {
+          const prize = response.data?.Daily[index]
+          return {
+            name: prize?.name || 'Prize coming soon',
+            image: prize?.image_url ? `data:image/*;base64,${prize.image_url}` : null,
+          }
+        })
+        this.prizes.individual =
+          response.data.Individual?.map((prize) => ({
+            name: prize?.name || 'Prize coming soon',
+            image: prize?.image_url ? `data:image/*;base64,${prize.image_url}` : null,
+          })) ?? []
+        this.prizes.squad =
+          response.data.Squad?.map((prize) => ({
+            name: prize?.name || 'Prize coming soon',
+            image: prize?.image_url ? `data:image/*;base64,${prize.image_url}` : null,
+          })) ?? []
+        this.prizes.cv =
+          response.data.CV?.map((prize) => ({
+            name: prize?.name || 'Prize coming soon',
+            image: prize?.image_url ? `data:image/*;base64,${prize.image_url}` : null,
+          })) ?? []
+        this.prizes.shop =
+          response.data.Shop?.map((prize) => ({
+            name: prize?.name || 'Prize coming soon',
+            image: prize?.image_url ? `data:image/*;base64,${prize.image_url}` : null,
+          })) ?? []
 
-        console.log(this.CV)
-        console.log(this.Daily)
-        console.log(this.Individual)
-        console.log(this.Shop)
-        console.log(this.Squad)
+        this.homeData = [
+          ...this.prizes.daily,
+          ...this.prizes.individual,
+          ...this.prizes.squad,
+          ...this.prizes.cv,
+        ].filter((prize) => prize.name !== 'Prize coming soon')
 
-    } catch (error) {
-        console.error("Error fetching prizes:", error);
-        // hasError.value = true;
-        // errorMessage.value = "Failed to load prizes. Please try again later.";
-    } finally {
-        this.isLoaded = true;
-    }
+        this.isLoading = false
+      } catch (error) {
+        console.error('Error fetching prizes:', error)
+        this.isLoading = false
+        this.isLoaded = false
+        this.hasError = true
+        this.errorMessage = 'Failed to load prizes. Please try again later.'
+        return false
+      }
 
-    return true
+      return true
     },
 
-    persist: true
-  }
+    persist: true,
+  },
 })

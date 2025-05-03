@@ -2,32 +2,13 @@
 
 import 'vue3-carousel/carousel.css';
 import { Carousel, Slide, Navigation } from 'vue3-carousel';
-import { ref, onMounted, computed } from 'vue';
-import axios from "axios";
+import { onMounted } from 'vue';
+import { usePrizesStore } from '@/stores/prizes';
+import { storeToRefs } from 'pinia';
 
+const prizeStore = usePrizesStore();
+const { weekdays, prizes, isLoading, hasError, errorMessage } = storeToRefs(prizeStore);
 
-const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
-const isLoading = ref(true);
-const hasError = ref(false);
-const errorMessage = ref('');
-
-const prizesArray = ref({
-  Daily: [],
-  Squad: [],
-  Individual: [],
-  CV: [],
-  Shop: [],
-});
-
-const segmentedPrizes = ref({
-  CV: [],
-  Daily: [],
-  Individual: [],
-  Shop: [],
-  Squad: []
-});
-
-// Carousel configuration
 const config = {
   adjustableHeight: true,
   snapAlign: 'center',
@@ -61,89 +42,9 @@ const config = {
   },
 };
 
-// Async function to fetch prizes
-const fetchPrizes = async () => {
-  try {
-    isLoading.value = true;
-    hasError.value = false;
-
-    const response = await axios.get(
-      import.meta.env.VITE_APP_JEEC_WEBSITE_API_URL + '/site-get-prizes',
-      {
-        auth: {
-          username: import.meta.env.VITE_APP_JEEC_WEBSITE_USERNAME,
-          password: import.meta.env.VITE_APP_JEEC_WEBSITE_KEY
-        }
-      }
-    );
-
-    prizesArray.value = response.data;
-
-    // Segment the prizes by type
-    segmentedPrizes.value = {
-      CV: response.data.CV || [],
-      Daily: response.data.Daily || [],
-      Individual: response.data.Individual || [],
-      Shop: response.data.Shop || [],
-      Squad: response.data.Squad || []
-    };
-
-    console.log("Prizes Data:", prizesArray.value);
-    console.log("Segmented Prizes:", segmentedPrizes.value);
-  } catch (error) {
-    console.error("Error fetching prizes:", error);
-    hasError.value = true;
-    errorMessage.value = "Failed to load prizes. Please try again later.";
-  } finally {
-    isLoading.value = false;
-  }
-};
-// selectedRow.value.logo = selectedRow.value.logo ? `data:image/*;base64,${selectedRow.value.logo}` : null
-// Helper computed properties to get prizes names safely
-const dailyPrizes = computed(() => {
-  return weekdays.map((day, index) => {
-    const prize = segmentedPrizes.value.Daily[index];
-    return {
-      name: prize?.name || "Prize coming soon",
-      image: prize?.image_url ? `data:image/*;base64,${prize.image_url}` : null
-    };
-  });
+onMounted(async () => {
+  await prizeStore.fetchData();
 });
-
-const shopPrizes = computed(() => {
-  return segmentedPrizes.value.Shop.map(prize => ({
-    name: prize?.name || "Prize coming soon",
-    image: prize?.image_url ? `data:image/*;base64,${prize.image_url}` : null
-  }));
-});
-
-const individualPrizes = computed(() => {
-  return segmentedPrizes.value.Individual.map(prize => ({
-    name: prize?.name || "Prize coming soon",
-    image: prize?.image_url ? `data:image/*;base64,${prize.image_url}` : null
-  }));
-});
-
-const squadPrizes = computed(() => {
-  return segmentedPrizes.value.Squad.map(prize => ({
-    name: prize?.name || "Prize coming soon",
-    image: prize?.image_url ? `data:image/*;base64,${prize.image_url}` : null
-  }));
-});
-
-const cvPrize = computed(() => {
-  const prize = segmentedPrizes.value.CV?.[0];
-  return {
-    name: prize.name || "Prize coming soon",
-    image: prize.image_url ? `data:image/*;base64,${prize.image_url}` : null
-  };
-});
-
-// Call the fetch function when component mounts
-onMounted(() => {
-  fetchPrizes();
-});
-
 </script>
 
 <template>
@@ -154,23 +55,28 @@ onMounted(() => {
       <a href="#" class="webapp-btn">Webapp Login</a>
     </section>
 
-    <div class="div-rule"></div>
+    <template v-if="isLoading">
+      <div class="div-rule"></div>
+      <section class="loading-container">
+        <p>Loading prizes...</p>
+      </section>
+    </template>
 
-    <section v-if="isLoading" class="loading-container">
-      <p>Loading prizes...</p>
-    </section>
-
-    <section v-else-if="hasError" class="error-container">
-      <p>{{ errorMessage }}</p>
-      <button @click="fetchPrizes" class="retry-btn">Retry</button>
-    </section>
+    <template v-else-if="hasError">
+      <div class="div-rule"></div>
+      <section class="error-container">
+        <p>{{ errorMessage }}</p>
+        <button @click="fetchPrizes" class="retry-btn">Retry</button>
+      </section>
+    </template>
 
     <template v-else>
-      <section v-if="segmentedPrizes.Shop.length > 0">
+      <section v-if="prizes.shop.length > 0">
+        <div class="div-rule"></div>
         <h2>Our Prize Shop</h2>
         <div class="carousel-container shop">
           <Carousel v-bind="config">
-            <Slide v-for="(prize, index) in shopPrizes" :key="'shop-' + index">
+            <Slide v-for="(prize, index) in prizes.shop" :key="'shop-' + index">
               <div class="carousel__item">
                 <img v-if="prize.image" :src="prize.image" alt="Prize image" class="prize-image">
               </div>
@@ -183,55 +89,58 @@ onMounted(() => {
         </div>
       </section>
 
-      <div class="div-rule"></div>
+      <template v-if="prizes.daily.length > 0">
+        <div class="div-rule"></div>
+        <section>
+          <h2>Individual daily draw</h2>
+          <div class="carousel-container">
+            <Carousel v-bind="config">
+              <Slide v-for="(day, index) in weekdays" :key="'daily-' + index">
+                <h3>{{ day }}</h3>
+                <div class="carousel__item">
+                  <img v-if="prizes.daily[index]?.image" :src="prizes.daily[index].image" alt="Prize image"
+                    class="prize-image">
+                </div>
+                <p>{{ prizes.daily[index]?.name }}</p>
+              </Slide>
+            </Carousel>
+          </div>
+        </section>
+      </template>
 
-      <section v-if="segmentedPrizes.Daily.length > 0">
-        <h2>Individual daily draw</h2>
-        <div class="carousel-container">
-          <Carousel v-bind="config">
-            <Slide v-for="(day, index) in weekdays" :key="'daily-' + index">
-              <h3>{{ day }}</h3>
-              <div class="carousel__item">
-                <img v-if="dailyPrizes[index]?.image" :src="dailyPrizes[index].image" alt="Prize image"
-                  class="prize-image">
-              </div>
-              <p>{{ dailyPrizes[index]?.name }}</p>
-            </Slide>
-          </Carousel>
-        </div>
-      </section>
+      <template v-if="prizes.individual.length > 0">
+        <div class="div-rule"></div>
+        <section>
+          <h2>Individual weekly draw</h2>
+          <div class="carousel-container">
+            <Carousel v-bind="config">
+              <Slide v-for="(prize, index) in prizes.individual" :key="'individual-' + index">
+                <div class="carousel__item">
+                  <img v-if="prize.image" :src="prize.image" alt="Prize image" class="prize-image">
+                </div>
+                <p>{{ prize.name }}</p>
+              </Slide>
+            </Carousel>
+          </div>
+        </section>
+      </template>
 
-      <div class="div-rule"></div>
-
-      <section v-if="segmentedPrizes.Individual.length > 0">
-        <h2>Individual weekly draw</h2>
-        <div class="carousel-container">
-          <Carousel v-bind="config">
-            <Slide v-for="(prize, index) in individualPrizes" :key="'individual-' + index">
-              <div class="carousel__item">
-                <img v-if="prize.image" :src="prize.image" alt="Prize image" class="prize-image">
-              </div>
-              <p>{{ prize.name }}</p>
-            </Slide>
-          </Carousel>
-        </div>
-      </section>
-
-      <div class="div-rule"></div>
-
-      <section v-if="segmentedPrizes.Squad.length > 0">
-        <h2>Squad weekly draw</h2>
-        <div class="carousel-container">
-          <Carousel v-bind="config">
-            <Slide v-for="(prize, index) in squadPrizes" :key="'squad-' + index">
-              <div class="carousel__item">
-                <img v-if="prize.image" :src="prize.image" alt="Prize image" class="prize-image">
-              </div>
-              <p>{{ prize.name }}</p>
-            </Slide>
-          </Carousel>
-        </div>
-      </section>
+      <template v-if="prizes.squad.length > 0">
+        <div class="div-rule"></div>
+        <section>
+          <h2>Squad weekly draw</h2>
+          <div class="carousel-container">
+            <Carousel v-bind="config">
+              <Slide v-for="(prize, index) in prizes.squad" :key="'squad-' + index">
+                <div class="carousel__item">
+                  <img v-if="prize.image" :src="prize.image" alt="Prize image" class="prize-image">
+                </div>
+                <p>{{ prize.name }}</p>
+              </Slide>
+            </Carousel>
+          </div>
+        </section>
+      </template>
 
       <template v-if="false">
         <div class="div-rule"></div>
@@ -252,7 +161,7 @@ onMounted(() => {
         </section>
       </template>
 
-      <template v-if="segmentedPrizes.CV.length > 0">
+      <template v-if="prizes.cv.length > 0">
         <div class="div-rule"></div>
         <section class="cv">
           <div class="content">
@@ -264,9 +173,9 @@ onMounted(() => {
             </div>
             <div class="prize-section">
               <div class="circle">
-                <img v-if="cvPrize.image" :src="cvPrize.image" alt="CV Prize" class="prize-image">
+                <img v-if="prizes.cv.image" :src="prizes.cv.image" alt="CV Prize" class="prize-image">
               </div>
-              <p class="label">{{ cvPrize.name }}</p>
+              <p class="label">{{ prizes.cv.name }}</p>
             </div>
           </div>
         </section>
