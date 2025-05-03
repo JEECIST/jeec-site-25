@@ -46,7 +46,6 @@ export const useSponsorsStore = defineStore('sponsors', {
           },
         })
         .then((response) => {
-          console.log(response.data)
           response.data.tiers.forEach((tier) => {
             switch (tier.name) {
               case 'gold':
@@ -60,8 +59,6 @@ export const useSponsorsStore = defineStore('sponsors', {
                 break
             }
           })
-
-          console.log('Sponsors:', this.sponsors)
 
           this.homeData = this.sponsors[0].companies.map((sponsor) => ({
             name: sponsor.name,

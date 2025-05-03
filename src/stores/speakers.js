@@ -10,6 +10,7 @@ export const useSpeakersStore = defineStore('speakers', {
       thursday: [],
       friday: [],
     },
+    homeData: [],
     isLoaded: false,
   }),
 
@@ -26,12 +27,13 @@ export const useSpeakersStore = defineStore('speakers', {
           },
         })
         .then(async (response) => {
-          console.log(response.data)
           this.speakers.monday = response.data.monday
           this.speakers.tuesday = response.data.tuesday
           this.speakers.wednesday = response.data.wednesday
           this.speakers.thursday = response.data.thursday
           this.speakers.friday = response.data.friday
+
+          this.homeData = Object.values(this.speakers).flat()
         })
         .catch((error) => {
           this.isLoaded = false

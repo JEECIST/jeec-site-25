@@ -47,23 +47,19 @@ const companyBreakpoints = {
 
 const speakerBreakpoints = {
   0: {
+    itemsToShow: 1.4,
+    gap: 20,
+  },
+  360: {
     itemsToShow: 1.8,
     gap: 20,
   },
-  400: {
-    itemsToShow: 2.2,
-  },
-  550: {
-    itemsToShow: 2.6,
-  },
   650: {
-    itemsToShow: 3,
-  },
-  750: {
-    itemsToShow: 3.4,
+    itemsToShow: 2.4,
+    gap: 20,
   },
   850: {
-    itemsToShow: 3.8,
+    itemsToShow: 3,
   },
 };
 
@@ -100,6 +96,22 @@ const config = {
   breakpoints: breakpoints_,
 };
 
+const render = ref(true);
+const reRender = async () => {
+  await nextTick();
+  render.value = false;
+  await nextTick();
+  render.value = true;
+};
+
+watch(() => props.items, async () => {
+  await reRender();
+}, { deep: true });
+
+onMounted(async () => {
+  await reRender();
+})
+
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     entry.isIntersecting ? enabled_.value = true : enabled_.value = false;
@@ -114,14 +126,6 @@ onMounted(() => {
 onUnmounted(() => {
   observer.disconnect();
 });
-
-const render = ref(true);
-watch(() => props.items, async () => {
-  await nextTick();
-  render.value = false;
-  await nextTick();
-  render.value = true;
-}, { deep: true });
 </script>
 
 <template>
@@ -130,8 +134,14 @@ watch(() => props.items, async () => {
       :class="{ speaker: props.speakerCarousel, prize: props.prizeCarousel }">
       <Slide v-for="(item, index) in props.items" :key="'item-' + index">
         <template v-if="item.image && item.image != ''">
-          <div v-if="props.speakerCarousel" class="carousel-image">
-            <img :src="item.image" :alt="`Speaker ${item.name}`">
+          <div v-if="props.speakerCarousel" class="card">
+            <div class="image-wrapper">
+              <img :src="item.image" :alt="item.name" />
+              <div class="caption">
+                <img :src="item.company_logo" class="cap-company-logo" />
+                <p>{{ item.name }}</p>
+              </div>
+            </div>
           </div>
           <div v-else-if="props.prizeCarousel" class="carousel-image">
             <img :src="item.image" :alt="`Prize ${item.name}`">
@@ -162,7 +172,76 @@ watch(() => props.items, async () => {
 }
 
 .carousel.speaker {
-  height: 300px;
+  height: 21rem;
+}
+
+.carousel.speaker .carousel__slide {
+  height: 100%;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  flex: 0 0 auto;
+  height: 100%;
+  width: 100%;
+  border-radius: 15px;
+  border: 2px solid var(--acc-color);
+  background-color: var(--c-bg-lighter);
+  transition: transform 0.2s ease-in-out;
+}
+
+.image-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.image-wrapper>img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  z-index: 1;
+}
+
+.caption {
+  background: rgba(255, 190, 11, 0.1);
+  border-radius: 15px;
+  position: absolute;
+  width: calc(100% - 2ch);
+  bottom: 0;
+  left: 1ch;
+  padding: 1ch;
+  margin: 1ch 0;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 1ch;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.caption p {
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+  text-align: left;
+  font-weight: bolder;
+}
+
+.caption img {
+  align-self: flex-start;
+  object-fit: contain;
+  min-width: 60px;
+  max-width: 100px;
+  max-height: 40px;
+  min-height: 35px;
+  padding: 5px;
+  width: auto;
+  height: auto;
+  border-radius: 5px;
+  background: white;
 }
 
 .carousel.prize {

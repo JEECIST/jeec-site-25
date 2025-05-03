@@ -52,8 +52,7 @@ const sections = [
   {
     component: jSection,
     color: router.getRoutes().find(route => route.name === 'speakers').meta.accColor,
-    // deactivated: router.getRoutes().find(route => route.name === 'speakers').meta.deactivated,
-    deactivated: true,
+    deactivated: router.getRoutes().find(route => route.name === 'speakers').meta.deactivated,
   },
   {
     component: kSection,

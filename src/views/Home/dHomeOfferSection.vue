@@ -1,5 +1,14 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
+import fifteenFifteen from '@/assets/home/offers/15_15.webp';
+import insideTalks from '@/assets/home/offers/InsideTalks.webp';
+import workshops from '@/assets/home/offers/Workshops.webp';
+import panels from '@/assets/home/offers/Panels.webp';
+import jobFair from '@/assets/home/offers/JobFair.webp';
+import alumniTalks from '@/assets/home/offers/AlumniTalks.webp';
+import keynoteSpeakers from '@/assets/home/offers/KeynoteSpeakers.webp';
+import eletroLink from '@/assets/home/offers/Eletrolink.webp';
+
 
 const props = defineProps({
   isEven: {
@@ -15,35 +24,43 @@ const props = defineProps({
 const offers = [
   {
     name: "Inside Talks",
-    description: "A 45-minute activity featuring rotating tables, where companies can invite an engineer to speak with students about their day-to-day work and/or their career path."
+    description: "A 45-minute activity featuring rotating tables, where companies can invite an engineer to speak with students about their day-to-day work and/or their career path.",
+    image: insideTalks
   },
   {
     name: "15/15",
-    description: "A 30-minute activity where companies can present a topic, project, or technology they use or developed, followed by time for questions and networking."
+    description: "A 30-minute activity where companies can present a topic, project, or technology they use or developed, followed by time for questions and networking.",
+    image: fifteenFifteen
   },
   {
     name: "Workshops",
-    description: "A 1-hour practical activity where companies provide students with hands-on experience related to a specific topic."
+    description: "A 1-hour practical activity where companies provide students with hands-on experience related to a specific topic.",
+    image: workshops
   },
   {
     name: "EletroLink",
-    description: "A new, exciting booth where students can engage in 1-on-1 conversations with companies and potentially find their next job or internship."
+    description: "A new, exciting booth where students can engage in 1-on-1 conversations with companies and potentially find their next job or internship.",
+    image: eletroLink
   },
   {
     name: "Panels",
-    description: "Open conversations with industry and tech experts, where you can ask questions, debate ideas, and dive into the topics that matter most today."
+    description: "Open conversations with industry and tech experts, where you can ask questions, debate ideas, and dive into the topics that matter most today.",
+    image: panels,
   },
   {
     name: "Job Fair",
-    description: "Head to the main space of JEEC for a unique chance to meet top companies face-to-face. Discover internship opportunities, ask questions, and make connections that could shape your future."
+    description: "Head to the main space of JEEC for a unique chance to meet top companies face-to-face. Discover internship opportunities, ask questions, and make connections that could shape your future.",
+    image: jobFair
   },
   {
     name: "Keynote Speakers",
-    description: "Get inspired by our keynote speakers - industry leaders and innovators ready to share their stories, insights, and advice to help you kickstart your journey."
+    description: "Get inspired by our keynote speakers - industry leaders and innovators ready to share their stories, insights, and advice to help you kickstart your journey.",
+    image: keynoteSpeakers
   },
   {
     name: "Alumni Talks",
-    description: "Chat with graduates about their career journeys, insights, and tips - discover pathways in engineering and tech straight from those who've been there."
+    description: "Chat with graduates about their career journeys, insights, and tips - discover pathways in engineering and tech straight from those who've been there.",
+    image: alumniTalks
   }
 ]
 
@@ -97,7 +114,7 @@ function offerCallback(index) {
     <div class="offers">
       <button class="offer highlight-border" v-for="(offer, index) in offers" :key="offer.name"
         @click="offerCallback(index)" :class="{ active: selected == index }">
-        <div class="offer-background"></div>
+        <div class="offer-background" :style="`background-image: url(${offer.image})`"></div>
         <div class="title-wrapper">
           <p>{{ offer.name }}</p>
         </div>
@@ -199,8 +216,8 @@ button.offer.active::before {
   left: var(--border-padding);
   width: calc(100% - var(--border-padding)*2);
   height: calc(100% - var(--border-padding)*2);
-  background: url('@/assets/IMG_4189 2.png');
   background-size: cover;
+  background-position: center;
   padding: 1ch;
   z-index: -1;
 }
