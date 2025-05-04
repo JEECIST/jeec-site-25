@@ -1,145 +1,92 @@
 <script setup>
 import TheHighlightDivider from '@/components/TheHighlightDivider.vue'
-import { useSlots, defineProps, onMounted, ref, watchEffect, computed } from 'vue'
+import { useSlots, defineProps, computed } from 'vue'
 import fallbackImg from '@/assets/home/hero_section_temp.png'
-import axios from 'axios'
+import defaultImg from '@/assets/default_jeec_image.webp'
 
 const slots = useSlots()
 
 const props = defineProps({
   team: {
-    team: Object,
-    default: {
+    type: Object,
+    default: () => ({
       name: 'Default',
+      id: 0,
+      image: fallbackImg,
       description: 'Connecting the best students, companies and engineers for over 20 years!',
       members: [],
-    },
+    })
   },
-})
-
-const fetchData = () => {
-  axios
-    .get(import.meta.env.VITE_APP_JEEC_WEBSITE_BRAIN_URL + '/teams_new', {
-      auth: {
-        username: import.meta.env.VITE_APP_JEEC_WEBSITE_USERNAME,
-        password: import.meta.env.VITE_APP_JEEC_WEBSITE_KEY,
-      },
-    })
-    .then(() => {
-      // Handle the response if needed
-    })
-}
-
-const sortedMembers = computed(() => {
-  return [...props.team.members]
-    .map((member) => ({
-      ...member,
-    }))
-    .sort((a, b) => {
-      if (a.background === b.background) {
-        return a.name.localeCompare(b.name)
-      }
-      return a.background ? -1 : 1
-    })
-})
-
-const handleClick = (url) => {
-  if (url) {
-    window.open(url, '_blank')
-  } else {
-    window.location.reload()
+  isEven: {
+    type: Boolean,
+    default: false
   }
-}
-
-onMounted(() => {
-  fetchData()
 })
 
-const dropShadowColor = ref('var(--c-ds)')
-
-watchEffect(() => {
+const dropShadowColor = computed(() => {
   switch (props.team.name) {
     case 'Coordination':
-      dropShadowColor.value = 'var(--c-acc-blue)'
-      break
+      return 'var(--c-acc-blue)'
     case 'Business':
-      dropShadowColor.value = 'var(--c-acc-orange)'
-      break
+      return 'var(--c-acc-orange)'
     case 'Speakers':
-      dropShadowColor.value = 'var(--c-acc-yellow)'
-      break
+      return 'var(--c-acc-yellow)'
     case 'Logistics':
-      dropShadowColor.value = 'var(--c-acc-dark-blue)'
-      break
+      return 'var(--c-acc-lighter-dark-blue)'
     case 'WebDev':
-      dropShadowColor.value = 'var(--c-acc-lilac)'
-      break
+      return 'var(--c-acc-lilac)'
     case 'Marketing':
-      dropShadowColor.value = 'var(--c-acc-strong-pink)'
-      break
+      return 'var(--c-acc-strong-pink)'
     default:
-      dropShadowColor.value = 'var(--c-ds)'
+      return 'var(--c-ds)'
   }
 })
 </script>
 
 <template>
-  <section class="team-section">
-    <div class="sub-section">
-      <TheHighlightDivider :top="true" :dropShadowColor="dropShadowColor" />
-      <div class="content" :style="`--acc-color: ${dropShadowColor}`">
-        <div class="top-content">
-          <slot name="content" v-if="slots.content"></slot>
-          <div class="offer" v-else>
-            <h3>{{ team.name }}</h3>
-            <div class="highlight" />
-            <p>{{ team.description }}</p>
-          </div>
-          <div class="image-wrapper" v-if="slots.image">
-            <slot name="image" />
-          </div>
-          <div class="image-wrapper" v-else>
-            <img :src="team.image" />
-          </div>
+  <section class="team-section" :class="{ even: props.isEven }" :id="team.name.toLowerCase()">
+    <TheHighlightDivider :top="true" :flipped="!props.isEven" :dropShadowColor="dropShadowColor"
+      :shadowPosition="'0 -2px 50px'" />
+    <slot name="content" v-if="slots.content"></slot>
+    <div v-else class="content" :style="`--acc-color: ${dropShadowColor}`">
+      <div class="top-content">
+        <div class="team-description">
+          <h3>{{ team.name }}</h3>
+          <div class="highlight" />
+          <p>{{ team.description }}</p>
         </div>
-        <div class="bottom-content">
-          <slot name="bottom" v-if="slots.bottom"></slot>
-          <div class="team_members-wrapper" v-else>
-            <div class="team_members">
-              <div class="member" v-for="member in sortedMembers" :key="member.name"
-                :style="member.background ? { '--memberShadowColor': dropShadowColor } : {}">
-                <div class="member-img-wrapper" @click="handleClick(member.linkedin)" :style="{
-                  '--hoverBg': dropShadowColor,
-                  border: member.background ? '3px solid var(--memberShadowColor)' : 'none',
-                  boxShadow: member.background ? '0 0 5px var(--memberShadowColor)' : 'none',
-                }">
-                  <img :src="member.image" :alt="member.name" class="member-img"
-                    @error="(e) => (e.target.src = fallbackImg)" />
-                  <div class="overlay" />
-                  <img v-if="member.linkedin" src="@/assets/team/linkedin.svg" alt="LinkedIn" class="linkedin-icon" />
-                </div>
-                <p>{{ member.name }}</p>
-              </div>
-            </div>
-          </div>
+        <div class="team-image">
+          <img :src="team.image" />
         </div>
       </div>
-      <TheHighlightDivider :bottom="true" :dropShadowColor="dropShadowColor" />
+      <div class="bottom-content">
+        <div class="member" v-for="member in team.members" :key="member.name">
+          <a class="member-image" :class="{ spotlight: member.spotlight }" :href="member.linkedin" target="_blank">
+            <img :src="member.image != null ? member.image : defaultImg" :alt="member.name" />
+            <div class="overlay">
+              <img src="@/assets/team/linkedin.svg" alt="LinkedIn" class="linkedin-icon" />
+            </div>
+          </a>
+          <p>{{ member.name }}</p>
+        </div>
+      </div>
     </div>
+    <TheHighlightDivider :bottom="true" :flipped="!props.isEven" :dropShadowColor="dropShadowColor"
+      :shadowPosition="'0 2px 50px'" />
   </section>
 </template>
 
 <style scoped>
-.team-section {
-  padding: 5rem 0;
+.team-section:nth-child(2) {
+  margin-top: calc(2.5vw + 1rem);
 }
 
-.sub-section {
+.team-section {
   position: relative;
   display: flex;
   width: 100%;
   justify-content: center;
-  margin-bottom: 4rem;
+  margin: calc(2.5vw + 4rem) 0;
 }
 
 .content {
@@ -170,32 +117,23 @@ watchEffect(() => {
   height: 100%;
   display: flex;
   justify-content: space-around;
-  gap: 10ch;
+  gap: 2ch;
   align-items: center;
-}
-
-.team-section:nth-child(odd) .top-content {
-  flex-direction: row-reverse;
-  text-align: right;
-}
-
-.team-section:nth-child(even) .top-content {
   flex-direction: row;
   text-align: left;
 }
 
-.bottom-content {
-  width: 100%;
+.team-section.even .top-content {
+  flex-direction: row-reverse;
+  text-align: right;
 }
 
-.offer {
+.team-description {
   max-width: 40ch;
   flex: 1;
-  padding-top: 2rem;
 }
 
-.offer h3 {
-  padding-bottom: 1rem;
+.team-description h3 {
   font-weight: 800;
   font-size: 1.5rem;
 }
@@ -204,7 +142,7 @@ watchEffect(() => {
   width: 100%;
   height: 2px;
   border-radius: 4px;
-  background: linear-gradient(to right,
+  background: linear-gradient(to left,
       transparent 0%,
       color-mix(in srgb, var(--acc-color) 38%, transparent) 50%,
       var(--acc-color) 100%);
@@ -212,57 +150,42 @@ watchEffect(() => {
   margin-bottom: 1.2rem;
 }
 
-.team-section:nth-child(even) .highlight {
-  background: linear-gradient(to left,
+.team-section.even .highlight {
+  background: linear-gradient(to right,
       transparent 0%,
       color-mix(in srgb, var(--acc-color) 38%, transparent) 50%,
       var(--acc-color) 100%);
 }
 
-.image-wrapper {
+.team-image {
   position: relative;
   flex: 1;
   max-width: 40ch;
   align-self: stretch;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: visible;
 }
 
-.image-wrapper img {
+.team-image img {
   position: absolute;
   bottom: 0;
   display: block;
   aspect-ratio: 1.6;
   width: 100%;
   height: auto;
-  border-radius: 5%;
+  border-radius: 15px;
   object-fit: cover;
 }
 
-.team_members-wrapper {
+.bottom-content {
+  width: 100%;
   display: flex;
   justify-content: center;
-  padding-inline: 2rem;
-  /* match the gap below */
-}
-
-.team_members {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  /* Always 4 per row */
-  gap: 2rem;
-  /* Adjust if needed */
-  width: 100%;
-  justify-items: center;
-  padding: 0 2rem;
+  flex-wrap: wrap;
+  gap: 2rem 4ch;
 }
 
 .member {
-  justify-self: center;
-  /* center the individual item in its cell */
-  max-width: 150px;
+  max-width: 10rem;
   text-align: center;
 }
 
@@ -273,20 +196,19 @@ watchEffect(() => {
   margin-top: 0.7rem;
 }
 
-.member-img-wrapper {
+.member-image {
+  display: block;
   position: relative;
   border-radius: 50%;
   overflow: hidden;
   cursor: pointer;
-  background-color: transparent;
-  transition: background-color 0.3s ease;
 }
 
-.member-img-wrapper:hover {
-  background-color: var(--hoverBg);
+.member-image.spotlight {
+  box-shadow: 0 0 20px var(--acc-color);
 }
 
-.member-img {
+.member-image>img {
   border-radius: 50%;
   width: 100%;
   aspect-ratio: 1;
@@ -294,10 +216,21 @@ watchEffect(() => {
   display: block;
 }
 
-@media screen and (max-width: 800px) {
-  .team_members {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  }
+.overlay {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: color-mix(in srgb, var(--acc-color) 70%, transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.member-image:hover .overlay {
+  opacity: 1;
 }
 
 .linkedin-icon {
@@ -307,39 +240,53 @@ watchEffect(() => {
   transform: translate(-50%, -50%);
   width: 35%;
   height: 35%;
-  opacity: 0;
   transition: opacity 0.3s ease;
-  z-index: 2;
+  z-index: 3;
   filter: brightness(0) invert(1);
 }
 
-.member-img-wrapper:hover .linkedin-icon {
-  opacity: 1;
-}
-
-.overlay {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-color: var(--hoverBg);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 1;
-}
-
-.member-img-wrapper:hover .overlay {
-  opacity: 0.5;
-}
-
-@media screen and (max-width: 1050px) {
+@media screen and (max-width: 1000px) {
   .content {
-    padding: 0 5ch;
+    gap: 2ch;
+    padding: 3rem 4ch;
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 850px) {
+  .team-section {
+    margin: calc(2.5vw + 8rem) 0;
+  }
+
   .content {
-    padding: 2rem 2ch;
+    gap: 4rem
+  }
+
+  .top-content:not(#i) {
+    flex-direction: column-reverse;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .team-image {
+    align-self: center;
+    width: 100%;
+    min-height: 6rem;
+  }
+
+  .highlight {
+    background: linear-gradient(to right,
+        transparent 0%,
+        color-mix(in srgb, var(--acc-color) 50%, transparent) 20%,
+        var(--acc-color) 50%,
+        color-mix(in srgb, var(--acc-color) 50%, transparent) 80%,
+        transparent 100%);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .content {
+    padding: 3rem 2ch;
   }
 }
 </style>

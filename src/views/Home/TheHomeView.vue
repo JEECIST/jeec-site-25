@@ -57,8 +57,7 @@ const sections = [
   {
     component: kSection,
     color: router.getRoutes().find(route => route.name === 'team').meta.accColor,
-    // deactivated: router.getRoutes().find(route => route.name === 'team').meta.deactivated,
-    deactivated: false,
+    deactivated: router.getRoutes().find(route => route.name === 'team').meta.deactivated,
   },
 ];
 

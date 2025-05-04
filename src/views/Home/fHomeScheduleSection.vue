@@ -1,13 +1,7 @@
 <script setup>
-const nextActivities = [{
-  name: "15/15",
-  id: "0"
-},
-{
-  name: "Eletrolink",
-  id: "1"
-}
-]
+import { onMounted } from 'vue';
+import { useHomeScheduleStore } from '@/stores/homeSchedule';
+import { storeToRefs } from 'pinia';
 
 const props = defineProps({
   isEven: {
@@ -18,7 +12,13 @@ const props = defineProps({
     type: String,
     default: '--c-acc-blue'
   }
-})
+});
+
+const homeScheduleStore = useHomeScheduleStore()
+const { nextActivities } = storeToRefs(homeScheduleStore);
+onMounted(async () => {
+  await homeScheduleStore.fetchData();
+});
 </script>
 
 <template>
@@ -48,6 +48,7 @@ const props = defineProps({
   flex-direction: row-reverse;
   gap: 5ch;
   text-align: start;
+  width: min(100%, 1300px);
 }
 
 .content.even:not(#i) {
@@ -57,7 +58,8 @@ const props = defineProps({
 
 .description {
   max-width: 40ch;
-  padding: 1rem 0;
+  padding-top: 3rem;
+  padding-bottom: 1rem;
   flex-basis: 40%;
   align-self: flex-start;
 }
@@ -82,5 +84,40 @@ const props = defineProps({
 
 .description p {
   padding-top: 2rem;
+}
+
+.description a.page-link {
+  display: inline-block;
+  padding-top: 1rem;
+  color: var(--acc-color);
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 950px) {
+  .content:not(#i#i) {
+    flex-direction: column;
+    text-align: center;
+    gap: 0;
+  }
+
+  .positioner {
+    align-self: center;
+    max-width: 60ch;
+    width: 100%;
+  }
+
+  .description {
+    max-width: 50ch;
+    align-self: unset;
+  }
+
+  .description .highlight {
+    background: linear-gradient(to right,
+        transparent 0%,
+        color-mix(in srgb, var(--acc-color) 50%, transparent) 20%,
+        var(--acc-color) 50%,
+        color-mix(in srgb, var(--acc-color) 50%, transparent) 80%,
+        transparent 100%);
+  }
 }
 </style>

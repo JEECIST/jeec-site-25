@@ -9,7 +9,6 @@ import alumniTalks from '@/assets/home/offers/AlumniTalks.webp';
 import keynoteSpeakers from '@/assets/home/offers/KeynoteSpeakers.webp';
 import eletroLink from '@/assets/home/offers/Eletrolink.webp';
 
-
 const props = defineProps({
   isEven: {
     type: Boolean,

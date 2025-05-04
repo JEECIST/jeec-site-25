@@ -1,10 +1,9 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
-export const useTeamStore = defineStore('team', {
+export const useHomeScheduleStore = defineStore('homeSchedule', {
   state: () => ({
-    teams: [],
-    allowedTeams: ['COORDINATION', 'SPEAKERS', 'LOGISTICS', 'WEBDEV', 'BUSINESS', 'MARKETING'],
+    nextActivities: [],
     isLoaded: false,
   }),
 
@@ -14,23 +13,19 @@ export const useTeamStore = defineStore('team', {
 
       this.isLoaded = true
       await axios
-        .get(import.meta.env.VITE_APP_JEEC_WEBSITE_API_URL + '/team_website', {
+        .get(import.meta.env.VITE_APP_JEEC_WEBSITE_API_URL + '/get-next-activities', {
           auth: {
             username: import.meta.env.VITE_APP_JEEC_WEBSITE_USERNAME,
             password: import.meta.env.VITE_APP_JEEC_WEBSITE_KEY,
           },
         })
         .then(async (response) => {
-          this.teams = response.data.teams.filter((team) =>
-            this.allowedTeams.includes(team.name?.trim().toUpperCase()),
-          )
-          this.teams.forEach((team) => {
-            team.members.sort((a, b) => b.spotlight - a.spotlight)
-          })
+          console.log(response.data)
+          this.nextActivities = response.data
         })
         .catch((error) => {
           this.isLoaded = false
-          console.error('Error fetching team:', error)
+          console.error('Error fetching next activities:', error)
           return false
         })
 

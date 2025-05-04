@@ -2,17 +2,17 @@
   <div v-if="top" class="divider top">
     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
       <path v-if="!flipped" d="M 100 100 V 50 L 0 0 V 100 Z" class="path"
-        :style="{ filter: `drop-shadow(0 0 32px ${dropShadowColor})` }"></path>
+        :style="{ filter: `drop-shadow(${shadowPosition} ${dropShadowColor}) ${extraFilters}` }"></path>
       <path v-else d="M 0 100 V 50 L 100 0 V 100 Z" class="path"
-        :style="{ filter: `drop-shadow(0 0 32px ${dropShadowColor})` }"></path>
+        :style="{ filter: `drop-shadow(${shadowPosition} ${dropShadowColor}) ${extraFilters}` }"></path>
     </svg>
   </div>
   <div v-else class="divider bottom">
     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
       <path v-if="flipped" d="M 0 0 V 50 L 100 100 V 0 Z" class="path"
-        :style="{ filter: `drop-shadow(0 0 32px ${dropShadowColor})` }"></path>
+        :style="{ filter: `drop-shadow(${shadowPosition} ${dropShadowColor}) ${extraFilters}` }"></path>
       <path v-else d="M 100 0 V 50 L 0 100 V 0 Z" class="path"
-        :style="{ filter: `drop-shadow(0 0 32px ${dropShadowColor})` }"></path>
+        :style="{ filter: `drop-shadow(${shadowPosition} ${dropShadowColor}) ${extraFilters}` }"></path>
     </svg>
   </div>
 </template>
@@ -30,6 +30,14 @@ defineProps({
   dropShadowColor: {
     type: String,
     default: 'var(--c-acc-blue)',
+  },
+  shadowPosition: {
+    type: String,
+    default: '0 0 32px',
+  },
+  extraFilters: {
+    type: String,
+    default: '',
   },
 })
 </script>

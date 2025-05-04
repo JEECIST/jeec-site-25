@@ -21,7 +21,7 @@ const stateStore = useStateStore();
           </li>
         </template>
       </nav>
-      <li v-if="false">
+      <li>
         <Transition name="swoosh">
           <a :key="accColor" class="webapp-button" :style="`--acc-color: var(${accColor});`" href="https://app.jeec.ist"
             target="_blank">WebApp Login</a>

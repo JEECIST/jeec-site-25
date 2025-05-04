@@ -52,7 +52,7 @@ onMounted(async () => {
     <section>
       <h1>Prizes</h1>
       <p>Log in to our app and get a chance to win these prizes!</p>
-      <a href="#" class="webapp-btn">Webapp Login</a>
+      <a href="https://app.jeec.ist/" target="_self" class="webapp-btn">Webapp Login</a>
     </section>
 
     <template v-if="isLoading">

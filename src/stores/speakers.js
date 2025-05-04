@@ -37,7 +37,7 @@ export const useSpeakersStore = defineStore('speakers', {
         })
         .catch((error) => {
           this.isLoaded = false
-          console.error(error)
+          console.error('Error fetching speakers:', error)
           return false
         })
 

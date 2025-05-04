@@ -48,7 +48,7 @@ const router = createRouter({
     {
       path: '/team',
       name: 'team',
-      meta: { title: 'Team - JEEC', accColor: '--c-acc-blue', deactivated: true },
+      meta: { title: 'Team - JEEC', accColor: '--c-acc-blue', deactivated: false },
       component: async () => await import('@/views/TeamView.vue'),
     },
     {
@@ -60,7 +60,7 @@ const router = createRouter({
     return new Promise((resolve) => {
       if (to.name === from.name && to.hash === from.hash) return false
       else if (savedPosition) setTimeout(() => resolve({ top: savedPosition.top }), 300)
-      else if (to.hash) resolve({ el: to.hash, top: 0, behavior: 'smooth' })
+      else if (to.hash) resolve({ el: to.hash, bottom: 0, behavior: 'smooth' })
       else setTimeout(() => resolve({ left: 0, top: 0 }), 300)
     })
   },

@@ -1,6 +1,6 @@
 <script setup>
 import { Carousel, Slide, Navigation } from 'vue3-carousel';
-import { onMounted, onUnmounted, ref, nextTick, watch } from 'vue';
+import { onMounted, onUnmounted, ref, nextTick, watch, useTemplateRef } from 'vue';
 
 const props = defineProps({
   isEven: {
@@ -10,6 +10,15 @@ const props = defineProps({
   },
   items: {
     type: Array,
+    default: () => [
+      {
+        name: 'Default',
+        id: 0,
+        image: '',
+        company_logo: '',
+        link: '',
+      }
+    ],
     required: true,
   },
   observerId: {
@@ -96,6 +105,8 @@ const config = {
   breakpoints: breakpoints_,
 };
 
+const homeCarousel = useTemplateRef('homeCarousel');
+
 const render = ref(true);
 const reRender = async () => {
   await nextTick();
@@ -110,6 +121,8 @@ watch(() => props.items, async () => {
 
 onMounted(async () => {
   await reRender();
+  await nextTick();
+  homeCarousel.value.updateSlideSize();
 })
 
 const observer = new IntersectionObserver((entries) => {
@@ -130,11 +143,11 @@ onUnmounted(() => {
 
 <template>
   <div class="container" :id="props.observerId">
-    <Carousel v-if="render" v-bind="config" :enabled="enabled_"
+    <Carousel v-if="render" v-bind="config" :enabled="enabled_" ref="homeCarousel"
       :class="{ speaker: props.speakerCarousel, prize: props.prizeCarousel }">
-      <Slide v-for="(item, index) in props.items" :key="'item-' + index">
-        <template v-if="item.image && item.image != ''">
-          <div v-if="props.speakerCarousel" class="card">
+      <template v-for="(item, index) in props.items" :key="'item-' + index">
+        <Slide v-if="props.speakerCarousel && item.image && item.image != ''">
+          <div class="card">
             <div class="image-wrapper">
               <img :src="item.image" :alt="item.name" />
               <div class="caption">
@@ -143,15 +156,21 @@ onUnmounted(() => {
               </div>
             </div>
           </div>
-          <div v-else-if="props.prizeCarousel" class="carousel-image">
+        </Slide>
+
+        <Slide v-else-if="props.prizeCarousel && item.image && item.image != ''">
+          <div class="carousel-image">
             <img :src="item.image" :alt="`Prize ${item.name}`">
           </div>
-          <a v-else class="carousel-image" :href="item?.link" target="_blank">
+        </Slide>
+        <Slide v-else>
+          <a class="carousel-image" :href="item?.link" target="_blank">
             <img :src="item.image" :alt="`${item.name} logo`">
           </a>
-        </template>
-        <p v-else>{{ item.name }}</p>
-      </Slide>
+        </Slide>
+
+        <!-- <p v-else>{{ item.name }}</p> -->
+      </template>
       <template v-if="props.prizeCarousel" #addons>
         <Navigation />
       </template>
@@ -164,10 +183,13 @@ onUnmounted(() => {
   width: 100%;
   container-type: inline-size;
   container-name: carousel;
+  display: flex;
 }
 
 .carousel {
+  flex-grow: 1;
   height: 200px;
+  min-width: 100%;
   position: static;
 }
 
@@ -189,6 +211,7 @@ onUnmounted(() => {
   border: 2px solid var(--acc-color);
   background-color: var(--c-bg-lighter);
   transition: transform 0.2s ease-in-out;
+  max-width: 350px;
 }
 
 .image-wrapper {
