@@ -31,8 +31,7 @@ const sections = [
   {
     component: fSection,
     color: router.getRoutes().find(route => route.name === 'schedule').meta.accColor,
-    // deactivated: router.getRoutes().find(route => route.name === 'schedule').meta.deactivated,
-    deactivated: true,
+    deactivated: router.getRoutes().find(route => route.name === 'schedule').meta.deactivated,
   },
   {
     component: gSection,

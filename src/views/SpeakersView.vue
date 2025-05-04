@@ -101,20 +101,22 @@ onUnmounted(() => { window.removeEventListener('resize', updateIsMobile); });
         <button v-if="showLeftArrow[day.id]" @click="scrollLeft(day.id)" class="carousel-btn left"> &lt; </button>
         <div class="carousel-wrapper">
           <div class="cards-container" :id="day.id">
-            <div class="card" v-for="(speaker, i) in speakers[day.key]" :key="i">
-              <div class="image-wrapper">
-                <img :src="speaker.image" :alt="speaker.name" />
-                <div class="hover-wrapper">
-                  <button class="plus-sign" @click="selectCard(speaker, day.key)">
-                    <p>+</p>
-                  </button>
-                </div>
-                <div class="caption">
-                  <img :src="speaker.company_logo" class="cap-company-logo" />
-                  <p>{{ speaker.name }}</p>
+            <template v-for="(speaker, i) in speakers[day.key]" :key="i">
+              <div class="card" v-if="speaker.image && speaker.image !== ''">
+                <div class="image-wrapper">
+                  <img :src="speaker.image" :alt="speaker.name" />
+                  <div class="hover-wrapper">
+                    <button class="plus-sign" @click="selectCard(speaker, day.key)">
+                      <p>+</p>
+                    </button>
+                  </div>
+                  <div class="caption">
+                    <img :src="speaker.company_logo" class="cap-company-logo" />
+                    <p>{{ speaker.name }}</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </template>
           </div>
         </div>
         <button v-if="showRightArrow[day.id]" @click="scrollRight(day.id)" class="carousel-btn right"> &gt; </button>

@@ -20,7 +20,7 @@
               <transition name="eletrolink-toggle">
                 <div v-if="!showEletrolinkInfo" class="row">
                   <div v-for="(eletrocomp, index) in filteredEletrocomps" :key="index" class="eletrocomp">
-                    <img :src="eletrocomp.logos_companies" alt="Eletrocomp Logo" />
+                    <img :src="eletrocomp.logo_companies" alt="Eletrocomp Logo" />
                   </div>
                 </div>
               </transition>
@@ -39,7 +39,7 @@
                 <div v-if="showEletrolinkInfo" class="eletrolink-content-grid">
                   <div v-for="(eletrocomp, index) in filteredEletrocomps" :key="index" class="eletrolink-grid-row">
                     <div class="eletrocomp">
-                      <img :src="eletrocomp.logos_companies" alt="Eletrocomp Logo" />
+                      <img :src="eletrocomp.logo_companies" alt="Eletrocomp Logo" />
                     </div>
                     <div>
                       <div class="eletrocomp-title">
@@ -101,18 +101,17 @@
                       <p>{{ activity.date }}</p>
                     </div>
                   </transition>
-                  <button :class="['info', className(activity.type, '-info')]" @click="toggleActivityInfo(index)">{{
-                    isExpanded(index) ? '−info' : '+info' }}</button>
+                  <button :class="['info', className(activity.type, '-info')]"
+                    @click="toggleActivityInfo(index), console.log(activity)">{{
+                      isExpanded(index) ? '−info' : '+info' }}</button>
                 </div>
                 <div class="logos">
-                  <!-- Container fixo para o company logo -->
                   <div v-if="activity?.speakers?.length > 0" class="logo-container company-logo-container"
                     :class="className(activity.type, '-logo')">
                     <transition name="logo-fade" mode="out-in">
                       <img v-if="activity?.speakers?.[currentLogoIndex?.[activity.id] ?? 0]?.logo_company"
                         :key="'company-' + (currentLogoIndex?.[activity.id] ?? 0)"
-                        :src="base_path + activity.speakers[currentLogoIndex[activity.id] ?? 0].logo_company"
-                        class="logo-image" />
+                        :src="activity.speakers[currentLogoIndex[activity.id] ?? 0].logo_company" class="logo-image" />
                     </transition>
                   </div>
 
@@ -121,14 +120,13 @@
                       <template v-if="activity?.speakers?.length > 0">
                         <img v-if="activity.speakers[currentLogoIndex?.[activity.id] ?? 0]?.logo_speaker"
                           :key="'speaker-' + (currentLogoIndex?.[activity.id] ?? 0)"
-                          :src="base_path + activity.speakers[currentLogoIndex[activity.id] ?? 0].logo_speaker"
+                          :src="activity.speakers[currentLogoIndex[activity.id] ?? 0].logo_speaker"
                           class="logo-image" />
                       </template>
                       <template v-else-if="activity?.logo_companies?.length > 0">
                         <img v-if="activity.logo_companies[currentLogoIndex?.[activity.id] ?? 0]"
                           :key="'company-' + (currentLogoIndex?.[activity.id] ?? 0)"
-                          :src="base_path + activity.logo_companies[currentLogoIndex[activity.id] ?? 0]"
-                          class="logo-image" />
+                          :src="activity.logo_companies[currentLogoIndex[activity.id] ?? 0]" class="logo-image" />
                       </template>
                       <template v-else>
                         <div class="logo-default"></div>
@@ -176,8 +174,11 @@
             <template v-if="filteredEletrocomps.length">
               <transition name="eletrolink-toggle">
                 <div v-if="!showEletrolinkInfo" class="row">
-                  <div v-for="(eletrocomp, index) in filteredEletrocomps" :key="index" class="eletrocomp">
-                    <img :src="eletrocomp.logos_companies" alt="Eletrocomp Logo" />
+                  <div v-for="(eletrocomp, index) in filteredEletrocomps.slice(0, 2)" :key="index" class="eletrocomp">
+                    <img :src="eletrocomp.logo_companies" alt="Eletrocomp Logo" />
+                  </div>
+                  <div v-if="filteredEletrocomps.length > 2" class="eletrocomp more-indicator">
+                    +{{ filteredEletrocomps.length - 2 }} more
                   </div>
                 </div>
               </transition>
@@ -196,7 +197,7 @@
                 <div v-if="showEletrolinkInfo" class="eletrolink-content-grid">
                   <div v-for="(eletrocomp, index) in filteredEletrocomps" :key="index" class="eletrolink-grid-row">
                     <div class="eletrocomp">
-                      <img :src="eletrocomp.logos_companies" alt="Eletrocomp Logo" />
+                      <img :src="eletrocomp.logo_companies" alt="Eletrocomp Logo" />
                     </div>
                     <div>
                       <div class="eletrocomp-title">
@@ -264,8 +265,7 @@
                     <transition name="logo-fade" mode="out-in">
                       <img v-if="activity?.speakers?.[currentLogoIndex?.[activity.id] ?? 0]?.logo_company"
                         :key="'company-' + (currentLogoIndex?.[activity.id] ?? 0)"
-                        :src="base_path + activity.speakers[currentLogoIndex[activity.id] ?? 0].logo_company"
-                        class="logo-image" />
+                        :src="activity.speakers[currentLogoIndex[activity.id] ?? 0].logo_company" class="logo-image" />
                     </transition>
                   </div>
                   <!-- Container principal para speaker logo ou fallbacks -->
@@ -275,14 +275,13 @@
                       <template v-if="activity?.speakers?.length > 0">
                         <img v-if="activity.speakers[currentLogoIndex?.[activity.id] ?? 0]?.logo_speaker"
                           :key="'speaker-' + (currentLogoIndex?.[activity.id] ?? 0)"
-                          :src="base_path + activity.speakers[currentLogoIndex[activity.id] ?? 0].logo_speaker"
+                          :src="activity.speakers[currentLogoIndex[activity.id] ?? 0].logo_speaker"
                           class="logo-image" />
                       </template>
                       <template v-else-if="activity?.logo_companies?.length > 0">
                         <img v-if="activity.logo_companies[currentLogoIndex?.[activity.id] ?? 0]"
                           :key="'company-' + (currentLogoIndex?.[activity.id] ?? 0)"
-                          :src="base_path + activity.logo_companies[currentLogoIndex[activity.id] ?? 0]"
-                          class="logo-image" />
+                          :src="activity.logo_companies[currentLogoIndex[activity.id] ?? 0]" class="logo-image" />
                       </template>
                       <template v-else>
                         <div class="logo-default"></div>
@@ -499,7 +498,6 @@ async function fetchData() {
       })) || [],
       logo_companies: activity.companies || []
     }));
-
   } catch (error) {
     console.error('Erro ao buscar os dados:', error);
   } finally {
@@ -510,12 +508,18 @@ async function fetchData() {
 function rotateAllLogos() {
   const activities = filteredActivities.value;
   activities.forEach(activity => {
-    if (activity.logo_companies && activity.logo_companies.length > 1) {
+
+    const hasMultipleCompanyLogos = activity.logo_companies && activity.logo_companies.length > 1;
+    const hasMultipleSpeakers = activity.speakers && activity.speakers.length > 1;
+
+    if (hasMultipleCompanyLogos || hasMultipleSpeakers) {
       if (currentLogoIndex.value[activity.id] === undefined) {
         currentLogoIndex.value[activity.id] = 0;
       } else {
+        const maxLength = hasMultipleCompanyLogos ? activity.logo_companies.length : activity.speakers.length;
+
         currentLogoIndex.value[activity.id] =
-          (currentLogoIndex.value[activity.id] + 1) % activity.logo_companies.length;
+          (currentLogoIndex.value[activity.id] + 1) % maxLength;
       }
     }
   });
@@ -533,7 +537,8 @@ watch(filteredActivities, (newActivities) => {
 
   // Verificar se há atividades com múltiplos logos
   const hasMultipleLogos = newActivities.some(
-    activity => activity.logo_companies && activity.logo_companies.length > 1
+    activity => activity.logo_companies && activity.logo_companies.length > 1 ||
+      (activity.speakers && activity.speakers.length > 1)
   );
 
   // Iniciar intervalo global se necessário
@@ -542,7 +547,8 @@ watch(filteredActivities, (newActivities) => {
 
     // Inicializar todos os índices
     newActivities.forEach(activity => {
-      if (activity.logo_companies && activity.logo_companies.length > 1) {
+      if ((activity.logo_companies && activity.logo_companies.length > 1) ||
+        (activity.speakers && activity.speakers.length > 1)) {
         currentLogoIndex.value[activity.id] = 0;
       }
     });
@@ -832,7 +838,7 @@ h1 {
 
 .activity-discussion-panel {
   /*blue*/
-  background: rgba(21, 0, 177, 0.1);
+  background: rgba(25, 156, 255, 0.1);
   border: 2px solid var(--c-acc-blue);
 }
 
@@ -1283,8 +1289,8 @@ h1 {
 }
 
 .eletrocomp img {
-  height: auto;
-  object-fit: contain;
+  height: 100%;
+  max-width: 100%;
 }
 
 .no-companies {
@@ -1650,6 +1656,13 @@ h1 {
   font-size: 10px;
   text-decoration: underline;
   font-weight: 300;
+}
+
+.mobile .eletrocomp.more-indicator {
+  color: var(--c-acc-yellow);
+  background-color: white;
+  font-size: 0.9rem;
+  font-weight: bold;
 }
 
 .mobile .activity-inside-talks-info {

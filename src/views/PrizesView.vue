@@ -171,11 +171,11 @@ onMounted(async () => {
                 Upload your CV to our web app and enter our draw for a chance to win this prize!
               </p>
             </div>
-            <div class="prize-section">
-              <div class="circle">
-                <img v-if="prizes.cv.image" :src="prizes.cv.image" alt="CV Prize" class="prize-image">
+            <div class="carousel__slide">
+              <div class="carousel__item">
+                <img v-if="prizes.cv[0].image" :src="prizes.cv[0].image" alt="CV Prize" class="prize-image">
               </div>
-              <p class="label">{{ prizes.cv.name }}</p>
+              <p class="label">{{ prizes.cv[0].name }}</p>
             </div>
           </div>
         </section>
@@ -343,6 +343,19 @@ h1 {
   border-radius: 50%;
   display: block;
   object-fit: contain;
+}
+
+section.cv .prize-image {
+  object-fit: cover;
+}
+
+section.cv p.description {
+  display: block;
+  max-width: 60ch;
+  width: 100%;
+  padding: 0 2ch;
+  padding-bottom: 2rem;
+  margin: 0 auto;
 }
 
 @media screen and (max-width: 950px) {

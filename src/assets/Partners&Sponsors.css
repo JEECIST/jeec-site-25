@@ -90,6 +90,7 @@ h2 {
 .item img {
   max-width: 90%;
   max-height: 90%;
+  scale: 0.99;
   object-fit: contain;
 }
 
@@ -189,5 +190,9 @@ h2 {
 @media screen and (max-width: 768px) {
   .container {
     --columns: 2;
+  }
+
+  .item {
+    border-radius: 10px;
   }
 }
