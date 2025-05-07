@@ -119,7 +119,7 @@ onUnmounted(() => {
               <span class="name">{{ activity.name }}</span>
             </h3>
             <p v-if="activity.location" class="location">{{ activity.location }}</p>
-            <p class="time">{{ formatTime(activity.time) + ' - ' + formatTime(activity.end_time) }}</p>
+            <p class="time">{{ activity.time + ' - ' + activity.end_time }}</p>
           </div>
           <div class="logos">
             <div v-if="activity?.speakers?.length > 0" class="logo-container company-logo-container">

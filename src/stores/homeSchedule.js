@@ -20,7 +20,6 @@ export const useHomeScheduleStore = defineStore('homeSchedule', {
           },
         })
         .then(async (response) => {
-          console.log(response.data)
           this.nextActivities = response.data
         })
         .catch((error) => {

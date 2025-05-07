@@ -102,7 +102,7 @@
                     </div>
                   </transition>
                   <button :class="['info', className(activity.type, '-info')]"
-                    @click="toggleActivityInfo(index), console.log(activity)">{{
+                    @click="toggleActivityInfo(index)">{{
                       isExpanded(index) ? '−info' : '+info' }}</button>
                 </div>
                 <div class="logos">
