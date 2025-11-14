@@ -84,7 +84,7 @@ import TheNavButton from './TheNavButton.vue';
 header {
   width: 100%;
   height: var(--header-height);
-  background-color: color-mix(in srgb, var(--c-bg) var(--opacity), transparent);
+  background-color: color-mix(in srgb, var(--j26-dark-blue) var(--opacity), transparent);
 }
 
 header:not(.home) {

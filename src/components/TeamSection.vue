@@ -26,17 +26,17 @@ const props = defineProps({
 const dropShadowColor = computed(() => {
   switch (props.team.name) {
     case 'Coordination':
-      return 'var(--c-acc-blue)'
+      return 'var(--j26-blue)'
     case 'Business':
-      return 'var(--c-acc-orange)'
+      return 'var(--j26-pink)'
     case 'Speakers':
-      return 'var(--c-acc-yellow)'
+      return 'var(--j26-violet)'
     case 'Logistics':
-      return 'var(--c-acc-lighter-dark-blue)'
+      return 'var(--j26-light-blue)'
     case 'WebDev':
-      return 'var(--c-acc-lilac)'
+      return 'var(--j26-green)'
     case 'Marketing':
-      return 'var(--c-acc-strong-pink)'
+      return 'var(--j26-light-pink)'
     default:
       return 'var(--c-ds)'
   }
@@ -72,7 +72,7 @@ const dropShadowColor = computed(() => {
       </div>
     </div>
     <TheHighlightDivider :bottom="true" :flipped="!props.isEven" :dropShadowColor="dropShadowColor"
-      :shadowPosition="'0 2px 50px'" />
+      :shadowPosition="'0 2px 50px'"/>
   </section>
 </template>
 
@@ -90,7 +90,7 @@ const dropShadowColor = computed(() => {
 }
 
 .content {
-  background-color: var(--c-bg-lighter);
+  background-color: var(--j26-team-background);
   display: flex;
   flex-direction: column;
   padding: 3rem 10ch;

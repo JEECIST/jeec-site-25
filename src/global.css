@@ -11,7 +11,7 @@
 :root {
   --c-ds: #000000a1;
   --c-bg: #1f1f1f;
-  --c-bg-lighter: #2b2b2b;
+  --c-bg-lighterr: #2b2b2b;
   --c-ft: #efeeee;
 
   --c-acc-blue: #199cff;
@@ -38,7 +38,7 @@
 
   --header-height: 50px;
 
-  background-color: var(--c-bg);
+  /* background-color: var(--c-bg); */
   color: var(--c-ft);
   font-family: var(--font-family);
   font-size: 16px;
@@ -48,6 +48,22 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+
+
+  /*JEEC 26*/
+
+  --j26-light-blue: #00E5FF;
+  --j26-green: #00C896;
+  --j26-light-pink: #EDD2F0;
+  --j26-pink: #F16CE5;
+  --j26-violet: #B8A1FF;
+  --j26-blue: #199CFF;
+  --j26-dark-blue: #08111A;
+  --j26-team-background: #2B3A48;
+
+  background-color: var(--j26-dark-blue);
+
 }
 
 h1 {

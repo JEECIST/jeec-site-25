@@ -29,7 +29,7 @@ onUnmounted(() => {
   <div class="team__wheel" id="team__wheel">
     <div class="wheel__scale-wrapper" :style="'scale:' + wheelScaleFactor">
       <div class="wheel__item" id="wheel--logistics">
-        <img src="@/assets/team/new_logistics.svg" alt="" />
+        <img src="@/assets/team/logistics.svg" alt="" />
         <svg class="wheel__svg" fill="transparent">
           <router-link to="#logistics">
             <path class="wheel__clickable"
@@ -38,7 +38,7 @@ onUnmounted(() => {
         </svg>
       </div>
       <div class="wheel__item" id="wheel--speakers">
-        <img src="@/assets/team/new_speakers.svg" alt="" />
+        <img src="@/assets/team/speakers.svg" alt="" />
         <svg class="wheel__svg" fill="transparent">
           <router-link to="#speakers">
             <path class="wheel__clickable"
@@ -47,7 +47,7 @@ onUnmounted(() => {
         </svg>
       </div>
       <div class="wheel__item" id="wheel--business">
-        <img src="@/assets/team/new_business.svg" alt="" />
+        <img src="@/assets/team/business.svg" alt="" />
         <svg class="wheel__svg" fill="transparent">
           <router-link to="#business">
             <path class="wheel__clickable"
@@ -56,7 +56,7 @@ onUnmounted(() => {
         </svg>
       </div>
       <div class="wheel__item" id="wheel--marketing">
-        <img src="@/assets/team/new_marketing.svg" alt="" />
+        <img src="@/assets/team/marketing.svg" alt="" />
         <svg class="wheel__svg" fill="transparent">
           <router-link to="#marketing">
             <path class="wheel__clickable"
@@ -65,7 +65,7 @@ onUnmounted(() => {
         </svg>
       </div>
       <div class="wheel__item" id="wheel--webdev">
-        <img src="@/assets/team/new_webdev.svg" alt="" />
+        <img src="@/assets/team/webdev.svg" alt="" />
         <svg class="wheel__svg" fill="transparent">
           <router-link to="#webdev">
             <path class="wheel__clickable"
@@ -74,7 +74,7 @@ onUnmounted(() => {
         </svg>
       </div>
       <div class="wheel__item" id="wheel--coordination">
-        <img src="@/assets/team/new_coordination.svg" alt="" />
+        <img src="@/assets/team/coordination.svg" alt="" />
         <svg class="wheel__svg" fill="transparent">
           <router-link to="#coordination">
             <path class="wheel__clickable"
@@ -138,36 +138,36 @@ onUnmounted(() => {
 #wheel--logistics {
   top: 0;
   left: 13px;
-  filter: drop-shadow(0px 0px 5px color-mix(in srgb, var(--c-acc-lighter-dark-blue) 50%, transparent));
+  filter: drop-shadow(0px 0px 5px color-mix(in srgb, var(--j26-light-blue) 50%, transparent));
 }
 
 #wheel--speakers {
   top: 155px;
   left: 0;
-  filter: drop-shadow(0px 0px 5px color-mix(in srgb, var(--c-acc-yellow) 50%, transparent));
+  filter: drop-shadow(0px 0px 5px color-mix(in srgb, var(--j26-violet) 50%, transparent));
 }
 
 #wheel--business {
   top: 306px;
   left: 88px;
-  filter: drop-shadow(0px 0px 5px color-mix(in srgb, var(--c-acc-orange) 50%, transparent));
+  filter: drop-shadow(0px 0px 5px color-mix(in srgb, var(--j26-pink) 50%, transparent));
 }
 
 #wheel--marketing {
   top: 128px;
   left: 286px;
-  filter: drop-shadow(0px 0px 5px color-mix(in srgb, var(--c-acc-strong-pink) 50%, transparent));
+  filter: drop-shadow(0px 0px 5px color-mix(in srgb, var(--j26-light-pink) 50%, transparent));
 }
 
 #wheel--webdev {
   left: 178px;
   top: 2px;
-  filter: drop-shadow(0px 0px 5px color-mix(in srgb, var(--c-acc-violet) 50%, transparent));
+  filter: drop-shadow(0px 0px 5px color-mix(in srgb, var(--j26-green) 50%, transparent));
 }
 
 #wheel--coordination {
   top: 138px;
   left: 138px;
-  filter: drop-shadow(0px 0px 5px color-mix(in srgb, var(--c-acc-blue) 50%, transparent));
+  filter: drop-shadow(0px 0px 5px color-mix(in srgb, var(--j26-blue) 50%, transparent));
 }
 </style>

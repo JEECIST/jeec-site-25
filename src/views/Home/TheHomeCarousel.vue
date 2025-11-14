@@ -209,7 +209,7 @@ onUnmounted(() => {
   width: 100%;
   border-radius: 15px;
   border: 2px solid var(--acc-color);
-  background-color: var(--c-bg-lighter);
+  background-color: var(--j26-team-background);
   transition: transform 0.2s ease-in-out;
   max-width: 350px;
 }

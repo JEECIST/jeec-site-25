@@ -84,7 +84,7 @@ h1 {
 }
 
 .subtitle-content {
-  background-color: var(--c-bg-lighter);
+  background-color: var(--j26-team-background);
   display: flex;
   padding: 3rem 10ch;
   z-index: 1;

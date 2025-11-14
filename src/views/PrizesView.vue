@@ -187,7 +187,7 @@ onMounted(async () => {
 
 <style scoped>
 .view {
-  --acc-color: var(--c-acc-violet);
+  --acc-color: var(--j26-light-blue);
   padding-top: var(--header-height);
   padding-bottom: 5rem;
 }
@@ -244,8 +244,8 @@ h1 {
 
 .div-rule {
   height: 2px;
-  background-color: var(--c-acc-violet);
-  background: linear-gradient(to right, var(--c-bg), var(--c-acc-violet), var(--c-bg));
+  background-color: var(--j26-light-blue);
+  background: linear-gradient(to right, var(--c-bg), var(--j26-light-blue), var(--c-bg));
   margin: 3rem 0;
 }
 
@@ -267,7 +267,7 @@ h1 {
 
 .retry-btn {
   padding: 0.5rem 1ch;
-  background-color: var(--c-acc-violet);
+  background-color: var(--j26-light-blue);
   color: white;
   border: none;
   border-radius: 4px;
@@ -276,7 +276,7 @@ h1 {
 }
 
 .retry-btn:hover {
-  background-color: color-mix(in srgb, var(--c-acc-violet) 80%, black);
+  background-color: color-mix(in srgb, var(--j26-light-blue) 80%, black);
   transition: background-color 0.1s ease-out;
 }
 

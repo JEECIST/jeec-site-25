@@ -47,7 +47,7 @@ section>:deep(.content) {
 }
 
 section.even>:deep(.content) {
-  background-color: var(--c-bg-lighter);
+  background-color: var(--j26-team-background);
   padding: 2rem 3ch;
 }
 

@@ -118,7 +118,7 @@ onMounted(async () => {
 }
 
 .content.even .carousel-fade {
-  --bg-color: var(--c-bg-lighter);
+  --bg-color: var(--j26-team-background);
 }
 
 .carousel-fade {

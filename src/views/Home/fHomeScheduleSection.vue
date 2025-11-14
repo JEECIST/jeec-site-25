@@ -276,7 +276,7 @@ onUnmounted(() => {
 }
 
 .content.even .activity-fade {
-  --bg-color: var(--c-bg-lighter);
+  --bg-color: var(--j26-team-background);
 }
 
 .activity-fade {

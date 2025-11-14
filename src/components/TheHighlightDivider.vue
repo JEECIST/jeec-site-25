@@ -5,6 +5,21 @@
         :style="{ filter: `drop-shadow(${shadowPosition} ${dropShadowColor}) ${extraFilters}` }"></path>
       <path v-else d="M 0 100 V 50 L 100 0 V 100 Z" class="path"
         :style="{ filter: `drop-shadow(${shadowPosition} ${dropShadowColor}) ${extraFilters}` }"></path>
+      <!-- top stroke (not flipped) -->
+      <path
+        v-if="!flipped"
+        d="M 0 0 L 100 50"
+        class="stroke-line"
+        :style="{ stroke: dropShadowColor }"
+      />
+
+      <!-- top stroke (flipped) -->
+      <path
+        v-else
+        d="M 100 0 L 0 50"
+        class="stroke-line"
+        :style="{ stroke: dropShadowColor }"
+      />
     </svg>
   </div>
   <div v-else class="divider bottom">
@@ -13,6 +28,21 @@
         :style="{ filter: `drop-shadow(${shadowPosition} ${dropShadowColor}) ${extraFilters}` }"></path>
       <path v-else d="M 100 0 V 50 L 0 100 V 0 Z" class="path"
         :style="{ filter: `drop-shadow(${shadowPosition} ${dropShadowColor}) ${extraFilters}` }"></path>
+      <!-- bottom stroke (not flipped) -->
+      <path
+        v-if="!flipped"
+        d="M 0 100 L 100 50"
+        class="stroke-line"
+        :style="{ stroke: dropShadowColor }"
+      />
+
+      <!-- bottom stroke (flipped) -->
+      <path
+        v-else
+        d="M 100 100 L 0 50"
+        class="stroke-line"
+        :style="{ stroke: dropShadowColor }"
+      />
     </svg>
   </div>
 </template>
@@ -52,6 +82,19 @@ defineProps({
   height: 5vw;
 }
 
+.path {
+  fill: var(--j26-team-background);
+}
+
+.stroke-line {
+  fill: none;
+  stroke-width: 2px;
+  vector-effect: non-scaling-stroke;
+}
+
+
+
+
 .divider.top {
   top: 2.5vw;
   transform: translateY(-100%);
@@ -71,6 +114,6 @@ defineProps({
 }
 
 .divider svg .path {
-  fill: var(--c-bg-lighter);
+  fill: var(--j26-team-background);
 }
 </style>

@@ -151,7 +151,7 @@ onUnmounted(() => { window.removeEventListener('resize', updateIsMobile); });
 <style scoped>
 .view {
   padding-top: var(--header-height);
-  --acc-color: var(--c-acc-yellow);
+  --acc-color: var(--j26-purple);
   display: block;
   padding-right: 0;
   padding-left: 0;
@@ -264,7 +264,7 @@ h2 {
   width: 23ch;
   border-radius: 15px;
   border: 2px solid var(--acc-color);
-  background-color: var(--c-bg-lighter);
+  background-color: var(--j26-team-background);
   transition: transform 0.2s ease-in-out;
 }
 
