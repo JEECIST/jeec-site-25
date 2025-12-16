@@ -55,6 +55,10 @@ h2 {
   );
 }
 
+.tier_spacer {
+  padding-top: 5rem;
+}
+
 .tier {
   width: 100%;
 }
