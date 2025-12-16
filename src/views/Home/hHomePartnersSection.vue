@@ -1,42 +1,49 @@
 <script setup>
-import CompanyCarousel from './TheHomeCarousel.vue';
-import { onMounted } from 'vue';
-import { usePartnersStore } from "../../stores/partners";
-import { storeToRefs } from 'pinia';
+import CompanyCarousel from './TheHomeCarousel.vue'
+import { onMounted } from 'vue'
+import { usePartnersStore } from '../../stores/partners'
+import { storeToRefs } from 'pinia'
 
 const props = defineProps({
   isEven: {
     type: Boolean,
-    default: false
+    default: false,
   },
   accColor: {
     type: String,
-    default: '--c-acc-blue'
-  }
-});
+    default: '--c-acc-blue',
+  },
+})
 
 const partnersStore = usePartnersStore()
-const { homeData } = storeToRefs(partnersStore);
+const { homeData } = storeToRefs(partnersStore)
 onMounted(async () => {
-  await partnersStore.fetchData();
-});
+  await partnersStore.fetchData()
+})
 </script>
 
 <template>
-  <div class="content" :class="{ even: props.isEven }" :style="`--acc-color: var(${props.accColor});`">
+  <div
+    class="content"
+    :class="{ even: props.isEven }"
+    :style="`--acc-color: var(${props.accColor});`"
+  >
     <div class="carousel-container">
       <div class="carousel-fade fade-left"></div>
-      <CompanyCarousel :isEven="props.isEven" :items="homeData"
-        :observerId="`partners-carousel-${props.isEven ? 'even' : 'odd'}`"></CompanyCarousel>
+      <CompanyCarousel
+        :isEven="props.isEven"
+        :items="homeData"
+        :observerId="`partners-carousel-${props.isEven ? 'even' : 'odd'}`"
+      ></CompanyCarousel>
       <div class="carousel-fade fade-right"></div>
     </div>
     <div class="description">
       <h2>Our partners</h2>
       <div class="highlight"></div>
       <p>
-        Our partners are industry leaders in tech and engineering, fueling JEEC with expertise and opportunity. They
-        engage directly with students, showcase breakthrough projects, and open doors to internships and careers-driving
-        innovation and shaping tomorrow, today.
+        Our partners are industry leaders in tech and engineering, fueling JEEC with expertise and
+        opportunity. They engage directly with students, showcase breakthrough projects, and open
+        doors to internships and careers-driving innovation and shaping tomorrow, today.
       </p>
       <router-link class="page-link" to="partners">Learn more</router-link>
     </div>
@@ -85,10 +92,12 @@ onMounted(async () => {
   width: 100%;
   height: 2px;
   border-radius: 4px;
-  background: linear-gradient(to right,
-      transparent 0%,
-      color-mix(in srgb, var(--acc-color) 38%, transparent) 50%,
-      var(--acc-color) 100%);
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    color-mix(in srgb, var(--acc-color) 38%, transparent) 50%,
+    var(--acc-color) 100%
+  );
 }
 
 .content:not(.even) .description .highlight {
@@ -122,7 +131,7 @@ onMounted(async () => {
 }
 
 .carousel-fade {
-  --bg-color: var(--c-bg);
+  --bg-color: var(--j26-dark-blue);
   position: absolute;
   z-index: 2;
   top: 50%;
@@ -176,8 +185,6 @@ onMounted(async () => {
   right: -2px;
 }
 
-
-
 @media screen and (min-width: 1200px) {
   .content.even .carousel-container {
     padding-left: 3px;
@@ -226,12 +233,14 @@ onMounted(async () => {
   }
 
   .description .highlight {
-    background: linear-gradient(to right,
-        transparent 0%,
-        color-mix(in srgb, var(--acc-color) 50%, transparent) 20%,
-        var(--acc-color) 50%,
-        color-mix(in srgb, var(--acc-color) 50%, transparent) 80%,
-        transparent 100%);
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      color-mix(in srgb, var(--acc-color) 50%, transparent) 20%,
+      var(--acc-color) 50%,
+      color-mix(in srgb, var(--acc-color) 50%, transparent) 80%,
+      transparent 100%
+    );
   }
 
   .carousel-container {
@@ -258,8 +267,6 @@ onMounted(async () => {
 }
 
 @media screen and (max-width: 750px) {
-
-
   .carousel-fade {
     box-shadow: var(--bg-color) 50px 0 40px;
   }
@@ -273,6 +280,5 @@ onMounted(async () => {
     right: calc(100% - 0.5rem);
     transform: rotate(-5deg);
   }
-
 }
 </style>

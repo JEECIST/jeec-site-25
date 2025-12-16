@@ -49,21 +49,19 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-
-
   /*JEEC 26*/
 
-  --j26-light-blue: #00E5FF;
-  --j26-green: #00C896;
-  --j26-light-pink: #EDD2F0;
-  --j26-pink: #F16CE5;
-  --j26-violet: #B8A1FF;
-  --j26-blue: #199CFF;
-  --j26-dark-blue: #08111A;
-  --j26-team-background: #2B3A48;
+  --j26-light-blue: #00e5ff;
+  --j26-green: #00c896;
+  --j26-light-pink: #edd2f0;
+  --j26-pink: #f16ce5;
+  --j26-violet: #b8a1ff;
+  --j26-blue: #199cff;
+  --j26-orange: #ffbfa3;
+  --j26-dark-blue: #08111a;
+  --j26-team-background: #2b3a48;
 
   background-color: var(--j26-dark-blue);
-
 }
 
 h1 {

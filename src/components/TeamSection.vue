@@ -15,12 +15,12 @@ const props = defineProps({
       image: fallbackImg,
       description: 'Connecting the best students, companies and engineers for over 20 years!',
       members: [],
-    })
+    }),
   },
   isEven: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 })
 
 const dropShadowColor = computed(() => {
@@ -30,13 +30,15 @@ const dropShadowColor = computed(() => {
     case 'Business':
       return 'var(--j26-pink)'
     case 'Speakers':
-      return 'var(--j26-violet)'
-    case 'Logistics':
       return 'var(--j26-light-blue)'
-    case 'WebDev':
+    case 'Logistics':
       return 'var(--j26-green)'
+    case 'WebDev':
+      return 'var(--j26-orange)'
     case 'Marketing':
       return 'var(--j26-light-pink)'
+    case 'Design':
+      return 'var(--j26-violet)'
     default:
       return 'var(--c-ds)'
   }
@@ -45,8 +47,12 @@ const dropShadowColor = computed(() => {
 
 <template>
   <section class="team-section" :class="{ even: props.isEven }" :id="team.name.toLowerCase()">
-    <TheHighlightDivider :top="true" :flipped="!props.isEven" :dropShadowColor="dropShadowColor"
-      :shadowPosition="'0 -2px 50px'" />
+    <TheHighlightDivider
+      :top="true"
+      :flipped="!props.isEven"
+      :dropShadowColor="dropShadowColor"
+      :shadowPosition="'0 -2px 50px'"
+    />
     <slot name="content" v-if="slots.content"></slot>
     <div v-else class="content" :style="`--acc-color: ${dropShadowColor}`">
       <div class="top-content">
@@ -61,7 +67,12 @@ const dropShadowColor = computed(() => {
       </div>
       <div class="bottom-content">
         <div class="member" v-for="member in team.members" :key="member.name">
-          <a class="member-image" :class="{ spotlight: member.spotlight }" :href="member.linkedin" target="_blank">
+          <a
+            class="member-image"
+            :class="{ spotlight: member.spotlight }"
+            :href="member.linkedin"
+            target="_blank"
+          >
             <img :src="member.image != null ? member.image : defaultImg" :alt="member.name" />
             <div class="overlay">
               <img src="@/assets/team/linkedin.svg" alt="LinkedIn" class="linkedin-icon" />
@@ -71,8 +82,12 @@ const dropShadowColor = computed(() => {
         </div>
       </div>
     </div>
-    <TheHighlightDivider :bottom="true" :flipped="!props.isEven" :dropShadowColor="dropShadowColor"
-      :shadowPosition="'0 2px 50px'"/>
+    <TheHighlightDivider
+      :bottom="true"
+      :flipped="!props.isEven"
+      :dropShadowColor="dropShadowColor"
+      :shadowPosition="'0 2px 50px'"
+    />
   </section>
 </template>
 
@@ -142,19 +157,23 @@ const dropShadowColor = computed(() => {
   width: 100%;
   height: 2px;
   border-radius: 4px;
-  background: linear-gradient(to left,
-      transparent 0%,
-      color-mix(in srgb, var(--acc-color) 38%, transparent) 50%,
-      var(--acc-color) 100%);
+  background: linear-gradient(
+    to left,
+    transparent 0%,
+    color-mix(in srgb, var(--acc-color) 38%, transparent) 50%,
+    var(--acc-color) 100%
+  );
   margin-top: 0.2rem;
   margin-bottom: 1.2rem;
 }
 
 .team-section.even .highlight {
-  background: linear-gradient(to right,
-      transparent 0%,
-      color-mix(in srgb, var(--acc-color) 38%, transparent) 50%,
-      var(--acc-color) 100%);
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    color-mix(in srgb, var(--acc-color) 38%, transparent) 50%,
+    var(--acc-color) 100%
+  );
 }
 
 .team-image {
@@ -208,7 +227,7 @@ const dropShadowColor = computed(() => {
   box-shadow: 0 0 20px var(--acc-color);
 }
 
-.member-image>img {
+.member-image > img {
   border-radius: 50%;
   width: 100%;
   aspect-ratio: 1;
@@ -258,7 +277,7 @@ const dropShadowColor = computed(() => {
   }
 
   .content {
-    gap: 4rem
+    gap: 4rem;
   }
 
   .top-content:not(#i) {
@@ -275,12 +294,14 @@ const dropShadowColor = computed(() => {
   }
 
   .highlight {
-    background: linear-gradient(to right,
-        transparent 0%,
-        color-mix(in srgb, var(--acc-color) 50%, transparent) 20%,
-        var(--acc-color) 50%,
-        color-mix(in srgb, var(--acc-color) 50%, transparent) 80%,
-        transparent 100%);
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      color-mix(in srgb, var(--acc-color) 50%, transparent) 20%,
+      var(--acc-color) 50%,
+      color-mix(in srgb, var(--acc-color) 50%, transparent) 80%,
+      transparent 100%
+    );
   }
 }
 

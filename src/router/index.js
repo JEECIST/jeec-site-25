@@ -24,19 +24,19 @@ const router = createRouter({
     {
       path: '/prizes',
       name: 'prizes',
-      meta: { title: 'Prizes - JEEC', accColor: '--j26-light-blue', deactivated: false },
+      meta: { title: 'Prizes - JEEC', accColor: '--j26-light-blue', deactivated: true },
       component: async () => await import('@/views/PrizesView.vue'),
     },
     {
       path: '/schedule',
       name: 'schedule',
-      meta: { title: 'Schedule - JEEC', accColor: '--j26-pink', deactivated: false },
+      meta: { title: 'Schedule - JEEC', accColor: '--j26-pink', deactivated: true },
       component: async () => await import('@/views/ScheduleView.vue'),
     },
     {
       path: '/speakers',
       name: 'speakers',
-      meta: { title: 'Speakers - JEEC', accColor: '--j26-violet', deactivated: false },
+      meta: { title: 'Speakers - JEEC', accColor: '--j26-violet', deactivated: true },
       component: async () => await import('@/views/SpeakersView.vue'),
     },
     {

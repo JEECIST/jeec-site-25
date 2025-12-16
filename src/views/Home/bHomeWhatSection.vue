@@ -2,30 +2,35 @@
 const props = defineProps({
   isEven: {
     type: Boolean,
-    default: false
+    default: false,
   },
   accColor: {
     type: String,
-    default: '--c-acc-blue'
-  }
+    default: '--c-acc-blue',
+  },
 })
 </script>
 
 <template>
-  <div class="content" :class="{ even: props.isEven }" :style="`--acc-color: var(${props.accColor});`">
+  <div
+    class="content"
+    :class="{ even: props.isEven }"
+    :style="`--acc-color: var(${props.accColor});`"
+  >
     <div class="positioner">
-      <div class="image highlight-border">
-        <img src="@/assets/team/teamgroupimage.jpg" alt="">
+      <div class="image">
+        <img src="@/assets/team/teamgroupimage.jpg" alt="" />
       </div>
     </div>
     <div class="description">
       <h2>What is JEEC?</h2>
       <div class="highlight"></div>
       <p>
-        The JEEC (Electrical and Computer Engineering Week) is an event organized by students, for students, from
-        various courses at Instituto Superior Técnico, with a primary focus on Electrical and Computer Engineering. Our
-        main objective is to fill the gap between the academic and business worlds, offering a range of activities to
-        the entire community free of charge.
+        The JEEC (Electrical and Computer Engineering Week) is an event organized by students, for
+        students, from various courses at Instituto Superior Técnico, with a primary focus on
+        Electrical and Computer Engineering. Our main objective is to fill the gap between the
+        academic and business worlds, offering a range of activities to the entire community free of
+        charge.
       </p>
     </div>
   </div>
@@ -95,10 +100,12 @@ const props = defineProps({
   width: 100%;
   height: 2px;
   border-radius: 4px;
-  background: linear-gradient(to right,
-      transparent 0%,
-      color-mix(in srgb, var(--acc-color) 38%, transparent) 50%,
-      var(--acc-color) 100%);
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    color-mix(in srgb, var(--acc-color) 38%, transparent) 50%,
+    var(--acc-color) 100%
+  );
 }
 
 .content:not(.even) .description .highlight {
@@ -147,12 +154,14 @@ const props = defineProps({
   }
 
   .description .highlight {
-    background: linear-gradient(to right,
-        transparent 0%,
-        color-mix(in srgb, var(--acc-color) 50%, transparent) 20%,
-        var(--acc-color) 50%,
-        color-mix(in srgb, var(--acc-color) 50%, transparent) 80%,
-        transparent 100%);
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      color-mix(in srgb, var(--acc-color) 50%, transparent) 20%,
+      var(--acc-color) 50%,
+      color-mix(in srgb, var(--acc-color) 50%, transparent) 80%,
+      transparent 100%
+    );
   }
 }
 </style>

@@ -1,50 +1,47 @@
 <script setup>
-import bgImage from '@/assets/home/hero_section_temp.png'
 import countdown from '@/lib/countdown.esm.js/countdown.js'
 
-const now = new Date();
-const jeec_start = new Date("May 5, 2025 9:30:00");
-const jeec_end = new Date("May 9, 2025 20:00:00");
-const cd = countdown(now, jeec_start, countdown.MONTHS | countdown.DAYS | countdown.HOURS);
+const now = new Date()
+const jeec_start = new Date('Feb 23, 2026 9:30:00')
+const jeec_end = new Date('Feb 27, 2026 20:00:00')
+const cd = countdown(now, jeec_start, countdown.MONTHS | countdown.DAYS | countdown.HOURS)
 
-let state = "soon";
-let months = "99";
-let days = "99";
-let hours = "99";
+let state = 'soon'
+let months = '99'
+let days = '99'
+let hours = '99'
 
 if (jeec_end - now < 0) {
-  state = "ended";
-  months = "XX";
-  days = "XX";
-  hours = "XX";
-}
-else if (jeec_start - now < 0) {
-  state = "started";
-  months = "00";
-  days = "00";
-  hours = "00";
-}
-else {
-  state = "soon";
-  months = (cd.months < 10) ? ("0" + cd.months) : cd.months.toString();
-  days = (cd.days < 10) ? ("0" + cd.days) : cd.days.toString();
-  hours = (cd.hours < 10) ? ("0" + cd.hours) : cd.hours.toString();
+  state = 'ended'
+  months = 'XX'
+  days = 'XX'
+  hours = 'XX'
+} else if (jeec_start - now < 0) {
+  state = 'started'
+  months = '00'
+  days = '00'
+  hours = '00'
+} else {
+  state = 'soon'
+  months = cd.months < 10 ? '0' + cd.months : cd.months.toString()
+  days = cd.days < 10 ? '0' + cd.days : cd.days.toString()
+  hours = cd.hours < 10 ? '0' + cd.hours : cd.hours.toString()
 }
 </script>
 
 <template>
-  <section class="hero" :style="`background-image: url(${bgImage})`">
+  <section class="hero">
     <h1 class="hidden">JEEC Engineering & Tech Talks</h1>
-    <img class="hero_logo" src="@/assets/home/hero_logo_temp.svg" alt="JEEC Logo">
-    <p class="hero_date">May 5th to 9th 2025</p>
+    <img class="hero_logo" src="@/assets/home/hero_logo_temp.svg" alt="JEEC Logo" />
+    <p class="hero_date">Feb 23rd to 27th 2026</p>
     <template v-if="state == 'started'">
-      <p class="hero_action">JEEC has started!</p>
+      <p class="hero_action">Meet us at TIC!</p>
     </template>
     <template v-else-if="state == 'ended'">
       <p class="hero_action">See you next year!</p>
     </template>
     <template v-else>
-      <p class="hero_action">JEEC starts soon!</p>
+      <p class="hero_action">Get ready for JEEC!</p>
       <p class="hidden">{{ `${cd.months} Months, ${cd.days} Days, ${cd.hours} Hours Left!` }}</p>
     </template>
     <div class="hero_cd" aria-hidden="true">
@@ -82,6 +79,17 @@ else {
         <p>Hours</p>
       </div>
     </div>
+    <div class="hero_separator">
+      <img src="@/assets/home/hero_separator.svg" alt="" aria-hidden="true" />
+    </div>
+    <p class="hero_empower">
+      Empower your future with <span><img src="@/assets/logo_white.png" alt="JEEC" /></span>
+    </p>
+    <div class="hero_webapp">
+      <div class="webapp-arrow"></div>
+      <a class="webapp-button" href="https://app.jeec.ist" target="_blank">WebApp Login</a>
+      <div class="webapp-arrow"></div>
+    </div>
   </section>
 </template>
 
@@ -111,7 +119,7 @@ section.hero {
 
 section.hero .hero_logo {
   display: block;
-  max-width: clamp(200px, 80vw, 400px);
+  max-width: clamp(200px, 80vw, 500px);
   padding: 0 2rem;
   width: 100%;
   padding-top: 5rem;
@@ -132,8 +140,7 @@ section.hero .hero_action {
 section.hero .hero_cd {
   display: flex;
   justify-content: center;
-  padding-top: 2rem;
-  padding-bottom: 1.5em;
+  padding: 2rem 0;
   font-size: clamp(2.5rem, 7vw, 4rem);
   gap: 0.7ch;
 }
@@ -145,10 +152,10 @@ section.hero .hero_cd {
   grid-template-rows: auto auto;
   justify-items: center;
   font-size: 1em;
-  gap: .2ch;
+  gap: 0.2ch;
 }
 
-.cd-cell>p {
+.cd-cell > p {
   grid-column: 1 / -1;
   grid-row: 2;
   font-size: 0.4em;
@@ -164,7 +171,7 @@ section.hero .hero_cd {
   position: relative;
 }
 
-.cd-value>p {
+.cd-value > p {
   font-size: 1em;
   display: flex;
   align-items: center;
@@ -180,7 +187,7 @@ section.hero .hero_cd {
   backdrop-filter: blur(4px);
 }
 
-.cd-value>p:last-child {
+.cd-value > p:last-child {
   clip-path: rect(0 100% 50% 0);
   background-color: transparent;
   color: color-mix(in srgb, var(--c-ft) 100%, transparent);
@@ -188,7 +195,7 @@ section.hero .hero_cd {
   pointer-events: none;
 }
 
-.cd- .cd-value:first-of-type {
+.cd-value:first-of-type {
   grid-column: 1;
   grid-row: 1;
 }
@@ -196,5 +203,102 @@ section.hero .hero_cd {
 .cd-value:last-of-type {
   grid-column: 2;
   grid-row: 1;
+}
+
+section.hero .hero_separator {
+  width: 100%;
+  height: 300px;
+  overflow: visible;
+}
+
+.hero_separator > img {
+  width: 100%;
+  height: 100%;
+  filter: blur(20px);
+  transform: scaleY(1.5);
+}
+
+p.hero_empower {
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 300;
+  padding: 2rem 2ch;
+}
+
+p.hero_empower span img {
+  padding-left: 0.2ch;
+  padding-bottom: 0.1rem;
+  height: 1.2em;
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+section.hero .hero_webapp {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 900px;
+  padding: 0 1ch;
+  padding-top: 2rem;
+  padding-bottom: 10rem;
+}
+
+.webapp-button {
+  padding: 0.8rem 2ch;
+  flex-grow: 1;
+  word-break: keep-all;
+  border: var(--c-acc-blue) 2px solid;
+  border-radius: 1000px;
+  font-weight: 700;
+  box-shadow: inset 3px 5px 5px color-mix(in srgb, var(--c-acc-blue) 40%, transparent);
+  background-color: color-mix(in srgb, var(--c-acc-blue) 20%, transparent);
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  text-decoration: none;
+}
+
+.webapp-arrow {
+  min-width: 20px;
+  flex-grow: 1;
+  height: 2px;
+  background: var(--c-acc-blue);
+  position: relative;
+}
+
+.webapp-arrow::before {
+  --radius: 5px;
+  content: '';
+  position: absolute;
+  width: calc(var(--radius) * 2);
+  aspect-ratio: 1 / 1;
+  right: calc(0% - var(--radius));
+  top: calc(50% - var(--radius));
+  border: none;
+  border-radius: 50%;
+  background-color: var(--c-acc-blue);
+}
+
+.webapp-arrow:last-child::before {
+  left: calc(0% - var(--radius));
+}
+
+@media screen and (max-width: 700px) {
+  .hero_separator > img {
+    transform: scaleY(1.2);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .hero_separator > img {
+    transform: scaleY(1);
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .hero_separator > img {
+    transform: scaleY(0.8);
+  }
 }
 </style>
