@@ -45,6 +45,8 @@ onMounted(async () => {
       <template #bottom></template>
     </TeamSection>
 
+    <div style="height: 20px;"></div>
+
     <template v-for="(team, index) in teams" :key="team.id">
       <TeamSection :team="team" :isEven="(index % 2) == 0" />
     </template>

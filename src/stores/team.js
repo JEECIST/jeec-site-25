@@ -4,7 +4,7 @@ import axios from 'axios'
 export const useTeamStore = defineStore('team', {
   state: () => ({
     teams: [],
-    allowedTeams: ['COORDINATION', 'SPEAKERS', 'LOGISTICS', 'WEBDEV', 'BUSINESS', 'MARKETING'],
+    allowedTeams: ['COORDINATION', 'SPEAKERS', 'LOGISTICS', 'WEBDEV', 'BUSINESS', 'MARKETING', 'DESIGN'],
     isLoaded: false,
   }),
 

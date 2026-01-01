@@ -8,7 +8,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      meta: { title: 'JEEC - May 5th to 9th', accColor: '--c-acc-blue', deactivated: false },
+      meta: { title: 'JEEC', accColor: '--c-acc-blue', deactivated: false },
       component: HomeView,
     },
     {
@@ -18,7 +18,7 @@ const router = createRouter({
     {
       path: '/partners',
       name: 'partners',
-      meta: { title: 'Partners - JEEC', accColor: '--j26-light-blue', deactivated: false },
+      meta: { title: 'Partners - JEEC', accColor: '--j26-light-blue', deactivated: true },
       component: async () => await import('@/views/PartnersView.vue'),
     },
     {
@@ -42,7 +42,7 @@ const router = createRouter({
     {
       path: '/sponsors',
       name: 'sponsors',
-      meta: { title: 'Sponsors - JEEC', accColor: '--j26-pink', deactivated: false },
+      meta: { title: 'Sponsors - JEEC', accColor: '--j26-pink', deactivated: true },
       component: async () => await import('@/views/SponsorsView.vue'),
     },
     {

@@ -20,16 +20,26 @@ const props = defineProps({
     <div class="description">
       <h2>Where is JEEC?</h2>
       <div class="highlight"></div>
-      <p>Find us at <span class="tic_highlight">Técnico innovation center</span></p>
+      <p>Find us at <span class="tic_highlight">Técnico Alameda</span></p>
     </div>
     <div class="image">
-      <p class="sponsor">Powered By<img src="@/assets/home/Fidelidade_V.png" alt="Fidelidade" /></p>
-      <div class="tic">
+      <p class="sponsor">  </p>
+      <!-- <div class="tic">
         <img src="@/assets/home/where_tic.png" alt="Técnico Innovation Center" />
         <p class="coordinates">38º44’7.7’’N 9º8’33.9’’W</p>
         <div class="map">
           <a target="_blank" href="https://maps.app.goo.gl/hWN1ZuWayuqnoYa37">
             <img src="@/assets/home/where_map.png" alt="Map with TIC's location" />
+            <img class="map-pin" src="@/assets/home/where_pin.svg" alt="pin" aria-hidden="true" />
+          </a>
+        </div>
+      </div> -->
+      <div class="tic">
+        <img src="@/assets/home/ed_central.jpg" alt="Central building" />
+        <!-- <p class="coordinates">38º44’7.7’’N 9º8’33.9’’W</p> -->
+        <div class="map">
+          <a target="_blank" href="https://maps.app.goo.gl/4dv19x1NCJG5S8mQA">
+            <img src="@/assets/home/where_map.png" alt="Map with central location" />
             <img class="map-pin" src="@/assets/home/where_pin.svg" alt="pin" aria-hidden="true" />
           </a>
         </div>
@@ -177,7 +187,7 @@ const props = defineProps({
 
 .map img:first-child {
   width: 100%;
-  scale: 2.8;
+  scale: 1.0;
   transition: scale 0.3s ease-in;
 }
 

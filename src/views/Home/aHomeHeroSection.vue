@@ -2,8 +2,8 @@
 import countdown from '@/lib/countdown.esm.js/countdown.js'
 
 const now = new Date()
-const jeec_start = new Date('Feb 23, 2026 9:30:00')
-const jeec_end = new Date('Feb 27, 2026 20:00:00')
+const jeec_start = new Date('Mar 2, 2026 10:30:00')
+const jeec_end = new Date('Mar 4, 2026 20:00:00')
 const cd = countdown(now, jeec_start, countdown.MONTHS | countdown.DAYS | countdown.HOURS)
 
 let state = 'soon'
@@ -33,7 +33,7 @@ if (jeec_end - now < 0) {
   <section class="hero">
     <h1 class="hidden">JEEC Engineering & Tech Talks</h1>
     <img class="hero_logo" src="@/assets/home/hero_logo_temp.svg" alt="JEEC Logo" />
-    <p class="hero_date">Feb 23rd to 27th 2026</p>
+    <p class="hero_date">March 2nd to 4th 2026</p>
     <template v-if="state == 'started'">
       <p class="hero_action">Meet us at TIC!</p>
     </template>
@@ -257,6 +257,11 @@ section.hero .hero_webapp {
   background-color: color-mix(in srgb, var(--c-acc-blue) 20%, transparent);
   font-size: clamp(1rem, 2.5vw, 1.5rem);
   text-decoration: none;
+}
+
+.webapp-button:hover{
+  background-color: color-mix(in srgb, var(--c-acc-blue) 70%, transparent);
+  transition: background-color 0.2s ease-out;
 }
 
 .webapp-arrow {

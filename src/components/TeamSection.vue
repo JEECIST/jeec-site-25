@@ -188,7 +188,7 @@ const dropShadowColor = computed(() => {
   position: absolute;
   bottom: 0;
   display: block;
-  aspect-ratio: 1.6;
+  aspect-ratio: 1.3;
   width: 100%;
   height: auto;
   border-radius: 15px;
