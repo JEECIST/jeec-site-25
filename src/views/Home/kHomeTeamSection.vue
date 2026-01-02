@@ -19,7 +19,7 @@ const props = defineProps({
   >
     <div class="positioner">
       <div class="image">
-        <!-- <img src="@/assets/team/teamgroupimage.jpg" alt="" /> -->
+        <img src="@/assets/team/teamgroupimage.jpg" alt="" />
       </div>
     </div>
     <div class="description">
