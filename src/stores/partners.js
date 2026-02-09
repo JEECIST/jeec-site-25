@@ -5,6 +5,14 @@ export const usePartnersStore = defineStore('partners', {
   state: () => ({
     partners: [
       {
+        tier: 'platinum',
+        title: {
+          highlight: 'Platinum',
+          normal: 'Partners',
+        },
+        companies: [],
+      },
+      {
         tier: 'gold',
         title: {
           highlight: 'Gold',
@@ -54,10 +62,11 @@ export const usePartnersStore = defineStore('partners', {
           },
         })
         .then((response) => {
-          this.partners[0].companies = response.data.gold
-          this.partners[1].companies = response.data.silver
-          this.partners[2].companies = response.data.bronze
-          this.partners[3].companies = response.data.nucleo
+          this.partners[0].companies = response.data.platinum
+          this.partners[1].companies = response.data.gold
+          this.partners[2].companies = response.data.silver
+          this.partners[3].companies = response.data.bronze
+          this.partners[4].companies = response.data.nucleo
 
           this.homeData = response.data.gold.map((company) => ({
             name: company.name,
