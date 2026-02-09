@@ -3,7 +3,7 @@ import { computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { usePartnersStore } from '@/stores/partners'
-import '../assets/Partners&Sponsors.css'
+import '@/assets/Partners&Sponsors.css'
 
 const route = useRoute()
 const accColor = computed(() => route.meta.accColor)
