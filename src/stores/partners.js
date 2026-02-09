@@ -68,9 +68,9 @@ export const usePartnersStore = defineStore('partners', {
           this.partners[3].companies = response.data.bronze
           this.partners[4].companies = response.data.nucleo
 
-          this.homeData = response.data.gold.map((company) => ({
-            name: company.name,
-            image: company.image_base64,
+          this.homeData = [...response.data.platinum, ...response.data.gold].map((company) => ({
+              name: company.name,
+              image: company.image_base64,
           }))
         })
         .catch((error) => {
