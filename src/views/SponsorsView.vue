@@ -29,13 +29,14 @@ onMounted(async () => {
         <!-- <div class="highlight-divider" :style="`--acc-color: var(${accColor});`"></div> -->
         <section class="tier tier_spacer" :class="tier.tier">
           <h2>
-            <span class="highlight-title">{{ tier.title.highlight }}</span
-            >{{ ' ' + tier.title.normal }}
+            <span class="highlight-title">{{ tier.title.highlight }}</span>{{ ' ' + tier.title.normal }}
           </h2>
           <div class="container">
             <div v-for="(company, index) in tier.companies" :key="index" class="item">
-              <img v-if="company.image != null" :src="company.image" :alt="company.name" />
-              <p v-else>{{ company.name }}</p>
+              <a :href="company.website" target="_blank">
+                <img v-if="company.image != null" :src="company.image" :alt="company.name" />
+                <p v-else>{{ company.name }}</p>
+              </a>
             </div>
           </div>
         </section>

@@ -46,7 +46,7 @@ const router = createRouter({
     {
       path: '/:lang/sponsors',
       name: 'sponsors',
-      meta: { title: 'Sponsors - JEEC', accColor: '--j26-pink', deactivated: true },
+      meta: { title: 'Sponsors - JEEC', accColor: '--j26-pink', deactivated: false },
       component: async () => await import('@/views/SponsorsView.vue'),
     },
     {

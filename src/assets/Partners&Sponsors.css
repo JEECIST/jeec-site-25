@@ -105,6 +105,20 @@ h2 {
   text-align: center;
 }
 
+.item a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  text-decoration: none; /* Remove sublinhados no texto, se houver */
+}
+
+/* Ajuste opcional para garantir que a imagem não herde comportamentos estranhos */
+.item a img {
+  display: block; /* Remove o espaço extra na base de elementos inline */
+}
+
 .platinum .item {
   border: 4px solid var(--c-platinum);
 }
