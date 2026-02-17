@@ -1,16 +1,21 @@
 <script setup>
-import { useStateStore } from '@/stores/state';
-const stateStore = useStateStore();
+import { useStateStore } from '@/stores/state'
+const stateStore = useStateStore()
 
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 const route = useRoute()
-const accColor = computed(() => route.meta.accColor);
+const accColor = computed(() => route.meta.accColor)
 </script>
 
 <template>
-  <button class="nav-toggle" :class="{ open: stateStore.navOpen }" @click="stateStore.navOpen = !stateStore.navOpen"
-    :key="accColor" :style="`--acc-color: var(${accColor});`">
+  <button
+    class="nav-toggle"
+    :class="{ open: stateStore.navOpen }"
+    @click="stateStore.navOpen = !stateStore.navOpen"
+    :key="accColor"
+    :style="`--acc-color: var(${accColor});`"
+  >
     <div class="line a"></div>
     <div class="line b"></div>
     <div class="line c"></div>

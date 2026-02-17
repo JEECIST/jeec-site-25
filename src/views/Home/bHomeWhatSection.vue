@@ -23,15 +23,9 @@ const props = defineProps({
       </div>
     </div>
     <div class="description">
-      <h2>What is JEEC?</h2>
+      <h2>{{ $t('home.what.title') }}</h2>
       <div class="highlight"></div>
-      <p>
-        The JEEC (Electrical and Computer Engineering Week) is an event organized by students, for
-        students, from various courses at Instituto Superior Técnico, with a primary focus on
-        Electrical and Computer Engineering. Our main objective is to fill the gap between the
-        academic and business worlds, offering a range of activities to the entire community free of
-        charge.
-      </p>
+      <p>{{ $t('home.what.description') }}</p>
     </div>
   </div>
 </template>

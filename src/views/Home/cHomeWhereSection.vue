@@ -18,13 +18,16 @@ const props = defineProps({
     :style="`--acc-color: var(${props.accColor});`"
   >
     <div class="description">
-      <h2>Where is JEEC?</h2>
+      <h2>{{ $t('home.where.title') }}</h2>
       <div class="highlight"></div>
-      <p>Find us at <span class="tic_highlight">Técnico Alameda</span></p>
+      <p>
+        {{ $t('home.where.description') }}
+        <span class="tic_highlight">{{ $t('home.where.tic') }}</span>
+      </p>
     </div>
     <div class="image">
-      <p class="sponsor">  </p>
-      <!-- <div class="tic">
+      <!-- <p class="sponsor">Powered By<img src="@/assets/home/Fidelidade_V.png" alt="Fidelidade" /></p>
+      <div class="tic">
         <img src="@/assets/home/where_tic.png" alt="Técnico Innovation Center" />
         <p class="coordinates">38º44’7.7’’N 9º8’33.9’’W</p>
         <div class="map">
@@ -187,7 +190,7 @@ const props = defineProps({
 
 .map img:first-child {
   width: 100%;
-  scale: 1.0;
+  scale: 1;
   transition: scale 0.3s ease-in;
 }
 

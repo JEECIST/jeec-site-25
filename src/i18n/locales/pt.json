@@ -1,0 +1,196 @@
+{
+  "test": "olá",
+  "nav": {
+    "home": "Início",
+    "partners": "Parceiros",
+    "prizes": "Prémios",
+    "schedule": "Horário",
+    "speakers": "Oradores",
+    "sponsors": "Patrocinadores",
+    "team": "Equipa",
+    "webapp": "Login WebApp"
+  },
+  "home": {
+    "hero": {
+      "title": "JEEC Engineering & Tech Talks",
+      "date": "2 a 4 de Março de 2026",
+      "action_before": "Prepara-te para a JEEC!",
+      "action_during": "Encontra-nos no Técnico Alameda!",
+      "action_after": "Vemo-nos no próximo ano!",
+      "cd_months": "Meses",
+      "cd_days": "Dias",
+      "cd_hours": "Horas",
+      "empower": "Empower your future with",
+      "webapp": "Login WebApp"
+    },
+    "what": {
+      "title": "O que é a JEEC?",
+      "description": "A JEEC (Jornadas de Engenharia Eletrotécnica e de Computadores) é um evento organizado por estudantes, para estudantes, de vários cursos do Instituto Superior Técnico, com foco principal em Engenharia Eletrotécnica e de Computadores. O nosso principal objetivo é colmatar a lacuna entre o mundo académico e o empresarial, oferecendo uma gama de atividades a toda a comunidade de forma gratuita."
+    },
+    "where": {
+      "title": "Onde é a JEEC?",
+      "description": "Encontra-nos no",
+      "tic": "Técnico Alameda",
+      "sponsor": ""
+    },
+    "offer": {
+      "title": "O que temos para oferecer",
+      "offers": {
+        "offer1": {
+          "name": "Inside Talks",
+          "description": "Uma atividade de 45 minutos com mesas rotativas, onde as empresas podem convidar um engenheiro para conversar com os alunos sobre o seu dia-a-dia e/ou o seu percurso profissional."
+        },
+        "offer2": {
+          "name": "15/15",
+          "description": "Uma atividade de 30 minutos onde as empresas podem apresentar um tema, projeto ou tecnologia que utilizam ou desenvolveram, seguida de tempo para perguntas e networking."
+        },
+        "offer3": {
+          "name": "Workshops",
+          "description": "Uma atividade prática de 1 hora onde as empresas proporcionam aos alunos uma experiência direta relacionada com um tema específico."
+        },
+        "offer4": {
+          "name": "EletroLink",
+          "description": "Um novo e entusiasmante espaço onde os alunos podem participar em conversas 1-para-1 com empresas e potencialmente encontrar o seu próximo emprego ou estágio."
+        },
+        "offer5": {
+          "name": "Painéis",
+          "description": "Conversas abertas com especialistas da indústria e tecnologia, onde podes fazer perguntas, debater ideias e aprofundar os temas que mais importam hoje em dia."
+        },
+        "offer6": {
+          "name": "Feira de Emprego",
+          "description": "Dirige-te ao espaço principal da JEEC para uma oportunidade única de conhecer grandes empresas frente a frente. Descobre oportunidades de estágio, tira dúvidas e cria ligações que podem moldar o teu futuro."
+        },
+        "offer7": {
+          "name": "Oradores Principais",
+          "description": "Inspira-te com os nossos oradores principais - líderes da indústria e inovadores prontos para partilhar as suas histórias, conhecimentos e conselhos para te ajudar a começar a tua jornada."
+        },
+        "offer8": {
+          "name": "Alumni Talks",
+          "description": "Conversa com graduados sobre as suas carreiras, experiências e dicas - descobre caminhos em engenharia e tecnologia diretamente de quem já lá passou."
+        }
+      }
+    },
+    "why": {
+      "title": "Porquê participar na JEEC?",
+      "companies": "Empresas",
+      "students": "Estudantes",
+      "reasons": {
+        "reason1": "Conectar com os melhores finalistas",
+        "reason2": "Promover a tua empresa",
+        "reason3": "Divulgar as tuas áreas de especialização",
+        "reason4": "Organizado por estudantes para estudantes",
+        "reason5": "Entrar em contacto com empresas tecnológicas líderes",
+        "reason6": "Mostrar as tuas capacidades a potenciais empregadores"
+      }
+    },
+    "schedule": {
+      "title": "Próximas Atividades",
+      "description": "Consulta o horário completo da JEEC e planeia a tua semana repleta de atividades emocionantes, palestras esclarecedoras e oportunidades de networking!",
+      "learnmore": "Saiba mais"
+    },
+    "prizes": {
+      "title": "Os Nossos Prémios",
+      "description": "Fazer parte da JEEC dá-te prémios! Participa nas nossas atividades e habilita-te a ganhar um iPad, monitores e teclados gaming, e vouchers para experiências como festivais de verão, escape rooms e muito mais!",
+      "learnmore": "Saiba mais"
+    },
+    "partners": {
+      "title": "Os Nossos Parceiros",
+      "description": "Os nossos parceiros são líderes da indústria em tecnologia e engenharia, impulsionando a JEEC com conhecimento e oportunidade. Eles interagem diretamente com os alunos, mostram projetos inovadores e abrem portas para estágios e carreiras — impulsionando a inovação e moldando o amanhã, hoje.",
+      "learnmore": "Saiba mais"
+    },
+    "sponsors": {
+      "title": "Os Nossos Patrocinadores",
+      "description": "Não conseguiríamos fazer a JEEC sozinhos! Os nossos valiosos patrocinadores ajudam-nos a dar energia ao evento — tornando possível acolher palestras inspiradoras, atividades práticas e oportunidades reais para os alunos se ligarem ao futuro da indústria e tecnologia.",
+      "learnmore": "Saiba mais"
+    },
+    "speakers": {
+      "title": "Os Nossos Oradores",
+      "description": "A JEEC está na vanguarda da inovação! Todos os anos, trazemos especialistas tecnológicos nacionais e internacionais de topo que lideram o caminho em grandes empresas. Os nossos oradores partilham visões do mundo real, exploram tendências de ponta e mergulham nos temas-chave que moldam o futuro da engenharia e tecnologia.",
+      "learnmore": "Saiba mais"
+    },
+    "team": {
+      "title": "Conhece a Equipa",
+      "description": "Por trás da JEEC está uma equipa apaixonada e dedicada de estudantes que acredita no poder da ligação, inovação e oportunidade. Desde o planeamento de cada detalhe até à construção de pontes entre empresas e estudantes, trabalhamos incansavelmente para criar um evento que desperte inspiração, impulsione carreiras e molde o futuro da indústria e tecnologia.",
+      "learnmore": "Saiba mais"
+    }
+  },
+  "partners": {
+    "title": "Parceiros",
+    "description": "Conhece os nossos incríveis parceiros presentes durante a semana, seja com uma banca na feira de emprego ou com um workshop de soft-skills!",
+    "gold": "Parceiros Gold",
+    "silver": "Parceiros Silver",
+    "bronze": "Parceiros Bronze",
+    "others": "Grupos de Estudantes e Laboratórios de Investigação"
+  },
+  "prizes": {
+    "title": "Os Nossos Prémios",
+    "description": "Faz login na nossa app e habilita-te a ganhar estes prémios!",
+    "category1": "A Nossa Loja de Prémios",
+    "category2": "Sorteio Diário Individual",
+    "category3": "Sorteio Semanal Individual",
+    "category4": "Sorteio Semanal de Squad",
+    "cv": {
+      "title": "Faz o upload do teu CV",
+      "description": "Faz o upload do teu CV na nossa web app e entra no nosso sorteio para teres a oportunidade de ganhar este prémio!"
+    }
+  },
+  "schedule": {
+    "title": "Horário",
+    "monday": "SEGUNDA",
+    "tuesday": "TERÇA",
+    "wednesday": "QUARTA",
+    "thursday": "QUINTA",
+    "friday": "SEXTA"
+  },
+  "speakers": {
+    "title": "Oradores",
+    "description": "Estamos a trazer oradores de todo o mundo! Conhece-os ao longo da semana enquanto partilham conhecimentos e participam em debates envolventes.",
+    "monday": "23 de Fev | Segunda-feira",
+    "tuesday": "24 de Fev | Terça-feira",
+    "wednesday": "25 de Fev | Quarta-feira",
+    "thursday": "26 de Fev | Quinta-feira",
+    "friday": "27 de Fev | Sexta-feira"
+  },
+  "sponsors": {
+    "title": "Patrocinadores",
+    "description": "Os nossos patrocinadores ajudam-nos a melhorar a JEEC e sem eles toda a experiência não seria tão boa como é. Não te esqueças de procurar por merchandising e brindes!",
+    "gold": "Patrocinadores Gold",
+    "silver": "Patrocinadores Silver",
+    "bronze": "Patrocinadores Bronze"
+  },
+  "team": {
+    "title": "Equipa",
+    "meet": "Conhece a Equipa",
+    "description": "Ligando os melhores estudantes, empresas e engenheiros há mais de 20 anos!",
+    "teams": {
+      "team1": {
+        "name": "Coordenação",
+        "description": "Como cabeça da JEEC, a nossa equipa de coordenação é responsável por planear, dirigir e supervisionar o evento, garantindo que tudo esteja o mais perfeito possível."
+      },
+      "team2": {
+        "name": "WebDev",
+        "description": "A nossa equipa de WebDev constrói e mantém o site e a app da JEEC—proporcionando uma experiência fluida e envolvente onde estudantes e empresas se unem."
+      },
+      "team3": {
+        "name": "Business",
+        "description": "No cerne da JEEC, a nossa Equipa de Business estabelece parcerias com empresas de topo para desbloquear estágios, projetos e percursos de carreira—trazendo oportunidades do mundo real diretamente aos estudantes."
+      },
+      "team4": {
+        "name": "Logística",
+        "description": "Eles constroem a espinha dorsal do evento! A Logística planeia e garante que a JEEC tenha tudo. Também colaboram com patrocinadores para assegurar que cada detalhe decorra sem falhas."
+      },
+      "team5": {
+        "name": "Oradores",
+        "description": "A nossa equipa de Oradores faz a curadoria do cartaz da JEEC - convidando oradores visionários, coordenando painéis dinâmicos e organizando conversas com alumni que inspiram novas ideias."
+      },
+      "team6": {
+        "name": "Marketing",
+        "description": "Gostas do que vês? O Marketing é responsável por criar publicações, cartazes e tudo o que vês sobre nós nas redes sociais!"
+      },
+      "team7": {
+        "name": "Design",
+        "description": "A nossa equipa de Design molda a identidade visual da JEEC—desde logótipos a materiais do evento—criando uma experiência coesa e cativante que ressoa com estudantes e empresas."
+      }
+    }
+  }
+}

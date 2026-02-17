@@ -23,15 +23,12 @@ const props = defineProps({
       </div>
     </div>
     <div class="description">
-      <h2>Our Team</h2>
+      <h2>{{ $t('home.team.title') }}</h2>
       <div class="highlight"></div>
-      <p>
-        Behind JEEC stands a passionate and dedicated team of students who believe in the power of
-        connection, innovation, and opportunity. From planning every detail to building bridges
-        between companies and students, we work tirelessly to create an event that sparks
-        inspiration, drives careers forward, and shapes the future of industry and technology.
-      </p>
-      <router-link class="page-link" to="team">Learn more</router-link>
+      <p>{{ $t('home.team.description') }}</p>
+      <router-link class="page-link" :to="{ name: 'team' }">{{
+        $t('home.team.learnmore')
+      }}</router-link>
     </div>
   </div>
 </template>

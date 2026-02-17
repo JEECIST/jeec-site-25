@@ -38,14 +38,12 @@ onMounted(async () => {
       <div class="carousel-fade fade-right"></div>
     </div>
     <div class="description">
-      <h2>Our partners</h2>
+      <h2>{{ $t('home.partners.title') }}</h2>
       <div class="highlight"></div>
-      <p>
-        Our partners are industry leaders in tech and engineering, fueling JEEC with expertise and
-        opportunity. They engage directly with students, showcase breakthrough projects, and open
-        doors to internships and careers-driving innovation and shaping tomorrow, today.
-      </p>
-      <router-link class="page-link" to="partners">Learn more</router-link>
+      <p>{{ $t('home.partners.description') }}</p>
+      <router-link class="page-link" :to="{ name: 'partners' }">{{
+        $t('home.partners.learnmore')
+      }}</router-link>
     </div>
   </div>
 </template>

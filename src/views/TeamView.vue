@@ -5,8 +5,8 @@ import TeamSection from '@/components/TeamSection.vue'
 import { useTeamStore } from '@/stores/team'
 import { storeToRefs } from 'pinia'
 
-const teamStore = useTeamStore();
-const { teams } = storeToRefs(teamStore);
+const teamStore = useTeamStore()
+const { teams } = storeToRefs(teamStore)
 
 // const allowedTeams = ['COORDINATION', 'SPEAKERS', 'LOGISTICS', 'WEBDEV', 'BUSINESS', 'MARKETING']
 
@@ -15,23 +15,23 @@ const { teams } = storeToRefs(teamStore);
 // // )
 
 onMounted(async () => {
-  await teamStore.fetchData();
-});
+  await teamStore.fetchData()
+})
 </script>
 
 <template>
   <div class="view">
     <section class="description">
-      <h1>Team</h1>
+      <h1>{{ $t('team.title') }}</h1>
     </section>
 
     <TeamSection>
       <template #content>
         <div class="subtitle-content">
           <div class="subtitle-description">
-            <h2>MEET OUR TEAM</h2>
+            <h2>{{ $t('team.meet') }}</h2>
             <div class="highlight" />
-            <p>Connecting the best students, companies and engineers for over 20 years!</p>
+            <p>{{ $t('team.description') }}</p>
           </div>
           <div class="team-wheel-container">
             <TeamWheel></TeamWheel>
@@ -39,16 +39,15 @@ onMounted(async () => {
         </div>
       </template>
 
-      <template #image>
-      </template>
+      <template #image> </template>
 
       <template #bottom></template>
     </TeamSection>
 
-    <div style="height: 20px;"></div>
+    <div style="height: 20px"></div>
 
     <template v-for="(team, index) in teams" :key="team.id">
-      <TeamSection :team="team" :isEven="(index % 2) == 0" />
+      <TeamSection :team="team" :isEven="index % 2 == 0" />
     </template>
   </div>
 </template>
@@ -77,10 +76,12 @@ h1 {
   width: 100%;
   height: 2px;
   border-radius: 4px;
-  background: linear-gradient(to left,
-      transparent 0%,
-      color-mix(in srgb, var(--acc-color) 38%, transparent) 50%,
-      var(--acc-color) 100%);
+  background: linear-gradient(
+    to left,
+    transparent 0%,
+    color-mix(in srgb, var(--acc-color) 38%, transparent) 50%,
+    var(--acc-color) 100%
+  );
   margin-top: 0.2rem;
   margin-bottom: 1.2rem;
 }
@@ -145,12 +146,14 @@ h1 {
   }
 
   .highlight {
-    background: linear-gradient(to right,
-        transparent 0%,
-        color-mix(in srgb, var(--acc-color) 50%, transparent) 20%,
-        var(--acc-color) 50%,
-        color-mix(in srgb, var(--acc-color) 50%, transparent) 80%,
-        transparent 100%);
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      color-mix(in srgb, var(--acc-color) 50%, transparent) 20%,
+      var(--acc-color) 50%,
+      color-mix(in srgb, var(--acc-color) 50%, transparent) 80%,
+      transparent 100%
+    );
   }
 }
 

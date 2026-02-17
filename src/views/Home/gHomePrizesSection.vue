@@ -1,44 +1,50 @@
 <script setup>
-import CompanyCarousel from './TheHomeCarousel.vue';
-import { onMounted } from 'vue';
-import { usePrizesStore } from "../../stores/prizes";
-import { storeToRefs } from 'pinia';
-
+import CompanyCarousel from './TheHomeCarousel.vue'
+import { onMounted } from 'vue'
+import { usePrizesStore } from '../../stores/prizes'
+import { storeToRefs } from 'pinia'
 
 const props = defineProps({
   isEven: {
     type: Boolean,
-    default: false
+    default: false,
   },
   accColor: {
     type: String,
-    default: '--c-acc-blue'
-  }
-});
+    default: '--c-acc-blue',
+  },
+})
 
 const prizeStore = usePrizesStore()
-const { homeData } = storeToRefs(prizeStore);
+const { homeData } = storeToRefs(prizeStore)
 onMounted(async () => {
-  await prizeStore.fetchData();
-});
+  await prizeStore.fetchData()
+})
 </script>
 
 <template>
-  <div class="content" :class="{ even: props.isEven }" :style="`--acc-color: var(${props.accColor});`">
+  <div
+    class="content"
+    :class="{ even: props.isEven }"
+    :style="`--acc-color: var(${props.accColor});`"
+  >
     <div class="carousel-container">
       <div class="carousel-fade fade-left"></div>
-      <CompanyCarousel :isEven="props.isEven" :items="homeData" :prizeCarousel="true"
-        :observerId="`prizes-carousel-${props.isEven ? 'even' : 'odd'}`"></CompanyCarousel>
+      <CompanyCarousel
+        :isEven="props.isEven"
+        :items="homeData"
+        :prizeCarousel="true"
+        :observerId="`prizes-carousel-${props.isEven ? 'even' : 'odd'}`"
+      ></CompanyCarousel>
       <div class="carousel-fade fade-right"></div>
     </div>
     <div class="description">
-      <h2>Our prizes</h2>
+      <h2>{{ $t('home.prizes.title') }}</h2>
       <div class="highlight"></div>
-      <p>
-        Being a part of JEEC gives you prizes! Participate in our activities and get a chance to win an iPad, gaming
-        monitors and keyboards, and vouchers for experiences like summer festivals, escape rooms and more!
-      </p>
-      <router-link class="page-link" to="prizes">Learn more</router-link>
+      <p>{{ $t('home.prizes.description') }}</p>
+      <router-link class="page-link" :to="{ name: 'prizes' }">{{
+        $t('home.prizes.learnmore')
+      }}</router-link>
     </div>
   </div>
 </template>
@@ -85,10 +91,12 @@ onMounted(async () => {
   width: 100%;
   height: 2px;
   border-radius: 4px;
-  background: linear-gradient(to right,
-      transparent 0%,
-      color-mix(in srgb, var(--acc-color) 38%, transparent) 50%,
-      var(--acc-color) 100%);
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    color-mix(in srgb, var(--acc-color) 38%, transparent) 50%,
+    var(--acc-color) 100%
+  );
 }
 
 .content:not(.even) .description .highlight {
@@ -204,12 +212,14 @@ onMounted(async () => {
   }
 
   .description .highlight {
-    background: linear-gradient(to right,
-        transparent 0%,
-        color-mix(in srgb, var(--acc-color) 50%, transparent) 20%,
-        var(--acc-color) 50%,
-        color-mix(in srgb, var(--acc-color) 50%, transparent) 80%,
-        transparent 100%);
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      color-mix(in srgb, var(--acc-color) 50%, transparent) 20%,
+      var(--acc-color) 50%,
+      color-mix(in srgb, var(--acc-color) 50%, transparent) 80%,
+      transparent 100%
+    );
   }
 
   .carousel-container {
@@ -249,6 +259,5 @@ onMounted(async () => {
     right: calc(100% - 0.5rem);
     transform: rotate(-5deg);
   }
-
 }
 </style>

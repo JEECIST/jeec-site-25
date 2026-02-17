@@ -1,0 +1,196 @@
+{
+  "test": "hi",
+  "nav": {
+    "home": "Home",
+    "partners": "Partners",
+    "prizes": "Prizes",
+    "schedule": "Schedule",
+    "speakers": "Speakers",
+    "sponsors": "Sponsors",
+    "team": "Team",
+    "webapp": "WebApp Login"
+  },
+  "home": {
+    "hero": {
+      "title": "JEEC Engineering & Tech Talks",
+      "date": "March 2nd to 4th 2026",
+      "action_before": "Get ready for JEEC!",
+      "action_during": "Meet us at Técnico Alameda!",
+      "action_after": "See you next year!",
+      "cd_months": "Months",
+      "cd_days": "Days",
+      "cd_hours": "Hours",
+      "empower": "Empower your future with",
+      "webapp": "WebApp Login"
+    },
+    "what": {
+      "title": "What is JEEC?",
+      "description": "The JEEC (Electrical and Computer Engineering Week) is an event organized by students, for students, from various courses at Instituto Superior Técnico, with a primary focus on Electrical and Computer Engineering. Our main objective is to fill the gap between the academic and business worlds, offering a range of activities to the entire community free of charge."
+    },
+    "where": {
+      "title": "Where is JEEC?",
+      "description": "Find us at",
+      "tic": "Técnico Innovation Center",
+      "sponsor": "Powered By"
+    },
+    "offer": {
+      "title": "What we have to offer",
+      "offers": {
+        "offer1": {
+          "name": "Inside Talks",
+          "description": "A 45-minute activity featuring rotating tables, where companies can invite an engineer to speak with students about their day-to-day work and/or their career path."
+        },
+        "offer2": {
+          "name": "15/15",
+          "description": "A 30-minute activity where companies can present a topic, project, or technology they use or developed, followed by time for questions and networking."
+        },
+        "offer3": {
+          "name": "Workshops",
+          "description": "A 1-hour practical activity where companies provide students with hands-on experience related to a specific topic."
+        },
+        "offer4": {
+          "name": "EletroLink",
+          "description": "A new, exciting booth where students can engage in 1-on-1 conversations with companies and potentially find their next job or internship."
+        },
+        "offer5": {
+          "name": "Panels",
+          "description": "Open conversations with industry and tech experts, where you can ask questions, debate ideas, and dive into the topics that matter most today."
+        },
+        "offer6": {
+          "name": "Job Fair",
+          "description": "Head to the main space of JEEC for a unique chance to meet top companies face-to-face. Discover internship opportunities, ask questions, and make connections that could shape your future."
+        },
+        "offer7": {
+          "name": "Keynote Speakers",
+          "description": "Get inspired by our keynote speakers - industry leaders and innovators ready to share their stories, insights, and advice to help you kickstart your journey."
+        },
+        "offer8": {
+          "name": "Alumni Talks",
+          "description": "Chat with graduates about their career journeys, insights, and tips - discover pathways in engineering and tech straight from those who've been there."
+        }
+      }
+    },
+    "why": {
+      "title": "Why participate in JEEC?",
+      "companies": "Companies",
+      "students": "Students",
+      "reasons": {
+        "reason1": "Connect with the best graduating students",
+        "reason2": "Promote your company",
+        "reason3": "Advertise your areas of expertise",
+        "reason4": "Organised by students for students",
+        "reason5": "Get in touch with leading tech companies",
+        "reason6": ">Show your capabilities to potential employers"
+      }
+    },
+    "schedule": {
+      "title": "Next Activities",
+      "description": "Check out the full schedule of JEEC and plan your week filled with exciting activities, insightful talks, and networking opportunities!",
+      "learnmore": "Learn more"
+    },
+    "prizes": {
+      "title": "Our Prizes",
+      "description": "Being a part of JEEC gives you prizes! Participate in our activities and get a chance to win an iPad, gaming monitors and keyboards, and vouchers for experiences like summer festivals, escape rooms and more!",
+      "learnmore": "Learn more"
+    },
+    "partners": {
+      "title": "Our Partners",
+      "description": "Our partners are industry leaders in tech and engineering, fueling JEEC with expertise and opportunity. They engage directly with students, showcase breakthrough projects, and open doors to internships and careers-driving innovation and shaping tomorrow, today.",
+      "learnmore": "Learn more"
+    },
+    "sponsors": {
+      "title": "Our Sponsors",
+      "description": "We couldn't do JEEC alone! Our valuable sponsors help us power the event — making it possible to host inspiring talks, hands-on activities, and real opportunities for students to connect with the future of industry and technology.",
+      "learnmore": "Learn more"
+    },
+    "speakers": {
+      "title": "Our Speakers",
+      "description": "JEEC is at the edge of innovation! Every year, we bring top national and international tech experts who lead the way in major companies. Our speakers share real-world insights, explore cutting-edge trends, and dive into the key topics shaping the future of engineering and technology.",
+      "learnmore": "Learn more"
+    },
+    "team": {
+      "title": "Meet the Team",
+      "description": " Behind JEEC stands a passionate and dedicated team of students who believe in the power of connection, innovation, and opportunity. From planning every detail to building bridges between companies and students, we work tirelessly to create an event that sparks inspiration, drives careers forward, and shapes the future of industry and technology.",
+      "learnmore": "Learn more"
+    }
+  },
+  "partners": {
+    "title": "Partners",
+    "description": "Get to know our amazing partners present during the week, be it with a stand at the job fair or with a soft-skills workshop!",
+    "gold": "Gold Partners",
+    "silver": "Silver Partners",
+    "bronze": "Bronze Partners",
+    "others": "Student Groups and Research Labs"
+  },
+  "prizes": {
+    "title": "Our Prizes",
+    "description": "Log in to our app and get a chance to win these prizes!",
+    "category1": "Our Prize Shop",
+    "category2": "Individual Daily Draw",
+    "category3": "Individual Weekly Draw",
+    "category4": "Squad Weekly Draw",
+    "cv": {
+      "title": "Upload your CV",
+      "description": " Upload your CV to our web app and enter our draw for a chance to win this prize!"
+    }
+  },
+  "schedule": {
+    "title": "Schedule",
+    "monday": "MONDAY",
+    "tuesday": "TUESDAY",
+    "wednesday": "WEDNESDAY",
+    "thursday": "THURSDAY",
+    "friday": "FRIDAY"
+  },
+  "speakers": {
+    "title": "Speakers",
+    "description": " We're bringing in speakers from around the world! Meet them throughout the week as they share insights and join engaging panel discussions.",
+    "monday": "Feb 23rd | Monday",
+    "tuesday": "Feb 24th | Tuesday",
+    "wednesday": "Feb 25th | Wednesday",
+    "thursday": "Feb 26th | Thursday",
+    "friday": "Feb 27th | Friday"
+  },
+  "sponsors": {
+    "title": "Sponsors",
+    "description": "Our sponsors help us improve JEEC and without them the whole experience wouldn’t be as good as it is. Don’t forget to look for merchandising and gifts!",
+    "gold": "Gold Sponsors",
+    "silver": "Silver Sponsors",
+    "bronze": "Bronze Sponsors"
+  },
+  "team": {
+    "title": "Team",
+    "meet": "Meet the Team",
+    "description": "Connecting the best students, companies and engineers for over 20 years!",
+    "teams": {
+      "team1": {
+        "name": "Coordination",
+        "description": "As the head of JEEC, our coordination team is responsible to plan, steer, and oversee the event making sure everything is as perfect as it can be."
+      },
+      "team2": {
+        "name": "WebDev",
+        "description": "Our WebDev team builds and powers the JEEC website and app—delivering a smooth, engaging experience where students and companies unite."
+      },
+      "team3": {
+        "name": "Business",
+        "description": "At JEEC’s core, our Business Team partners with top companies to unlock internships, projects, and career paths—bringing real-world opportunities directly to students."
+      },
+      "team4": {
+        "name": "Logistics",
+        "description": "They build the event’s backbone! Logistics plan and make sure JEEC has everything. They also partner with sponsors to ensure every detail runs seamlessly."
+      },
+      "team5": {
+        "name": "Speakers",
+        "description": "Our Speakers Team curates JEEC’s lineup - booking visionary keynote speakers, coordinating dynamic panel discussions, and organizing alumni talks that inspire new ideas."
+      },
+      "team6": {
+        "name": "Marketing",
+        "description": "Like what you see? Marketing is responsible for creating posts, posters and everything about us you see on our social networks!"
+      },
+      "team7": {
+        "name": "Design",
+        "description": "Our Design Team shapes JEEC’s visual identity—from logos to event materials—crafting a cohesive and engaging experience that resonates with students and companies alike."
+      }
+    }
+  }
+}

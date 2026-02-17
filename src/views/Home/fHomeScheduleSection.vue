@@ -1,146 +1,170 @@
 <script setup>
-import { onMounted, onUnmounted, ref, watch } from 'vue';
-import { useHomeScheduleStore } from '@/stores/homeSchedule';
-import { storeToRefs } from 'pinia';
+import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { useHomeScheduleStore } from '@/stores/homeSchedule'
+import { storeToRefs } from 'pinia'
 
 const homeScheduleStore = useHomeScheduleStore()
-const { nextActivities } = storeToRefs(homeScheduleStore);
+const { nextActivities } = storeToRefs(homeScheduleStore)
 onMounted(async () => {
-  await homeScheduleStore.fetchData();
-});
+  await homeScheduleStore.fetchData()
+})
 
 const props = defineProps({
   isEven: {
     type: Boolean,
-    default: false
+    default: false,
   },
   accColor: {
     type: String,
-    default: '--c-acc-blue'
-  }
-});
+    default: '--c-acc-blue',
+  },
+})
 
 const setColor = (type) => {
   switch (type) {
     case 'Inside Talks':
-      return '--c-acc-strong-pink';
+      return '--c-acc-strong-pink'
     case 'Board Discussions':
-      return '--c-acc-blue';
+      return '--c-acc-blue'
     case '15/15':
-      return '--c-acc-violet';
+      return '--c-acc-violet'
     case 'Discussion Panel':
-      return '--c-acc-yellow';
+      return '--c-acc-yellow'
     case 'Keynote Speaker':
-      return '--c-acc-yellow';
+      return '--c-acc-yellow'
     case 'Workshop':
-      return '--c-acc-orange';
+      return '--c-acc-orange'
     case 'Opening Ceremony':
-      return '--c-acc-blue';
+      return '--c-acc-blue'
     case 'Alumni Talks':
-      return '--c-acc-purple-blue';
+      return '--c-acc-purple-blue'
     default:
-      return '--c-acc-blue';
+      return '--c-acc-blue'
   }
 }
 
-const formatTime = (time) => {
-  const date = new Date(time);
-  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
-}
+// const formatTime = (time) => {
+//   const date = new Date(time)
+//   return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })
+// }
 
-const currentLogoIndex = ref({});
-let globalInterval = null;
-
+const currentLogoIndex = ref({})
+let globalInterval = null
 
 function rotateAllLogos() {
-  const activities = nextActivities.value;
-  activities.forEach(activity => {
-
-    const hasMultipleCompanyLogos = activity.companies && activity.companies.length > 1;
-    const hasMultipleSpeakers = activity.speakers && activity.speakers.length > 1;
+  const activities = nextActivities.value
+  activities.forEach((activity) => {
+    const hasMultipleCompanyLogos = activity.companies && activity.companies.length > 1
+    const hasMultipleSpeakers = activity.speakers && activity.speakers.length > 1
 
     if (hasMultipleCompanyLogos || hasMultipleSpeakers) {
       if (currentLogoIndex.value[activity.id] === undefined) {
-        currentLogoIndex.value[activity.id] = 0;
+        currentLogoIndex.value[activity.id] = 0
       } else {
-        const maxLength = hasMultipleCompanyLogos ? activity.companies.length : activity.speakers.length;
+        const maxLength = hasMultipleCompanyLogos
+          ? activity.companies.length
+          : activity.speakers.length
 
-        currentLogoIndex.value[activity.id] =
-          (currentLogoIndex.value[activity.id] + 1) % maxLength;
+        currentLogoIndex.value[activity.id] = (currentLogoIndex.value[activity.id] + 1) % maxLength
       }
     }
-  });
+  })
 }
 
-watch(nextActivities, (newActivities) => {
-  if (globalInterval) {
-    clearInterval(globalInterval);
-    globalInterval = null;
-  }
+watch(
+  nextActivities,
+  (newActivities) => {
+    if (globalInterval) {
+      clearInterval(globalInterval)
+      globalInterval = null
+    }
 
-  currentLogoIndex.value = {};
+    currentLogoIndex.value = {}
 
-  const hasMultipleLogos = newActivities.some(
-    activity => activity.companies && activity.companies.length > 1 ||
-      (activity.speakers && activity.speakers.length > 1)
-  );
+    const hasMultipleLogos = newActivities.some(
+      (activity) =>
+        (activity.companies && activity.companies.length > 1) ||
+        (activity.speakers && activity.speakers.length > 1),
+    )
 
-  if (hasMultipleLogos) {
-    globalInterval = setInterval(rotateAllLogos, 3000);
-    newActivities.forEach(activity => {
-      if ((activity.companies && activity.companies.length > 1) ||
-        (activity.speakers && activity.speakers.length > 1)) {
-        currentLogoIndex.value[activity.id] = 0;
-      }
-    });
-  }
-}, { deep: true });
+    if (hasMultipleLogos) {
+      globalInterval = setInterval(rotateAllLogos, 3000)
+      newActivities.forEach((activity) => {
+        if (
+          (activity.companies && activity.companies.length > 1) ||
+          (activity.speakers && activity.speakers.length > 1)
+        ) {
+          currentLogoIndex.value[activity.id] = 0
+        }
+      })
+    }
+  },
+  { deep: true },
+)
 
 onMounted(() => {
-  globalInterval = setInterval(rotateAllLogos, 3000);
-});
+  globalInterval = setInterval(rotateAllLogos, 3000)
+})
 
 onUnmounted(() => {
   if (globalInterval) {
-    clearInterval(globalInterval);
+    clearInterval(globalInterval)
   }
-});
+})
 </script>
 
 <template>
-  <div class="content" :class="{ even: props.isEven }" :style="`--acc-color: var(${props.accColor});`">
+  <div
+    class="content"
+    :class="{ even: props.isEven }"
+    :style="`--acc-color: var(${props.accColor});`"
+  >
     <div class="next-activities">
       <template v-for="activity in nextActivities.slice(0, 2)" :key="activity.id">
-        <div class="activity-content" :style="`--acc-color: var(${setColor(activity.activity_type)});`">
+        <div
+          class="activity-content"
+          :style="`--acc-color: var(${setColor(activity.activity_type)});`"
+        >
           <div class="activity-description">
             <h3 class="title">
-              <span class="type">{{
-                activity.activity_type }}</span>
+              <span class="type">{{ activity.activity_type }}</span>
               <span class="name">{{ activity.name }}</span>
             </h3>
             <p v-if="activity.location" class="location">{{ activity.location }}</p>
             <p class="time">{{ activity.time + ' - ' + activity.end_time }}</p>
           </div>
           <div class="logos">
-            <div v-if="activity?.speakers?.length > 0" class="logo-container company-logo-container">
+            <div
+              v-if="activity?.speakers?.length > 0"
+              class="logo-container company-logo-container"
+            >
               <transition name="logo-fade" mode="out-in">
-                <img v-if="activity?.speakers?.[currentLogoIndex?.[activity.id] ?? 0]?.logo_company"
+                <img
+                  v-if="activity?.speakers?.[currentLogoIndex?.[activity.id] ?? 0]?.logo_company"
                   :key="'company-' + (currentLogoIndex?.[activity.id] ?? 0)"
-                  :src="activity.speakers[currentLogoIndex[activity.id] ?? 0].logo_company" class="logo-image" />
+                  :src="activity.speakers[currentLogoIndex[activity.id] ?? 0].logo_company"
+                  class="logo-image"
+                />
               </transition>
             </div>
 
             <div class="logo-container speaker-logo-container">
               <transition name="logo-fade" mode="out-in">
                 <template v-if="activity?.speakers?.length > 0">
-                  <img v-if="activity.speakers[currentLogoIndex?.[activity.id] ?? 0]?.logo_speaker"
+                  <img
+                    v-if="activity.speakers[currentLogoIndex?.[activity.id] ?? 0]?.logo_speaker"
                     :key="'speaker-' + (currentLogoIndex?.[activity.id] ?? 0)"
-                    :src="activity.speakers[currentLogoIndex[activity.id] ?? 0].logo_speaker" class="logo-image" />
+                    :src="activity.speakers[currentLogoIndex[activity.id] ?? 0].logo_speaker"
+                    class="logo-image"
+                  />
                 </template>
                 <template v-else-if="activity?.companies?.length > 0">
-                  <img v-if="activity.companies[currentLogoIndex?.[activity.id] ?? 0]"
+                  <img
+                    v-if="activity.companies[currentLogoIndex?.[activity.id] ?? 0]"
                     :key="'company-' + (currentLogoIndex?.[activity.id] ?? 0)"
-                    :src="activity.companies[currentLogoIndex[activity.id] ?? 0].logo_company" class="logo-image" />
+                    :src="activity.companies[currentLogoIndex[activity.id] ?? 0].logo_company"
+                    class="logo-image"
+                  />
                 </template>
                 <template v-else>
                   <div class="logo-default"></div>
@@ -153,15 +177,12 @@ onUnmounted(() => {
       <div class="activity-fade"></div>
     </div>
     <div class="description">
-      <h2>Next Activities</h2>
+      <h2>{{ $t('home.schedule.title') }}</h2>
       <div class="highlight"></div>
-      <p>
-        The JEEC (Electrical and Computer Engineering Week) is an event organized by students, for students, from
-        various courses at Instituto Superior Técnico, with a primary focus on Electrical and Computer Engineering. Our
-        main objective is to fill the gap between the academic and business worlds, offering a range of activities to
-        the entire community free of charge.
-      </p>
-      <router-link class="page-link" to="partners">Learn more</router-link>
+      <p>{{ $t('home.schedule.description') }}</p>
+      <router-link class="page-link" :to="{ name: 'schedule' }">{{
+        $t('home.schedule.learnmore')
+      }}</router-link>
     </div>
   </div>
 </template>
@@ -196,10 +217,12 @@ onUnmounted(() => {
   width: 100%;
   height: 2px;
   border-radius: 4px;
-  background: linear-gradient(to right,
-      transparent 0%,
-      color-mix(in srgb, var(--acc-color) 38%, transparent) 50%,
-      var(--acc-color) 100%);
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    color-mix(in srgb, var(--acc-color) 38%, transparent) 50%,
+    var(--acc-color) 100%
+  );
 }
 
 .activity-content:not(.even) .description .highlight {
@@ -236,12 +259,14 @@ onUnmounted(() => {
   }
 
   .description .highlight {
-    background: linear-gradient(to right,
-        transparent 0%,
-        color-mix(in srgb, var(--acc-color) 50%, transparent) 20%,
-        var(--acc-color) 50%,
-        color-mix(in srgb, var(--acc-color) 50%, transparent) 80%,
-        transparent 100%);
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      color-mix(in srgb, var(--acc-color) 50%, transparent) 20%,
+      var(--acc-color) 50%,
+      color-mix(in srgb, var(--acc-color) 50%, transparent) 80%,
+      transparent 100%
+    );
   }
 }
 </style>
@@ -299,7 +324,7 @@ onUnmounted(() => {
   flex-direction: column;
   height: 100%;
   justify-content: space-between;
-  padding: .5rem 0;
+  padding: 0.5rem 0;
   padding-left: 1ch;
 }
 
@@ -316,7 +341,7 @@ onUnmounted(() => {
   font-size: 1.4rem;
   color: var(--acc-color);
   text-transform: uppercase;
-  padding-bottom: .3rem;
+  padding-bottom: 0.3rem;
 }
 
 .logos {

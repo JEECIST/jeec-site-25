@@ -20,11 +20,8 @@ onMounted(async () => {
     <div class="background"></div>
 
     <section class="intro">
-      <h1 :style="`--acc-color: var(${accColor});`">Sponsors</h1>
-      <p>
-        Our sponsors help us improve JEEC and without them the whole experience wouldn’t be as good
-        as it is. Don’t forget to look for merchandising and gifts!
-      </p>
+      <h1 :style="`--acc-color: var(${accColor});`">{{ $t('sponsors.title') }}</h1>
+      <p>{{ $t('sponsors.description') }}</p>
     </section>
 
     <template v-for="tier in sponsors" :key="tier.tier">

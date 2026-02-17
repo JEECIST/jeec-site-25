@@ -9,6 +9,9 @@ import { ref, onMounted, onUnmounted } from 'vue'
 // import keynoteSpeakers from '@/assets/home/offers/KeynoteSpeakers.webp';
 // import eletroLink from '@/assets/home/offers/Eletrolink.webp';
 
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+
 const props = defineProps({
   isEven: {
     type: Boolean,
@@ -22,51 +25,43 @@ const props = defineProps({
 
 const offers = [
   {
-    name: 'Inside Talks',
-    description:
-      'A 45-minute activity featuring rotating tables, where companies can invite an engineer to speak with students about their day-to-day work and/or their career path.',
+    name: t('home.offer.offers.offer1.name'),
+    description: t('home.offer.offers.offer1.description'),
     // image: insideTalks
   },
   {
-    name: '15/15',
-    description:
-      'A 30-minute activity where companies can present a topic, project, or technology they use or developed, followed by time for questions and networking.',
+    name: t('home.offer.offers.offer2.name'),
+    description: t('home.offer.offers.offer2.description'),
     // image: fifteenFifteen
   },
   {
-    name: 'Workshops',
-    description:
-      'A 1-hour practical activity where companies provide students with hands-on experience related to a specific topic.',
+    name: t('home.offer.offers.offer3.name'),
+    description: t('home.offer.offers.offer3.description'),
     // image: workshops
   },
   {
-    name: 'EletroLink',
-    description:
-      'A new, exciting booth where students can engage in 1-on-1 conversations with companies and potentially find their next job or internship.',
+    name: t('home.offer.offers.offer4.name'),
+    description: t('home.offer.offers.offer4.description'),
     // image: eletroLink
   },
   {
-    name: 'Panels',
-    description:
-      'Open conversations with industry and tech experts, where you can ask questions, debate ideas, and dive into the topics that matter most today.',
+    name: t('home.offer.offers.offer5.name'),
+    description: t('home.offer.offers.offer5.description'),
     // image: panels,
   },
   {
-    name: 'Job Fair',
-    description:
-      'Head to the main space of JEEC for a unique chance to meet top companies face-to-face. Discover internship opportunities, ask questions, and make connections that could shape your future.',
+    name: t('home.offer.offers.offer6.name'),
+    description: t('home.offer.offers.offer6.description'),
     // image: jobFair
   },
   {
-    name: 'Keynote Speakers',
-    description:
-      'Get inspired by our keynote speakers - industry leaders and innovators ready to share their stories, insights, and advice to help you kickstart your journey.',
+    name: t('home.offer.offers.offer7.name'),
+    description: t('home.offer.offers.offer7.description'),
     // image: keynoteSpeakers
   },
   {
-    name: 'Alumni Talks',
-    description:
-      "Chat with graduates about their career journeys, insights, and tips - discover pathways in engineering and tech straight from those who've been there.",
+    name: t('home.offer.offers.offer8.name'),
+    description: t('home.offer.offers.offer8.description'),
     // image: alumniTalks
   },
 ]

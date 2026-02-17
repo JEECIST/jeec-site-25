@@ -18,38 +18,38 @@ const props = defineProps({
     :style="`--acc-color: var(${props.accColor});`"
   >
     <div class="heading">
-      <h2>Why participate in JEEC 25</h2>
+      <h2>{{ $t('home.why.title') }}</h2>
       <div class="highlight"></div>
     </div>
     <div class="wrapper" id="scroll-anim">
       <div class="gradient active gradient-left">
-        <h3 class="gradient__content">Companies</h3>
+        <h3 class="gradient__content">{{ $t('home.why.companies') }}</h3>
         <div class="gradient__content content__extremes">
           <img src="@/assets/companies-students/1.svg" />
-          <p>Connect with the best graduating students</p>
+          <p>{{ $t('home.why.reasons.reason1') }}</p>
         </div>
         <div class="gradient__content content__middle">
           <img src="@/assets/companies-students/2.svg" />
-          <p>Promote your company</p>
+          <p>{{ $t('home.why.reasons.reason2') }}</p>
         </div>
         <div class="gradient__content content__extremes">
           <img src="@/assets/companies-students/3.svg" />
-          <p>Advertise your areas of expertise</p>
+          <p>{{ $t('home.why.reasons.reason3') }}</p>
         </div>
       </div>
       <div class="gradient active gradient-right">
-        <h3 class="gradient__content">Students</h3>
+        <h3 class="gradient__content">{{ $t('home.why.students') }}</h3>
         <div class="gradient__content content__extremes">
           <img src="@/assets/companies-students/4.svg" />
-          <p>Organised by students for students</p>
+          <p>{{ $t('home.why.reasons.reason4') }}</p>
         </div>
         <div class="gradient__content content__middle">
           <img src="@/assets/companies-students/5.svg" />
-          <p>Get in touch with leading tech companies</p>
+          <p>{{ $t('home.why.reasons.reason5') }}</p>
         </div>
         <div class="gradient__content content__extremes">
           <img src="@/assets/companies-students/6.svg" />
-          <p>Show your capabilities to potential employers</p>
+          <p>{{ $t('home.why.reasons.reason6') }}</p>
         </div>
       </div>
     </div>

@@ -31,17 +31,17 @@ if (jeec_end - now < 0) {
 
 <template>
   <section class="hero">
-    <h1 class="hidden">JEEC Engineering & Tech Talks</h1>
+    <h1 class="hidden">{{ $t('home.hero.title') }}</h1>
     <img class="hero_logo" src="@/assets/home/hero_logo_temp.svg" alt="JEEC Logo" />
-    <p class="hero_date">March 2nd to 4th 2026</p>
+    <p class="hero_date">{{ $t('home.hero.date') }}</p>
     <template v-if="state == 'started'">
-      <p class="hero_action">Meet us at TIC!</p>
+      <p class="hero_action">{{ $t('home.hero.action_during') }}</p>
     </template>
     <template v-else-if="state == 'ended'">
-      <p class="hero_action">See you next year!</p>
+      <p class="hero_action">{{ $t('home.hero.action_after') }}</p>
     </template>
     <template v-else>
-      <p class="hero_action">Get ready for JEEC!</p>
+      <p class="hero_action">{{ $t('home.hero.action_before') }}</p>
       <p class="hidden">{{ `${cd.months} Months, ${cd.days} Days, ${cd.hours} Hours Left!` }}</p>
     </template>
     <div class="hero_cd" aria-hidden="true">
@@ -54,7 +54,7 @@ if (jeec_end - now < 0) {
           <p>{{ months[1] }}</p>
           <p>{{ months[1] }}</p>
         </div>
-        <p>Months</p>
+        <p>{{ $t('home.hero.cd_months') }}</p>
       </div>
       <div class="cd-cell">
         <div class="cd-value">
@@ -65,7 +65,7 @@ if (jeec_end - now < 0) {
           <p>{{ days[1] }}</p>
           <p>{{ days[1] }}</p>
         </div>
-        <p>Days</p>
+        <p>{{ $t('home.hero.cd_days') }}</p>
       </div>
       <div class="cd-cell">
         <div class="cd-value">
@@ -76,18 +76,20 @@ if (jeec_end - now < 0) {
           <p>{{ hours[1] }}</p>
           <p>{{ hours[1] }}</p>
         </div>
-        <p>Hours</p>
+        <p>{{ $t('home.hero.cd_hours') }}</p>
       </div>
     </div>
     <div class="hero_separator">
       <img src="@/assets/home/hero_separator.svg" alt="" aria-hidden="true" />
     </div>
     <p class="hero_empower">
-      Empower your future with <span><img src="@/assets/logo_white.png" alt="JEEC" /></span>
+      {{ $t('home.hero.empower') }} <span><img src="@/assets/logo_white.png" alt="JEEC" /></span>
     </p>
     <div class="hero_webapp">
       <div class="webapp-arrow"></div>
-      <a class="webapp-button" href="https://app.jeec.ist" target="_blank">WebApp Login</a>
+      <a class="webapp-button" href="https://app.jeec.ist" target="_blank">{{
+        $t('home.hero.webapp')
+      }}</a>
       <div class="webapp-arrow"></div>
     </div>
   </section>
@@ -119,9 +121,9 @@ section.hero {
 
 section.hero .hero_logo {
   display: block;
-  max-width: clamp(200px, 80vw, 500px);
+  width: clamp(12rem, 80%, 30rem);
+  max-width: 100%;
   padding: 0 2rem;
-  width: 100%;
   padding-top: 5rem;
 }
 
@@ -259,7 +261,7 @@ section.hero .hero_webapp {
   text-decoration: none;
 }
 
-.webapp-button:hover{
+.webapp-button:hover {
   background-color: color-mix(in srgb, var(--c-acc-blue) 70%, transparent);
   transition: background-color 0.2s ease-out;
 }

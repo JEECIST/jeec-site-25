@@ -1,14 +1,20 @@
 <script setup>
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-const route = useRoute();
-const accColor = computed(() => route.meta.accColor);
-const router = useRouter();
-const routes = computed(() => router.getRoutes());
+const route = useRoute()
+const accColor = computed(() => route.meta.accColor)
+const router = useRouter()
+const routes = computed(() => router.getRoutes())
 
+import { useStateStore } from '@/stores/state'
+const stateStore = useStateStore()
 
-import { useStateStore } from '@/stores/state';
-const stateStore = useStateStore();
+import i18n from '@/i18n'
+
+const getNavLabel = (name) => {
+  const key = `nav.${String(name || '').toLowerCase()}`
+  return i18n.global.te(key) ? i18n.global.t(key) : name
+}
 </script>
 
 <template>
@@ -17,14 +23,22 @@ const stateStore = useStateStore();
       <nav>
         <template v-for="route in routes">
           <li v-if="route.meta.deactivated === false" :key="route.name">
-            <router-link :to="route.name">{{ route.name }}</router-link>
+            <router-link :to="{ name: route.name, params: { lang: i18n.global.locale.value } }">
+              {{ getNavLabel(route.name) }}
+            </router-link>
           </li>
         </template>
       </nav>
       <li>
         <Transition name="swoosh">
-          <a :key="accColor" class="webapp-button" :style="`--acc-color: var(${accColor});`" href="https://app.jeec.ist"
-            target="_blank">WebApp Login</a>
+          <a
+            :key="accColor"
+            class="webapp-button"
+            :style="`--acc-color: var(${accColor});`"
+            href="https://app.jeec.ist"
+            target="_blank"
+            >{{ $t('nav.webapp') }}</a
+          >
         </Transition>
       </li>
     </ul>
@@ -59,7 +73,7 @@ const stateStore = useStateStore();
   font-size: 1.05rem;
 }
 
-.global-nav li:has(>.webapp-button) {
+.global-nav li:has(> .webapp-button) {
   position: relative;
   display: flex;
   width: 15ch;
@@ -76,7 +90,7 @@ const stateStore = useStateStore();
 
   border: var(--acc-color) 2px solid;
   border-radius: 13px;
-  padding: .3rem 1ch;
+  padding: 0.3rem 1ch;
   background-color: color-mix(in srgb, var(--acc-color) 10%, transparent);
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
@@ -84,7 +98,9 @@ const stateStore = useStateStore();
   position: absolute;
   top: 50%;
   translate: 0 -50%;
-  transition: backdrop-filter 0.2s ease-in, opacity 0.2s ease-in;
+  transition:
+    backdrop-filter 0.2s ease-in,
+    opacity 0.2s ease-in;
   will-change: backdrop-filter opacity;
 }
 
@@ -133,7 +149,7 @@ const stateStore = useStateStore();
     padding-left: 2ch;
   }
 
-  .global-nav li:has(>.webapp-button) {
+  .global-nav li:has(> .webapp-button) {
     height: 3rem;
     width: 100%;
     padding: 0 2ch;

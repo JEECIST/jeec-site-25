@@ -1,64 +1,68 @@
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
-import { useStateStore } from '@/stores/state';
-const stateStore = useStateStore();
+import { useStateStore } from '@/stores/state'
+const stateStore = useStateStore()
 
 import { useRoute } from 'vue-router'
 const route = useRoute()
-const accColor = computed(() => route.meta.accColor);
+const accColor = computed(() => route.meta.accColor)
 
-const isHome = computed(() => route.name === "home");
-const headerOpacity = ref("0%");
-const triggerHeight = ref(0);
+const isHome = computed(() => route.name === 'home')
+const headerOpacity = ref('0%')
+const triggerHeight = ref(0)
 
-let ticking = false;
-let scrollTop = 0;
-let ratio = 0;
+let ticking = false
+let scrollTop = 0
+let ratio = 0
 
 function scrollCallback() {
-  scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-  ratio = Math.min(scrollTop / triggerHeight.value, 1);
+  scrollTop = document.body.scrollTop || document.documentElement.scrollTop
+  ratio = Math.min(scrollTop / triggerHeight.value, 1)
 
   if (!ticking) {
     window.requestAnimationFrame(() => {
       headerOpacity.value = `${ratio * 100}%`
-      ticking = false;
-    });
-    ticking = true;
+      ticking = false
+    })
+    ticking = true
   }
 }
 
 const obsCallback = (entries) => {
   if (entries[0].isIntersecting) {
-    scrollCallback();
-    document.addEventListener("scroll", scrollCallback);
+    scrollCallback()
+    document.addEventListener('scroll', scrollCallback)
   } else {
-    document.removeEventListener("scroll", scrollCallback);
-    headerOpacity.value = "100%";
+    document.removeEventListener('scroll', scrollCallback)
+    headerOpacity.value = '100%'
   }
-};
+}
 
 const headerObserver = new IntersectionObserver(obsCallback, {
   root: null,
-  rootMargin: "0px 0px 0px 0px",
+  rootMargin: '0px 0px 0px 0px',
   threshold: 0,
-});
+})
 
 onMounted(() => {
-  watch(() => route.name, (to) => {
-    if (to === "home") {
-      const triggerEl = document.querySelector("#header-trigger");
-      triggerHeight.value = triggerEl.offsetHeight;
-      headerObserver.observe(triggerEl);
-    } else {
-      headerObserver.disconnect();
-      document.removeEventListener("scroll", scrollCallback);
-    }
-  })
-});
+  watch(
+    () => route.name,
+    (to) => {
+      if (to === 'home') {
+        const triggerEl = document.querySelector('#header-trigger')
+        triggerHeight.value = triggerEl.offsetHeight
+        headerObserver.observe(triggerEl)
+      } else {
+        headerObserver.disconnect()
+        document.removeEventListener('scroll', scrollCallback)
+      }
+    },
+  )
+})
 
-import TheNav from './TheNav.vue';
-import TheNavButton from './TheNavButton.vue';
+import TheNav from './TheNav.vue'
+import TheNavButton from './TheNavButton.vue'
+import TheLocaleSwitcher from './TheLocaleSwitcher.vue'
 </script>
 
 <template>
@@ -66,14 +70,25 @@ import TheNavButton from './TheNavButton.vue';
     <div class="header-container">
       <router-link to="home" class="logo">
         <img src="../assets/jeec_logo_temp.svg" alt="JEEC" />
-        <img class="img-backdrop" :class="{ open: stateStore.navOpen }" src="../assets/jeec_logo_temp.svg"
-          aria-hidden="true" />
+        <img
+          class="img-backdrop"
+          :class="{ open: stateStore.navOpen }"
+          src="../assets/jeec_logo_temp.svg"
+          aria-hidden="true"
+        />
       </router-link>
       <TheNav></TheNav>
-      <TheNavButton></TheNavButton>
+      <div class="header-controls">
+        <TheLocaleSwitcher></TheLocaleSwitcher>
+        <TheNavButton></TheNavButton>
+      </div>
     </div>
     <div class="header-backdrop" :class="{ open: stateStore.navOpen }"></div>
-    <div class="nav-backdrop" :class="{ open: stateStore.navOpen }" @click="stateStore.navOpen = false"></div>
+    <div
+      class="nav-backdrop"
+      :class="{ open: stateStore.navOpen }"
+      @click="stateStore.navOpen = false"
+    ></div>
     <Transition name="swoosh">
       <div :key="accColor" :style="`--acc-color: var(${accColor});`" class="header-division"></div>
     </Transition>
@@ -107,21 +122,29 @@ header .logo {
   position: relative;
 }
 
-header .logo>img {
+header .logo > img {
   width: 100%;
   height: 100%;
   opacity: var(--opacity);
 }
 
-header .logo>img.img-backdrop {
+header .logo > img.img-backdrop {
   position: absolute;
   top: 0;
   left: 0;
   opacity: 0;
 }
 
+header .header-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2ch;
+  height: 100%;
+}
+
 @media screen and (max-width: 1100px) {
-  header .logo>img.img-backdrop.open {
+  header .logo > img.img-backdrop.open {
     opacity: 1;
   }
 
@@ -182,10 +205,12 @@ header .logo>img.img-backdrop {
   position: absolute;
   top: 100%;
   right: 0;
-  background: linear-gradient(to right,
-      transparent 0%,
-      color-mix(in srgb, var(--acc-color, --c-acc-blue) 38%, transparent) 50%,
-      var(--acc-color, --c-acc-blue) 100%);
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    color-mix(in srgb, var(--acc-color, --c-acc-blue) 38%, transparent) 50%,
+    var(--acc-color, --c-acc-blue) 100%
+  );
   z-index: 1;
 }
 

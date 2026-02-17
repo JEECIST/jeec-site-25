@@ -1,10 +1,12 @@
 <script setup>
 import TheHighlightDivider from '@/components/TheHighlightDivider.vue'
 import { useSlots, defineProps, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import fallbackImg from '@/assets/home/hero_section_temp.png'
 import defaultImg from '@/assets/default_jeec_image.webp'
 
 const slots = useSlots()
+const { t, te } = useI18n()
 
 const props = defineProps({
   team: {
@@ -21,6 +23,39 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+})
+
+const TEAM_I18N_KEY_MAP = {
+  COORDINATION: 'team1',
+  WEBDEV: 'team2',
+  BUSINESS: 'team3',
+  LOGISTICS: 'team4',
+  SPEAKERS: 'team5',
+  MARKETING: 'team6',
+  DESIGN: 'team7',
+}
+
+const normalizeTeamName = (name) =>
+  String(name || '')
+    .trim()
+    .toUpperCase()
+
+const getTeamI18nKey = (name) => TEAM_I18N_KEY_MAP[normalizeTeamName(name)]
+
+const localizedDescription = computed(() => {
+  const key = getTeamI18nKey(props.team?.name)
+  if (!key) return props.team?.description
+
+  const i18nKey = `team.teams.${key}.description`
+  return te(i18nKey) ? t(i18nKey) : props.team?.description
+})
+
+const localizedName = computed(() => {
+  const key = getTeamI18nKey(props.team?.name)
+  if (!key) return props.team?.name
+
+  const i18nKey = `team.teams.${key}.name`
+  return te(i18nKey) ? t(i18nKey) : props.team?.name
 })
 
 const dropShadowColor = computed(() => {
@@ -57,9 +92,9 @@ const dropShadowColor = computed(() => {
     <div v-else class="content" :style="`--acc-color: ${dropShadowColor}`">
       <div class="top-content">
         <div class="team-description">
-          <h3>{{ team.name }}</h3>
+          <h3>{{ localizedName }}</h3>
           <div class="highlight" />
-          <p>{{ team.description }}</p>
+          <p>{{ localizedDescription }}</p>
         </div>
         <div class="team-image">
           <img :src="team.image" />

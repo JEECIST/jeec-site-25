@@ -20,11 +20,8 @@ onMounted(async () => {
     <div class="background"></div>
 
     <section class="intro">
-      <h1 :style="`--acc-color: var(${accColor});`">Partners</h1>
-      <p>
-        Get to know our amazing partners present during the week, be it with a stand at the job fair
-        or with a soft-skills workshop!
-      </p>
+      <h1 :style="`--acc-color: var(${accColor});`">{{ $t('partners.title') }}</h1>
+      <p>{{ $t('partners.description') }}</p>
     </section>
 
     <template v-for="tier in partners" :key="tier.tier">
