@@ -27,6 +27,9 @@ export const useSpeakersStore = defineStore('speakers', {
           },
         })
         .then(async (response) => {
+
+          console.log('Fetched speakers data:', response.data)
+          
           this.speakers.monday = response.data.monday
           this.speakers.tuesday = response.data.tuesday
           this.speakers.wednesday = response.data.wednesday
