@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export const usePrizesStore = defineStore('prizes', {
   state: () => ({
-    weekdays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    weekdays: ['Monday', 'Tuesday', 'Wednesday'],
     hasError: false,
     errorMessage: '',
     isLoading: true,
@@ -13,6 +13,7 @@ export const usePrizesStore = defineStore('prizes', {
       individual: [],
       cv: [],
       shop: [],
+      activity: [],
     },
     homeData: [],
     isLoaded: false,
@@ -58,6 +59,11 @@ export const usePrizesStore = defineStore('prizes', {
           })) ?? []
         this.prizes.shop =
           response.data.Shop?.map((prize) => ({
+            name: prize?.name || 'Prize coming soon',
+            image: prize?.image_url ? `data:image/*;base64,${prize.image_url}` : null,
+          })) ?? []
+        this.prizes.activity =
+          response.data.Activity?.map((prize) => ({
             name: prize?.name || 'Prize coming soon',
             image: prize?.image_url ? `data:image/*;base64,${prize.image_url}` : null,
           })) ?? []

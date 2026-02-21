@@ -28,7 +28,7 @@ const router = createRouter({
     {
       path: '/:lang/prizes',
       name: 'prizes',
-      meta: { title: 'Prizes - JEEC', accColor: '--j26-light-blue', deactivated: true },
+      meta: { title: 'Prizes - JEEC', accColor: '--j26-light-blue', deactivated: false },
       component: async () => await import('@/views/PrizesView.vue'),
     },
     {

@@ -34,12 +34,10 @@ const config = {
     },
     700: {
       itemsToShow: 3,
-    },
-    1000: {
-      itemsToShow: 5,
-    },
+    }
   },
 }
+
 
 onMounted(async () => {
   await prizeStore.fetchData()
@@ -155,22 +153,25 @@ onMounted(async () => {
         </section>
       </template>
 
-      <template v-if="false">
+      <template v-if="prizes.activity.length > 0">
         <div class="div-rule"></div>
         <section class="activity-prizes">
           <h2>Activity Prizes</h2>
           <div class="carousel-container">
             <Carousel v-bind="config">
-              <Slide v-for="slide in 10" :key="slide">
-                <div class="carousel__item">{{ slide }}</div>
+              <Slide v-for="(prize, index) in prizes.activity" :key="'activity-' + index">
+                <div class="carousel__item">
+                  <img
+                    v-if="prize.image"
+                    :src="prize.image"
+                    alt="Prize image"
+                    class="prize-image"
+                  />
+                </div>
+                <p>{{ prize.name }}</p>
               </Slide>
-
-              <template #addons>
-                <Navigation />
-              </template>
             </Carousel>
           </div>
-          <p>Nome do prémio</p>
         </section>
       </template>
 
@@ -228,7 +229,7 @@ h1 {
   text-shadow: 0px 0px 15px var(--acc-color);
   margin: 2rem auto;
   position: relative;
-  width: min-content;
+  width: auto;
 }
 
 .view > section:first-of-type p {
