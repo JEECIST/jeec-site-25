@@ -4,11 +4,9 @@ import axios from 'axios'
 export const useSpeakersStore = defineStore('speakers', {
   state: () => ({
     speakers: {
-      monday: [],
-      tuesday: [],
-      wednesday: [],
-      thursday: [],
-      friday: [],
+      keynote: [],
+      discussions: [],
+      alumni: [],
     },
     homeData: [],
     isLoaded: false,
@@ -17,7 +15,6 @@ export const useSpeakersStore = defineStore('speakers', {
   actions: {
     async fetchData() {
       if (this.isLoaded) return
-
       this.isLoaded = true
       axios
         .get(import.meta.env.VITE_APP_JEEC_WEBSITE_API_URL + '/speakerss', {
@@ -27,11 +24,18 @@ export const useSpeakersStore = defineStore('speakers', {
           },
         })
         .then(async (response) => {
-          this.speakers.monday = response.data.monday
-          this.speakers.tuesday = response.data.tuesday
-          this.speakers.wednesday = response.data.wednesday
-          this.speakers.thursday = response.data.thursday
-          this.speakers.friday = response.data.friday
+          this.speakers.keynote = response.data['keynote speakers'].reduce((groups, speaker) => {
+            const date = speaker.activity_date
+            const group = groups.find((g) => g[0]?.activity_date === date)
+
+            if (group) group.push(speaker)
+            else groups.push([speaker])
+
+            return groups
+          }, [])
+
+          this.speakers.discussions = response.data['board discussions']
+          this.speakers.alumni = response.data['alumni talks']
 
           this.homeData = Object.values(this.speakers).flat()
         })

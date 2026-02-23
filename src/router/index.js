@@ -40,7 +40,7 @@ const router = createRouter({
     {
       path: '/:lang/speakers',
       name: 'speakers',
-      meta: { title: 'Speakers - JEEC', accColor: '--j26-violet', deactivated: true },
+      meta: { title: 'Speakers - JEEC', accColor: '--j26-violet', deactivated: false },
       component: async () => await import('@/views/SpeakersView.vue'),
     },
     {

@@ -145,11 +145,9 @@
   "speakers": {
     "title": "Oradores",
     "description": "Estamos a trazer oradores de todo o mundo! Conhece-os ao longo da semana enquanto partilham conhecimentos e participam em debates envolventes.",
-    "monday": "23 de Fev | Segunda-feira",
-    "tuesday": "24 de Fev | Terça-feira",
-    "wednesday": "25 de Fev | Quarta-feira",
-    "thursday": "26 de Fev | Quinta-feira",
-    "friday": "27 de Fev | Sexta-feira"
+    "keynote": "Oradores Principais",
+    "discussions": "Debates em Painel",
+    "alumni": "Conversas com Alumni"
   },
   "sponsors": {
     "title": "Patrocinadores",
