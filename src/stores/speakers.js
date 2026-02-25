@@ -41,7 +41,7 @@ export const useSpeakersStore = defineStore('speakers', {
           this.speakers.discussions = response.data['board discussions']
           this.speakers.alumni = response.data['alumni talks']
 
-          this.homeData = Object.values(this.speakers).flat()
+          this.homeData = Object.values(this.speakers.keynote).flat()
         })
         .catch((error) => {
           this.isLoaded = false

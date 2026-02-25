@@ -229,7 +229,7 @@ onUnmounted(() => {
 }
 
 .caption {
-  background: rgba(255, 190, 11, 0.1);
+  background: color-mix(in srgb, var(--acc-color), transparent 60%);
   border-radius: 15px;
   position: absolute;
   width: calc(100% - 2ch);
