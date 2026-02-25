@@ -145,11 +145,9 @@
   "speakers": {
     "title": "Speakers",
     "description": " We're bringing in speakers from around the world! Meet them throughout the week as they share insights and join engaging panel discussions.",
-    "monday": "Feb 23rd | Monday",
-    "tuesday": "Feb 24th | Tuesday",
-    "wednesday": "Feb 25th | Wednesday",
-    "thursday": "Feb 26th | Thursday",
-    "friday": "Feb 27th | Friday"
+    "keynote": "Keynote Speakers",
+    "discussions": "Board Discussions",
+    "alumni": "Alumni Talks"
   },
   "sponsors": {
     "title": "Sponsors",

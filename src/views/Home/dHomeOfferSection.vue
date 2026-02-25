@@ -59,11 +59,11 @@ const offers = [
     description: t('home.offer.offers.offer7.description'),
     // image: keynoteSpeakers
   },
-  {
-    name: t('home.offer.offers.offer8.name'),
-    description: t('home.offer.offers.offer8.description'),
-    // image: alumniTalks
-  },
+  // {
+  //   name: t('home.offer.offers.offer8.name'),
+  //   description: t('home.offer.offers.offer8.description'),
+  //   // image: alumniTalks
+  // },
 ]
 
 const selected = ref(0)
