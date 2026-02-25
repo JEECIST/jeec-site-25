@@ -24,15 +24,19 @@ export const useSpeakersStore = defineStore('speakers', {
           },
         })
         .then(async (response) => {
-          this.speakers.keynote = response.data['keynote speakers'].reduce((groups, speaker) => {
-            const date = speaker.activity_date
-            const group = groups.find((g) => g[0]?.activity_date === date)
+          const parseActivityDate = (value) => new Date(`${value}, 2000`).getTime()
 
-            if (group) group.push(speaker)
-            else groups.push([speaker])
+          this.speakers.keynote = [...response.data['keynote speakers']]
+            .sort((a, b) => parseActivityDate(a.activity_date) - parseActivityDate(b.activity_date))
+            .reduce((groups, speaker) => {
+              const date = speaker.activity_date
+              const group = groups.find((g) => g[0]?.activity_date === date)
 
-            return groups
-          }, [])
+              if (group) group.push(speaker)
+              else groups.push([speaker])
+
+              return groups
+            }, [])
 
           this.speakers.discussions = response.data['board discussions']
           this.speakers.alumni = response.data['alumni talks']
