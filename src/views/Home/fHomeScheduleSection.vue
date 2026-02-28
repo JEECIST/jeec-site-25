@@ -23,23 +23,23 @@ const props = defineProps({
 const setColor = (type) => {
   switch (type) {
     case 'Inside Talks':
-      return '--c-acc-strong-pink'
+      return '--j26-violet'
     case 'Board Discussions':
-      return '--c-acc-blue'
+      return '--j26-blue'
     case '15/15':
-      return '--c-acc-violet'
+      return '--j26-light-pink'
     case 'Discussion Panel':
-      return '--c-acc-yellow'
+      return '--j26-blue'
     case 'Keynote Speaker':
-      return '--c-acc-yellow'
+      return '--j26-blue'
     case 'Workshop':
-      return '--c-acc-orange'
+      return '--j26-green'
     case 'Opening Ceremony':
-      return '--c-acc-blue'
+      return '--j26-light-blue'
     case 'Alumni Talks':
-      return '--c-acc-purple-blue'
+      return '--j26-violet'
     default:
-      return '--c-acc-blue'
+      return '--j26-blue'
   }
 }
 
