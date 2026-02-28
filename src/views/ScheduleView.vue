@@ -4,17 +4,14 @@
       <section>
         <h1>Schedule</h1>
       </section>
-      <section class="tabs">
-        <div v-for="(day, index) in days" :key="index" class="tab" :class="{ active: activeDay === index }"
-          @click="setActiveDay(index)">
-          {{ day }}
-        </div>
-      </section>
+      <TabsSelection :tabs="days" :activeTab="activeDay" @tab="setActiveDay"></TabsSelection>
       <transition name="fade" mode="out-in">
         <section class="eletrolink" :key="activeDay" v-if="!loading">
           <div class="box">
-            <h3>Eletrolink</h3>
-            <div class="eletrolink-description" v-if=showEletrolinkInfo> {{ eletrolink_description }} </div>
+            <h3>Eletrolink <img :src="eletrolinkIcon" alt="Eletrolink Icon" class="eletrolink-icon" /></h3>
+            <div class="eletrolink-description" v-if="showEletrolinkInfo">
+              {{ eletrolink_description }}
+            </div>
             <p>Today's companies:</p>
             <template v-if="filteredEletrocomps.length">
               <transition name="eletrolink-toggle">
@@ -41,7 +38,7 @@
                     <div class="eletrocomp">
                       <img :src="eletrocomp.logo_companies" alt="Eletrocomp Logo" />
                     </div>
-                    <div>
+                    <div class="eletrocomp-text">
                       <div class="eletrocomp-title">
                         <p>{{ eletrocomp.title }}</p>
                       </div>
@@ -64,7 +61,7 @@
               </transition>
             </template>
             <button class="info" @click="toggleEletrolinkInfo">
-              {{ showEletrolinkInfo ? '−info' : '+info' }}
+              {{ showEletrolinkInfo ? '-info' : '+info' }}
             </button>
           </div>
         </section>
@@ -149,27 +146,14 @@
       <section>
         <h1>Schedule</h1>
       </section>
-      <section class="tabs-container">
-        <div class="tabs-wrapper">
-          <div class="tabs" :style="tabsStyle">
-            <div v-for="(day, index) in days" :key="index" class="tab" :class="{ active: activeDay === index }"
-              @click="setActiveDay(index)">
-              {{ day }}
-            </div>
-          </div>
-        </div>
-        <button class="nav-button prev" @click="scrollPrev" :disabled="activeDay === 0">
-          &lt;
-        </button>
-        <button class="nav-button next" @click="scrollNext" :disabled="activeDay === days.length - 1">
-          &gt;
-        </button>
-      </section>
+      <TabsSelection style="width: 100%;" :tabs="days" :activeTab="activeDay" @tab="setActiveDay"></TabsSelection>
       <transition name="fade" mode="out-in">
         <section class="eletrolink" :key="activeDay" v-if="!loading">
           <div class="box">
-            <h3>Eletrolink</h3>
-            <div class="eletrolink-description" v-if=showEletrolinkInfo> {{ eletrolink_description }} </div>
+            <h3>Eletrolink <img :src="eletrolinkIcon" alt="Eletrolink Icon" class="eletrolink-icon" /></h3>
+            <div class="eletrolink-description" v-if="showEletrolinkInfo">
+              {{ eletrolink_description }}
+            </div>
             <p>Today's companies:</p>
             <template v-if="filteredEletrocomps.length">
               <transition name="eletrolink-toggle">
@@ -199,7 +183,7 @@
                     <div class="eletrocomp">
                       <img :src="eletrocomp.logo_companies" alt="Eletrocomp Logo" />
                     </div>
-                    <div>
+                    <div class="eletrocomp-text">
                       <div class="eletrocomp-title">
                         <p>{{ eletrocomp.title }}</p>
                       </div>
@@ -222,7 +206,7 @@
               </transition>
             </template>
             <button class="info" @click="toggleEletrolinkInfo">
-              {{ showEletrolinkInfo ? '−info' : '+info' }}
+              {{ showEletrolinkInfo ? '-info' : '+info' }}
             </button>
           </div>
         </section>
@@ -301,6 +285,7 @@
 
 <script setup>
 import { computed, ref, onMounted, onUnmounted, watch } from 'vue';
+import TabsSelection from '@/components/TabsSelection.vue'
 import axios from 'axios';
 
 const isMobile = ref(false);
@@ -331,8 +316,8 @@ const db_activities = ref([
   }
 ]);
 
-const days = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"];
-const event_days = ["2025-05-05", "2025-05-06", "2025-05-07", "2025-05-08", "2025-05-09"];
+const days = ["MONDAY", "TUESDAY", "WEDNESDAY"];
+const event_days = ["2026-03-02", "2026-03-03", "2026-03-04"];
 const eletrolink_description = "A new, exciting booth where students can engage in 1-on-1 conversations with companies and potentially find their next job or internship.";
 
 const filteredActivities = computed(() => {
@@ -591,7 +576,7 @@ onUnmounted(() => {
 */
 .view {
   padding-top: var(--header-height);
-  --acc-color: var(--c-acc-strong-pink)
+  --acc-color: var(--j26-pink);
 }
 
 h1 {
@@ -629,23 +614,23 @@ h1 {
 }
 
 .tab:nth-child(1) {
-  --tab-color: var(--c-acc-lighter-dark-blue);
+  --tab-color: var(--j26-light-blue);
 }
 
 .tab:nth-child(2) {
-  --tab-color: var(--c-acc-violet);
+  --tab-color: var(--j26-violet);
 }
 
 .tab:nth-child(3) {
-  --tab-color: var(--c-acc-strong-pink);
+  --tab-color: var(--j26-pink);
 }
 
 .tab:nth-child(4) {
-  --tab-color: var(--c-acc-orange);
+  --tab-color: var(--j26-orange);
 }
 
 .tab:nth-child(5) {
-  --tab-color: var(--c-acc-yellow);
+  --tab-color: var(--j26-green);
 }
 
 .tab::before {
@@ -689,23 +674,23 @@ h1 {
 
 /* Cores dos dias da semana */
 .tab:nth-child(1) {
-  border-top: 2px solid var(--c-acc-lighter-dark-blue);
+  border-top: 2px solid var(--j26-light-blue);
 }
 
 .tab:nth-child(2) {
-  border-top: 2px solid var(--c-acc-violet);
+  border-top: 2px solid var(--j26-violet);
 }
 
 .tab:nth-child(3) {
-  border-top: 2px solid var(--c-acc-strong-pink);
+  border-top: 2px solid var(--j26-pink);
 }
 
 .tab:nth-child(4) {
-  border-top: 2px solid var(--c-acc-orange);
+  border-top: 2px solid var(--j26-orange);
 }
 
 .tab:nth-child(5) {
-  border-top: 2px solid var(--c-acc-yellow);
+  border-top: 2px solid var(--j26-green);
 }
 
 .timeline {
@@ -820,80 +805,68 @@ h1 {
   border: 2px solid;
   margin-left: 30px;
   padding: 5px;
-  background: rgba(25, 156, 255, 0.1);
-  border: 2px solid var(--c-acc-blue);
+  background: color-mix(in srgb, var(--j26-blue) 10%, transparent);
+  border: 2px solid var(--j26-blue);
 }
 
 .activity-inside-talks {
-  /*pink*/
-  background: rgba(255, 0, 110, 0.1);
-  border: 2px solid var(--c-acc-strong-pink);
+  background: color-mix(in srgb, var(--j26-violet) 10%, transparent);
+  border: 2px solid var(--j26-violet);
 }
 
 .activity-15-15 {
-  /*violet*/
-  background: rgba(114, 9, 183, 0.1);
-  border: 2px solid var(--c-acc-violet);
+  background: color-mix(in srgb, var(--j26-light-pink) 10%, transparent);
+  border: 2px solid var(--j26-light-pink);
 }
 
 .activity-discussion-panel {
-  /*blue*/
-  background: rgba(25, 156, 255, 0.1);
-  border: 2px solid var(--c-acc-blue);
+  background: color-mix(in srgb, var(--j26-blue) 10%, transparent);
+  border: 2px solid var(--j26-blue);
 }
 
 .activity-keynote-speaker {
-  /*yellow*/
-  background: rgba(255, 190, 11, 0.1);
-  border: 2px solid var(--c-acc-yellow);
+  background: color-mix(in srgb, var(--j26-blue) 10%, transparent);
+  border: 2px solid var(--j26-blue);
 }
 
 .activity-workshop {
-  /*orange*/
-  background: rgba(251, 86, 7, 0.1);
-  border: 2px solid var(--c-acc-orange);
+  background: color-mix(in srgb, var(--j26-green) 10%, transparent);
+  border: 2px solid var(--j26-green);
 }
 
 .activity-opening-ceremony {
-  /*dark-blue*/
-  background: rgba(46, 85, 255, 0.2);
-  border: 2px solid var(--c-acc-lighter-dark-blue);
+  background: color-mix(in srgb, var(--j26-light-blue) 20%, transparent);
+  border: 2px solid var(--j26-light-blue);
 }
 
 .activity-ceremony {
-  /*lighter-dark-blue*/
-  background: rgba(46, 85, 255, 0.2);
-  border: 2px solid var(--c-acc-lighter-dark-blue);
+  background: color-mix(in srgb, var(--j26-light-blue) 20%, transparent);
+  border: 2px solid var(--j26-light-blue);
 }
 
 .activity-alumni-talks {
-  /*purple-blue*/
-  background: rgba(96, 94, 208, 0.2);
-  border: 2px solid var(--c-acc-purple-blue);
+  background: color-mix(in srgb, var(--j26-violet) 20%, transparent);
+  border: 2px solid var(--j26-violet);
 }
 
 .activity-fast-meetings {
-  /*pink*/
-  background: rgba(255, 0, 110, 0.1);
-  border: 2px solid var(--c-acc-strong-pink);
+  background: color-mix(in srgb, var(--j26-pink) 10%, transparent);
+  border: 2px solid var(--j26-pink);
 }
 
 .activity-sunset {
-  /*yellow*/
-  background: rgba(255, 190, 11, 0.1);
-  border: 2px solid var(--c-acc-yellow);
+  background: color-mix(in srgb, var(--j26-orange) 10%, transparent);
+  border: 2px solid var(--j26-orange);
 }
 
 .activity-leec {
-  /*violet*/
-  background: rgba(114, 9, 183, 0.1);
-  border: 2px solid var(--c-acc-violet);
+  background: color-mix(in srgb, var(--j26-violet) 10%, transparent);
+  border: 2px solid var(--j26-violet);
 }
 
 .activity-tech-visit {
-  /*orange*/
-  background: rgba(251, 86, 7, 0.1);
-  border: 2px solid var(--c-acc-orange);
+  background: color-mix(in srgb, var(--j26-orange) 10%, transparent);
+  border: 2px solid var(--j26-orange);
 }
 
 .column {
@@ -910,67 +883,55 @@ h1 {
   gap: 10px;
   font-weight: bold;
   font-size: 1.4rem;
-  color: var(--c-acc-blue);
+  color: var(--j26-blue);
 }
 
 .activity-inside-talks-type {
-  /*pink*/
-  color: var(--c-acc-strong-pink);
+  color: var(--j26-violet);
 }
 
 .activity-15-15-type {
-  /*violet*/
-  color: var(--c-acc-violet);
+  color: var(--j26-light-pink);
 }
 
 .activity-discussion-panel-type {
-  /*blue*/
-  color: var(--c-acc-blue);
+  color: var(--j26-blue);
 }
 
 .activity-keynote-speaker-type {
-  /*yellow*/
-  color: var(--c-acc-yellow);
+  color: var(--j26-blue);
 }
 
 .activity-workshop-type {
-  color: var(--c-acc-orange);
-  /* Amarelo */
+  color: var(--j26-green);
 }
 
 .activity-opening-ceremony-type {
-  color: var(--c-acc-lighter-dark-blue);
-  /* Verde */
+  color: var(--j26-light-blue);
 }
 
 .activity-ceremony-type {
-  /*lighter-dark-blue*/
-  color: var(--c-acc-lighter-dark-blue);
+  color: var(--j26-light-blue);
 }
 
 .activity-alumni-talks-type {
-  /*purple-blue*/
-  color: var(--c-acc-purple-blue);
+  color: var(--j26-violet);
 }
 
 .activity-fast-meetings-type {
-  /*pink*/
-  color: var(--c-acc-strong-pink);
+  color: var(--j26-pink);
 }
 
 .activity-sunset-type {
-  /*yellow*/
-  color: var(--c-acc-yellow);
+  color: var(--j26-orange);
 }
 
 .activity-leec-type {
-  /*violet*/
-  color: var(--c-acc-violet);
+  color: var(--j26-violet);
 }
 
 .activity-tech-visit-type {
-  /*orange*/
-  color: var(--c-acc-orange);
+  color: var(--j26-orange);
 }
 
 .title {
@@ -981,7 +942,7 @@ h1 {
 
 .info {
   background: none;
-  color: var(--c-acc-blue);
+  color: var(--j26-blue);
   border: none;
   border-radius: 5px;
   align-self: flex-start;
@@ -992,51 +953,51 @@ h1 {
 }
 
 .activity-inside-talks-info {
-  color: var(--c-acc-strong-pink);
+  color: var(--j26-violet);
 }
 
 .activity-15-15-info {
-  color: var(--c-acc-violet);
+  color: var(--j26-light-pink);
 }
 
 .activity-panel-info {
-  color: var(--c-acc-blue);
+  color: var(--j26-blue);
 }
 
 .activity-keynote-speaker-info {
-  color: var(--c-acc-yellow);
+  color: var(--j26-blue);
 }
 
 .activity-workshop-info {
-  color: var(--c-acc-orange);
+  color: var(--j26-green);
 }
 
 .activity-opening-ceremony-info {
-  color: var(--c-acc-lighter-dark-blue);
+  color: var(--j26-light-blue);
 }
 
 .activity-ceremony-info {
-  color: var(--c-acc-lighter-dark-blue);
+  color: var(--j26-light-blue);
 }
 
 .activity-alumni-talks-info {
-  color: var(--c-acc-purple-blue);
+  color: var(--j26-violet);
 }
 
 .activity-fast-meetings-info {
-  color: var(--c-acc-strong-pink);
+  color: var(--j26-pink);
 }
 
 .activity-sunset-info {
-  color: var(--c-acc-yellow);
+  color: var(--j26-orange);
 }
 
 .activity-leec-info {
-  color: var(--c-acc-violet);
+  color: var(--j26-violet);
 }
 
 .activity-tech-visit-info {
-  color: var(--c-acc-orange);
+  color: var(--j26-orange);
 }
 
 .icon {
@@ -1050,25 +1011,19 @@ h1 {
   position: relative;
 }
 
-/* Container fixo para os logos */
 .logo-container {
   width: 130px;
   height: 130px;
   border-radius: 50%;
-  border: 2px solid var(--c-acc-blue);
+  border: 2px solid var(--j26-blue);
   position: relative;
   overflow: hidden;
   background-color: white;
   display: flex;
-  /* Adicionado */
   align-items: center;
-  /* Centraliza verticalmente */
   justify-content: center;
-  /* Centraliza horizontalmente */
-  /* Fundo branco para PNGs transparentes */
 }
 
-/* Ajuste para o company logo */
 .company-logo-container {
   width: 65px;
   height: 65px;
@@ -1083,7 +1038,6 @@ h1 {
   object-fit: contain;
 }
 
-/* Imagem dentro do container */
 .logo-image {
   width: 100%;
   height: 100%;
@@ -1095,7 +1049,7 @@ h1 {
 .logo-default {
   width: 100%;
   height: 100%;
-  background-color: var(--c-acc-blue);
+  background-color: var(--j26-blue);
 }
 
 .logo-fade-enter-active,
@@ -1109,51 +1063,51 @@ h1 {
 }
 
 .activity-inside-talks-logo {
-  border: 2px solid var(--c-acc-strong-pink);
+  border: 2px solid var(--j26-violet);
 }
 
 .activity-15-15-logo {
-  border: 2px solid var(--c-acc-violet);
+  border: 2px solid var(--j26-light-pink);
 }
 
 .activity-panel-logo {
-  border: 2px solid var(--c-acc-blue);
+  border: 2px solid var(--j26-blue);
 }
 
 .activity-keynote-speaker-logo {
-  border: 2px solid var(--c-acc-yellow);
+  border: 2px solid var(--j26-blue);
 }
 
 .activity-workshop-logo {
-  border: 2px solid var(--c-acc-orange);
+  border: 2px solid var(--j26-green);
 }
 
 .activity-opening-ceremony-logo {
-  border: 2px solid var(--c-acc-lighter-dark-blue);
+  border: 2px solid var(--j26-light-blue);
 }
 
 .activity-ceremony-logo {
-  border: 2px solid var(--c-acc-lighter-dark-blue);
+  border: 2px solid var(--j26-light-blue);
 }
 
 .activity-alumni-talks-logo {
-  border: 2px solid var(--c-acc-purple-blue);
+  border: 2px solid var(--j26-violet);
 }
 
 .activity-fast-meetings-logo {
-  border: 2px solid var(--c-acc-strong-pink);
+  border: 2px solid var(--j26-pink);
 }
 
 .activity-sunset-logo {
-  border: 2px solid var(--c-acc-yellow);
+  border: 2px solid var(--j26-orange);
 }
 
 .activity-leec-logo {
-  border: 2px solid var(--c-acc-violet);
+  border: 2px solid var(--j26-violet);
 }
 
 .activity-tech-visit-logo {
-  border: 2px solid var(--c-acc-orange);
+  border: 2px solid var(--j26-orange);
 }
 
 .expanded-info p {
@@ -1181,52 +1135,79 @@ h1 {
   margin-top: 20px;
 }
 
-
+/* =========================================
+   ELETROLINK SECTION (Desktop & General)
+========================================= */
 .eletrolink {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   width: auto;
-  padding: 20px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
 }
 
 .box {
   display: flex;
   flex-direction: column;
-  padding: 12px 20px 10px;
   height: 100%;
-  max-width: min(95%, 600px);
+  width: 100%;
+  max-width: 700px;
   min-width: 300px;
+  padding: 15px;
   background: solid;
-  background-color: rgba(255, 190, 11, 0.1);
+  background-color: color-mix(in srgb, var(--j26-pink) 10%, transparent);
   border-radius: 10px;
-  border: 2px solid rgba(255, 190, 11, 1);
+  border: 2px solid var(--j26-pink);
   gap: 5px;
 }
 
 .eletrolink h3 {
-  color: var(--c-acc-yellow);
-  /* Laranja */
-  font-size: 1.4em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-schedule);
+  color: var(--j26-pink);
+  font-size: clamp(1.2rem, 1.5vw + 0.5rem, 1.6rem);
   letter-spacing: 0.05em;
   font-weight: bold;
+}
+
+.eletrolink-icon {
+  width: clamp(1.3rem, 1.5vw + 0.4rem, 1.4rem);
+  height: clamp(1.3rem, 1.5vw + 0.4rem, 1.4rem);
+  object-fit: contain;
 }
 
 .eletrolink p {
   color: white;
   letter-spacing: 0.1em;
+  font-size: clamp(0.75rem, 0.6vw + 0.35rem, 0.95rem);
+}
+
+.points-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  justify-content: center;
+}
+
+.points-icon {
+  width: clamp(1.5rem, 1.5vw + 0.4rem, 1.4rem);
+  height: clamp(1.5rem, 1.5vw + 0.4rem, 1.4rem);
+  object-fit: contain;
+  align-content: center;
 }
 
 .eletrolink button {
-  color: var(--c-acc-yellow);
+  color: var(--j26-pink);
+  text-align: left;
 }
 
 .eletrolink-description {
-  font-size: 0.8em;
+  font-size: clamp(0.65rem, 0.5vw + 0.3rem, 0.8rem);
   font-weight: 300;
   margin-top: 10px;
   margin-bottom: 10px;
+  font-family: var(--font-schedule);
 }
 
 .eletrolink-content {
@@ -1245,17 +1226,47 @@ h1 {
   gap: 10px;
 }
 
+.eletrolink-signup-btn {
+  margin-left: auto;
+  font-family: 'Lexend Exa';
+  background-color: var(--j26-pink);
+  color: white;
+  font-size: clamp(0.6rem, 0.6vw + 0.35rem, 0.95rem);
+  font-weight: 500;
+  padding: 3px 6px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.eletrolink-signup-btn:hover {
+  transform: scale(1.05);
+  opacity: 0.85;
+}
+
+.eletrocomp-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 5px;
+  width: 50%;
+}
+
 .eletrocomp-title p {
-  font-size: 1.3em;
+  font-size: clamp(0.8rem, 0.8vw + 0.4rem, 1.2rem);
 }
 
 .eletrocomp-location p {
-  font-size: 1em;
+  font-size: clamp(0.65rem, 0.6vw + 0.35rem, 0.95rem);
   font-weight: 300;
 }
 
 .eletrocomp-time p {
-  font-size: 0.8em;
+  font-size: clamp(0.55rem, 0.5vw + 0.3rem, 0.8rem);
   font-weight: 300;
 }
 
@@ -1283,7 +1294,6 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 130px;
   flex-shrink: 0;
   height: 60px;
 }
@@ -1295,10 +1305,11 @@ h1 {
 
 .no-companies {
   color: white;
-  font-size: 1em;
+  font-size: clamp(0.8rem, 0.6vw + 0.4rem, 1rem);
   font-weight: bold;
   text-align: center;
   margin-top: 10px;
+  font-family: var(--font-schedule);
 }
 
 .eletrolink-toggle-enter-active,
@@ -1313,7 +1324,6 @@ h1 {
   max-height: 0;
   max-width: 0;
   transform: scale(0.90, 0.90);
-  /* Afeta X e Y */
 }
 
 .eletrolink-toggle-enter-to,
@@ -1322,7 +1332,6 @@ h1 {
   max-height: 500px;
   max-width: 600px;
   transform: scale(1, 1);
-  /* Escala normal */
 }
 
 .fade-enter-active,
@@ -1375,14 +1384,14 @@ h1 {
   transform: scaleY(1);
 }
 
-
-/* Estilos para o carrossel mobile */
+/* =========================================
+   MOBILE SECTION
+========================================= */
 .mobile .tabs-container {
   position: relative;
   width: 100%;
   overflow: hidden;
   padding: 10px 0;
-  /* Espaço para os botões de navegação */
 }
 
 .mobile .tabs-wrapper {
@@ -1422,7 +1431,6 @@ h1 {
 
 .mobile .nav-button {
   display: none;
-  /* Remove completamente do layout */
 }
 
 .mobile .nav-button:disabled {
@@ -1451,8 +1459,6 @@ h1 {
   margin-top: 20px;
   margin-bottom: 30px;
   padding: 0 6vw;
-  /* Padding relativo à largura da tela */
-
 }
 
 .mobile .line-mobile {
@@ -1534,80 +1540,68 @@ h1 {
   margin-left: 10px;
   top: -5px;
   padding: 5px;
-  background: rgba(25, 156, 255, 0.1);
-  border: 2px solid var(--c-acc-blue);
+  background: color-mix(in srgb, var(--j26-blue) 10%, transparent);
+  border: 2px solid var(--j26-blue);
 }
 
 .mobile .activity-inside-talks {
-  /*pink*/
-  background: rgba(255, 0, 110, 0.1);
-  border: 2px solid var(--c-acc-strong-pink);
+  background: color-mix(in srgb, var(--j26-violet) 10%, transparent);
+  border: 2px solid var(--j26-violet);
 }
 
 .mobile .activity-15-15 {
-  /*violet*/
-  background: rgba(114, 9, 183, 0.1);
-  border: 2px solid var(--c-acc-violet);
+  background: color-mix(in srgb, var(--j26-light-pink) 10%, transparent);
+  border: 2px solid var(--j26-light-pink);
 }
 
 .mobile .activity-discussion-panel {
-  /*blue*/
-  background: rgba(21, 0, 177, 0.1);
-  border: 2px solid var(--c-acc-blue);
+  background: color-mix(in srgb, var(--j26-blue) 10%, transparent);
+  border: 2px solid var(--j26-blue);
 }
 
 .mobile .activity-keynote-speaker {
-  /*yellow*/
-  background: rgba(255, 190, 11, 0.1);
-  border: 2px solid var(--c-acc-yellow);
+  background: color-mix(in srgb, var(--j26-blue) 10%, transparent);
+  border: 2px solid var(--j26-blue);
 }
 
 .mobile .activity-workshop {
-  /*orange*/
-  background: rgba(251, 86, 7, 0.1);
-  border: 2px solid var(--c-acc-orange);
+  background: color-mix(in srgb, var(--j26-green) 10%, transparent);
+  border: 2px solid var(--j26-green);
 }
 
 .mobile .activity-opening-ceremony {
-  /*dark-blue*/
-  background: rgba(46, 85, 255, 0.2);
-  border: 2px solid var(--c-acc-lighter-dark-blue);
+  background: color-mix(in srgb, var(--j26-light-blue) 20%, transparent);
+  border: 2px solid var(--j26-light-blue);
 }
 
 .mobile .activity-ceremony {
-  /*lighter-dark-blue*/
-  background: rgba(46, 85, 255, 0.2);
-  border: 2px solid var(--c-acc-lighter-dark-blue);
+  background: color-mix(in srgb, var(--j26-light-blue) 20%, transparent);
+  border: 2px solid var(--j26-light-blue);
 }
 
 .mobile .activity-alumni-talks {
-  /*purple-blue*/
-  background: rgba(96, 94, 208, 0.2);
-  border: 2px solid var(--c-acc-purple-blue);
+  background: color-mix(in srgb, var(--j26-violet) 20%, transparent);
+  border: 2px solid var(--j26-violet);
 }
 
 .mobile .activity-fast-meetings {
-  /*pink*/
-  background: rgba(255, 0, 110, 0.1);
-  border: 2px solid var(--c-acc-strong-pink);
+  background: color-mix(in srgb, var(--j26-pink) 10%, transparent);
+  border: 2px solid var(--j26-pink);
 }
 
 .mobile .activity-sunset {
-  /*yellow*/
-  background: rgba(255, 190, 11, 0.1);
-  border: 2px solid var(--c-acc-yellow);
+  background: color-mix(in srgb, var(--j26-orange) 10%, transparent);
+  border: 2px solid var(--j26-orange);
 }
 
 .mobile .activity-leec {
-  /*violet*/
-  background: rgba(114, 9, 183, 0.1);
-  border: 2px solid var(--c-acc-violet);
+  background: color-mix(in srgb, var(--j26-violet) 10%, transparent);
+  border: 2px solid var(--j26-violet);
 }
 
 .mobile .activity-tech-visit {
-  /*orange*/
-  background: rgba(251, 86, 7, 0.1);
-  border: 2px solid var(--c-acc-orange);
+  background: color-mix(in srgb, var(--j26-orange) 10%, transparent);
+  border: 2px solid var(--j26-orange);
 }
 
 .mobile .logos-mobile {
@@ -1648,7 +1642,7 @@ h1 {
 
 .mobile .info-mobile {
   background: none;
-  color: var(--c-acc-blue);
+  color: var(--j26-blue);
   border: none;
   border-radius: 5px;
   align-self: flex-start;
@@ -1658,59 +1652,60 @@ h1 {
   font-weight: 300;
 }
 
+/* Updated Eletrolink Mobile Específicos */
 .mobile .eletrocomp.more-indicator {
-  color: var(--c-acc-yellow);
+  color: var(--j26-dark-blue);
   background-color: white;
-  font-size: 0.9rem;
+  font-size: clamp(0.7rem, 1.8vw + 0.3rem, 0.9rem);
   font-weight: bold;
 }
 
 .mobile .activity-inside-talks-info {
-  color: var(--c-acc-strong-pink);
+  color: var(--j26-violet);
 }
 
 .mobile .activity-15-15-info {
-  color: var(--c-acc-violet);
+  color: var(--j26-light-pink);
 }
 
 .mobile .activity-panel-info {
-  color: var(--c-acc-blue);
+  color: var(--j26-blue);
 }
 
 .mobile .activity-keynote-speaker-info {
-  color: var(--c-acc-yellow);
+  color: var(--j26-blue);
 }
 
 .mobile .activity-workshop-info {
-  color: var(--c-acc-orange);
+  color: var(--j26-green);
 }
 
 .mobile .activity-opening-ceremony-info {
-  color: var(--c-acc-lighter-dark-blue);
+  color: var(--j26-light-blue);
 }
 
 .mobile .activity-ceremony-info {
-  color: var(--c-acc-lighter-dark-blue);
+  color: var(--j26-light-blue);
 }
 
 .mobile .activity-alumni-talks-info {
-  color: var(--c-acc-purple-blue);
+  color: var(--j26-violet);
 }
 
 .mobile .activity-fast-meetings-info {
-  color: var(--c-acc-strong-pink);
+  color: var(--j26-pink);
 }
 
 .mobile .activity-sunset-info {
-  color: var(--c-acc-yellow);
+  color: var(--j26-orange);
 }
 
 .mobile .activity-leec-info {
-  color: var(--c-acc-violet);
+  color: var(--j26-violet);
 }
 
 .mobile .activity-tech-visit-info {
-  color: var(--c-acc-orange);
+  color: var(--j26-orange);
 }
 
 .mobile .expanded-info p {
@@ -1738,5 +1733,34 @@ h1 {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+}
+
+/* =========================================
+   LOADING SCREEN 
+========================================= */
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  color: white;
+  text-align: center;
+  margin-top: 5%;
+}
+
+.loading-spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 4px solid var(--j26-pink);
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 </style>

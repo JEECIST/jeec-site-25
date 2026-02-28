@@ -61,6 +61,8 @@
   --j26-dark-blue: #08111a;
   --j26-team-background: #2b3a48;
 
+  --font-schedule: 'Lexend Exa', sans-serif;
+
   background-color: var(--j26-dark-blue);
 }
 
