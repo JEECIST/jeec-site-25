@@ -8,7 +8,7 @@
       <transition name="fade" mode="out-in">
         <section class="eletrolink" :key="activeDay" v-if="!loading">
           <div class="box">
-            <h3>Eletrolink <img :src="eletrolinkIcon" alt="Eletrolink Icon" class="eletrolink-icon" /></h3>
+            <h3>Eletrolink</h3>
             <div class="eletrolink-description" v-if="showEletrolinkInfo">
               {{ eletrolink_description }}
             </div>
@@ -150,7 +150,7 @@
       <transition name="fade" mode="out-in">
         <section class="eletrolink" :key="activeDay" v-if="!loading">
           <div class="box">
-            <h3>Eletrolink <img :src="eletrolinkIcon" alt="Eletrolink Icon" class="eletrolink-icon" /></h3>
+            <h3>Eletrolink</h3>
             <div class="eletrolink-description" v-if="showEletrolinkInfo">
               {{ eletrolink_description }}
             </div>
