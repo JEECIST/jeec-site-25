@@ -126,7 +126,7 @@
                           :src="activity.logo_companies[currentLogoIndex[activity.id] ?? 0]" class="logo-image" />
                       </template>
                       <template v-else>
-                        <div class="logo-default"></div>
+                        <img :src="jeecLogo" class="logo-image" alt="JEEC Logo Default" />
                       </template>
                     </transition>
                   </div>
@@ -268,7 +268,7 @@
                           :src="activity.logo_companies[currentLogoIndex[activity.id] ?? 0]" class="logo-image" />
                       </template>
                       <template v-else>
-                        <div class="logo-default"></div>
+                        <img :src="jeecLogo" class="logo-image" alt="JEEC Logo Default" />
                       </template>
                     </transition>
                   </div>
@@ -287,6 +287,7 @@
 import { computed, ref, onMounted, onUnmounted, watch } from 'vue';
 import TabsSelection from '@/components/TabsSelection.vue'
 import axios from 'axios';
+import jeecLogo from '@/assets/jeec_horizontal_mobile_black.svg'
 
 const isMobile = ref(false);
 const tabWidth = ref(250);
